@@ -13,6 +13,10 @@
         margin-bottom: 2.5rem; // 25px
         @include fs--heading-2;
         color: $c-base__02;
+
+        code {
+            font-size: 2.4rem;
+        }
     }
 
     p {
@@ -21,7 +25,8 @@
 }
 
 .c-page__footer {
-    margin-bottom: 10rem;
+    margin-bottom: 2.5rem;
+    border-top: 1px solid #EFF1F3;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -40,6 +45,6 @@
     p {
         @include fs--body;
         color: $c-base__01;
+        padding-top: 3rem;
     }
 }
-

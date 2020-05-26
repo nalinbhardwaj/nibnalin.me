@@ -1,15 +1,15 @@
 # Site settings
-title: "Paper Jekyll Theme"
+title: "dust-nib"
 description: > 
-  Write a description of your website here.
+  This is my corner of the internet, a dust-nib for my thoughts.
 
-author: Johnny Appleseed
-email: johnny@appleseed.com
-twitter_username: _HairForceOne
-github_username: mkchoi212
+author: Nalin Bhardwaj
+email: nalinbhardwaj@nibnalin.me
+twitter_username: nibnalin
+github_username: nalinbhardwaj
 
-baseurl: "/paper-jekyll-theme" # the subpath of your site, e.g. /blog
-url: "https://deadbeef.me" # the base hostname & protocol for your site
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://nibnalin.me" # the base hostname & protocol for your site
 
 google_analytics_id: UA-1111111111-1
 disqus_id:
@@ -17,7 +17,7 @@ disqus_id:
 # Build settings
 include: [_pages]
 markdown: kramdown
-permalink: /:year/:month/:title.html
+permalink: /dust-nib/:title.html
 
 sass:
     style: compressed
