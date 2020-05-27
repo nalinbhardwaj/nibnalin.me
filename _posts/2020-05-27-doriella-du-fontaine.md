@@ -6,7 +6,7 @@ date: 2019-12-3
 tags: music hip-hop history
 ---
 
-_This essay was written for a class, and is reproduced here as-is._
+_In this essay, I look at an old, obscure song [Doriella Du Fontaine](//youtu.be/OfN9O3Ok85c)._
 
 When you first hear _Doriella Du Fontaine_, it sounds like a run-of-the-mill jam session: first, Jimi sets up a funk groove on his guitar, then as Buddy sets up the beat on the drums, the listener is launched into the tale of Miss Fontaine, told by Lightnin’ Rod in a typical raunchy, vernacular New York style. The song tells a tale of manipulation and fate in a proto-rap spoken word format.
 
@@ -227,37 +227,37 @@ That's her name, Miss Du <span style="background-color:#fff6e9;">Fontaine</span>
 
 ## Appendix B: Audacity Project
 
-Hoping to discover intricate patterns in the breaks, I used the software Audacity to isolate all the breaks and verses of the track. While it did not aid me much, it is still useful to be able to hear the lyrics and the breaks independently: [file](https://www.dropbox.com/s/dw5spkq4rigbgzm/DDF.aup). To open the project, please use the free open-source software [Audacity](https://www.audacityteam.org).
+Hoping to discover intricate patterns in the breaks, I used the software Audacity to isolate all the breaks and verses of the track. While it did not aid me much, it is still useful to be able to hear the lyrics and the breaks independently: [file](//www.dropbox.com/s/dw5spkq4rigbgzm/DDF.aup). To open the project, please use the free open-source software [Audacity](//www.audacityteam.org).
 
 ## Bibliography
 
 [^1]: “The Godfathers of Rap.” Dancing in Your Head: Jazz, Blues, Rock and Beyond, by Gene Santoro, Oxford Univ. Press, 1995, pp. 112–116.
 
-[^2]: Nuriddin, Jalal Mansur. “The Grandfather of Rap and Jimi Hendrix.” Grandfather of Rap R.A.P - Revolutionary Arts Proverbalization, 2001, [www.grandfatherofrap.com/gfor_jimmy_1.htm](http://www.grandfatherofrap.com/gfor_jimmy_1.htm).
+[^2]: [Nuriddin, Jalal Mansur. “The Grandfather of Rap and Jimi Hendrix.” Grandfather of Rap R.A.P - Revolutionary Arts Proverbalization, 2001.](//www.grandfatherofrap.com/gfor_jimmy_1.htm)
 
-[^3]: Martoccio, Angie. “Flashback: Jimi Hendrix Breaks Down Iconic 'Star-Spangled Banner' Woodstock Performance.” Rolling Stone, 5 July 2019, [www.rollingstone.com/music/music-features/hendrix-star-spangled-banner-woodstock-855473/](http://www.rollingstone.com/music/music-features/hendrix-star-spangled-banner-woodstock-855473/).
+[^3]: [Martoccio, Angie. “Flashback: Jimi Hendrix Breaks Down Iconic 'Star-Spangled Banner' Woodstock Performance.” Rolling Stone, 5 July 2019.](//www.rollingstone.com/music/music-features/hendrix-star-spangled-banner-woodstock-855473/)
 
-[^4]: Jim, Purple. “List of Hendrix Tracks with Buddy Miles?” Steve Hoffman Music Forums, 8 Oct. 2016, [forums.stevehoffman.tv/threads/list-of-hendrix-tracks-with-buddy-miles.605111/page-2](http://forums.stevehoffman.tv/threads/list-of-hendrix-tracks-with-buddy-miles.605111/page-2).
+[^4]: [Jim, Purple. “List of Hendrix Tracks with Buddy Miles?” Steve Hoffman Music Forums, 8 Oct. 2016.](//forums.stevehoffman.tv/threads/list-of-hendrix-tracks-with-buddy-miles.605111/page-2)
 
-[^5]: Davis, Michael. “ALAN DOUGLAS: HENDRIX PRODUCER UNDER FIRE.” BAM Magazine, 25 Aug. 1995, [www.me.umn.edu/~kgeisler/ad.html](http://www.me.umn.edu/~kgeisler/ad.html). Accessed 2 Dec. 2019.
+[^5]: [Davis, Michael. “ALAN DOUGLAS: HENDRIX PRODUCER UNDER FIRE.” BAM Magazine, 25 Aug. 1995.](//www.me.umn.edu/~kgeisler/ad.html)
 
 [^6]: “Doriella Du Fontaine.” Ultimate Hendrix: an Illustrated Encyclopedia of Live Concerts and Sessions, by John McDermott et al., Backbeat, 2009.
 
-[^7]: Ekpo, Ime. “The 'Grandfather of Rap' Jalal Mansur Nuriddin of The Last Poets Has Passed Away: The Source.” The Source \| The Magazine of Hip Hop Music,Culture and Politics, The Source, 7 June 2018, [thesource.com/2018/06/07/jalal-mansur-nuriddin-passed-away/](http://thesource.com/2018/06/07/jalal-mansur-nuriddin-passed-away/).
+[^7]: [Ekpo, Ime. “The 'Grandfather of Rap' Jalal Mansur Nuriddin of The Last Poets Has Passed Away: The Source.” The Source \| The Magazine of Hip Hop Music,Culture and Politics, The Source, 7 June 2018.](//thesource.com/2018/06/07/jalal-mansur-nuriddin-passed-away/)
 
 [^8]: “Stinging Like Tabasco.” Prophets of the Hood: Politics and Poetics in Hip Hop, by Imani Perry, Duke University Press, 2006, pp. 65–65.
 
-[^9]: Crenshaw, Kimberle. “Beyond Racism and Misogyny: Black Feminism and 2 Live Crew.” Boston Review, 24 May 2017, [bostonreview.net/archives/BR16.6/crenshaw.html](http://bostonreview.net/archives/BR16.6/crenshaw.html).
+[^9]: [Crenshaw, Kimberle. “Beyond Racism and Misogyny: Black Feminism and 2 Live Crew.” Boston Review, 24 May 2017.](//bostonreview.net/archives/BR16.6/crenshaw.html)
 
-[^10]: Clary, Mike. “Professor Calls 2 Live Crew 'Refreshing' : Arts: Jurors in the Rap Group's Obscenity Trial Get a Course in the History of Black Culture from Experts Called by the Defense.” Los Angeles Times, Los Angeles Times, 20 Oct. 1990, [www.latimes.com/archives/la-xpm-1990-10-20-mn-2262-story.html](http://www.latimes.com/archives/la-xpm-1990-10-20-mn-2262-story.html).
+[^10]: [Clary, Mike. “Professor Calls 2 Live Crew 'Refreshing' : Arts: Jurors in the Rap Group's Obscenity Trial Get a Course in the History of Black Culture from Experts Called by the Defense.” Los Angeles Times, Los Angeles Times, 20 Oct. 1990.](//www.latimes.com/archives/la-xpm-1990-10-20-mn-2262-story.html)
 
-[^11]: Chordify, Inc. “Buddy Miles, Jimi Hendrix, Lightnin Rod - Doriella Du Fontaine - Radio Edit. Chords.” Chordify, 2014, chordify.net/chords/buddy-miles-jimi-hendrix-lightnin-rod-doriella-du-fontaine-radio-editrare-single-joemitto.
+[^11]: [Chordify, Inc. “Buddy Miles, Jimi Hendrix, Lightnin Rod - Doriella Du Fontaine - Radio Edit. Chords.” Chordify, 2014.](//chordify.net/chords/buddy-miles-jimi-hendrix-lightnin-rod-doriella-du-fontaine-radio-editrare-single-joemitto)
 
 [^12]: Shapiro, Peter. “Turn The Beat Around: The Secret History of Disco.” Turn The Beat Around: The Secret History of Disco, Faber and Faber, 2005, pp. 30–30.
 
 [^13]: MarchHare. “Lightnin' Rod – Doriella Du Fontaine.” Genius, 25 Aug. 2019, genius.com/Lightnin-rod-doriella-du-fontaine-lyrics.
 
-[^14]: Bigfoothart. “Jimi Hendrix / Lightnin' Rod:Doriella Du Fontaine.” Edited by 00101010 , LyricWiki, 17 June 2012, [lyrics.fandom.com/wiki/Jimi\_Hendrix\_/\_Lightnin%27\_Rod:Doriella\_Du\_Fontaine](http://lyrics.fandom.com/wiki/Jimi\_Hendrix\_/\_Lightnin%27\_Rod:Doriella\_Du\_Fontaine).
+[^14]: [Bigfoothart. “Jimi Hendrix / Lightnin' Rod:Doriella Du Fontaine.” Edited by 00101010 , LyricWiki, 17 June 2012.](//lyrics.fandom.com/wiki/Jimi\_Hendrix\_/\_Lightnin%27\_Rod:Doriella\_Du\_Fontaine)
 
-[^15]: Geisler, Karl J. “Doriella Du Fontaine.” Doriella Du Fontaine, 1997, [www.me.umn.edu/~kgeisler/afont.html](http://www.me.umn.edu/~kgeisler/afont.html).
+[^15]: [Geisler, Karl J. “Doriella Du Fontaine.” Doriella Du Fontaine, 1997.](//www.me.umn.edu/~kgeisler/afont.html)
 
