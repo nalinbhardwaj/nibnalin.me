@@ -15,4 +15,24 @@ layout: page
   <div class="c-article__main">
     {{ content }}
   </div>
+  <div class="pagenav">
+    <h3 class="c-pagenav__head">Appetite for more?</h3>
+    {% if page.next.url %}
+      <div class="c-archives__item">
+        <h3>
+          <a href="{{ page.next.url | prepend: site.baseurl }}">{{page.next.title}}</a>
+          <br>
+          <small>{{page.next.description}}</small>
+        </h3>
+      </div>
+    {% else %}
+      <div class="c-archives__item">
+        <h3>
+          <a href="{{ page.previous.url | prepend: site.baseurl }}">{{page.previous.title}}</a>
+          <br>
+          <small>{{page.previous.description}}</small>
+        </h3>
+      </div>
+    {% endif %}
+  </div>
 </article>

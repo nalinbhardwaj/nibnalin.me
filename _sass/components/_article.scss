@@ -3,7 +3,6 @@
    ========================================================================== */
 
 .c-article {
-    margin-bottom: 10rem; // 100px
 }
 
 .c-article__header {
@@ -105,17 +104,22 @@
 
 .pagenav {
   width: 100%;
-  text-align: center;
-  border: 1px solid LightGrey;
+  border: 1px solid #EFF1F3;
   border-left-color: transparent;
   border-right-color: transparent;
+  border-bottom-color: transparent;
   font-size: 18px;
   overflow: hidden;
-  margin-bottom: 8rem;
 }
 
 .pagenav div {
   border-color: transparent;
+}
+
+.c-pagenav__head {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    @include fs--heading-1;
 }
 
 .wrapper {
