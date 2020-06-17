@@ -19,3 +19,11 @@ The feedback from the use of this method is mixed. It gives reasonably good resu
 This method is much, much more time consuming compared to a standard movie review/analysis, for which the most time consuming task is probably just watching the film a couple times. In comparison, neglecting the actual visualisations, simply processing all the frames of a film takes over 4-5 hours on my 2012 laptop. In a world where speed is king, especially in media, these turnaround times are simply not viable for independent journalists. Perhaps, this method becomes much more viable when you have a large team of data scientists and software engineers at your disposal.
 
 With that said, I still hope my project inspires audiences to reconsider how they've looked at the particular films Akira and Ghost in the Shell (both of which, by the way, are [criminally](https://myanimelist.net/anime/47/Akira) [underrated](https://myanimelist.net/anime/43/Koukaku_Kidoutai) on MAL) and perhaps, even reimagine the entire methodology of film analyses with me. With computers as our "bicycles for the mind", there is definitely a lot left to be done in the film department, and I hope that my analysis functions as a glimpse of that potential.
+
+## Update
+
+[Hacker News discussion of this post](https://news.ycombinator.com/item?id=23533283)
+
+It seems that the Hacker News crowd really liked this style of analysis, driving over 25,000 unique visitors to this page over the past day or so. If you're here from HN, consider checking out my [newsletter](https://nibnalin.substack.com/).
+
+The discussion there is quite interesting. Several users link similarly esoteric analyses. [Typeset in The Future](https://typesetinthefuture.com) and [Anime Architecture exhibition](https://anime-architecture.org) are my personal favourites from that thread.

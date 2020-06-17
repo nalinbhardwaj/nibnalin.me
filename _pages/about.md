@@ -20,4 +20,4 @@ I don't know who I want to be when I grow up. Eternally looking for an answer.
 - [Instagram](//www.instagram.com/nibnalin) for 📸
 - [Facebook](//www.facebook.com/nibnalin) for 🐻
 
-<iframe src="https://nibnalin.substack.com/embed" width="100%" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe>
+<iframe src="https://nibnalin.substack.com/embed" width="100%" height="200" style="background:$c-accent__purple;" frameborder="0" scrolling="no"></iframe>

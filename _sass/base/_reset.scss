@@ -24,6 +24,7 @@ html {
 body {
     @include ff--sans-serif(400);
     -webkit-font-smoothing: antialiased;
+    background-color: $c-background__cream;
 }
 
 article,
@@ -87,13 +88,13 @@ svg {
 /* Links */
 
 a {
-    color: $c-accent__blue;
+    color: $c-accent__purple;
     background-color: transparent;
     text-decoration: none;
     
     &:hover {
-      color: $c-accent__blue !important;
-      border-bottom: 1px solid $c-accent__blue !important;
+      color: $c-accent__purple !important;
+      border-bottom: 1px solid $c-accent__purple !important;
       text-decoration: none !important;
       transition: border 0.15s ease-in;
     }
