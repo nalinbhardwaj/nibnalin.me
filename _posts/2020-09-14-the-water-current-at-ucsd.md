@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The water current at UCSD"
-description: "🚰 Water drinking data of a college"
+description: "🚰 Water consumption data from a college"
 date: 2020-09-14
 tags: visualization data
 ---
