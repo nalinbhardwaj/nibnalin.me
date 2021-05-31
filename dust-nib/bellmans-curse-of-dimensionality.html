@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bellman's Curse on Advice - dust-nib</title>
+  <meta name="description" content="In dynamic programming and reinforcement learning, the most fundamental challenge we face is just grokking the high dimensionality of a state space. Go is a ...">
+  <link href='https://fonts.googleapis.com/css?family=Inter:300,400,900,400italic' rel='stylesheet' type='text/css'>
+  <link rel='stylesheet' href='//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack-subset.css'>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://nibnalin.me/dust-nib/bellmans-curse-of-dimensionality.html">
+  <link rel="alternate" type="application/rss+xml" title="dust-nib" href="https://nibnalin.me/feed.xml">
+  <!--KaTeX-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          renderMathInElement(document.body, {
+              // ...options...
+          });
+      });
+  </script>
+</head>
+
+  <body>
+    <main class="u-container">
+      <div class="c-page">
+  <header class="c-page__header">
+  <h1><code>dust-nib</code></h1>
+  <p>
+    <span class="u-separate"></span> <a href="/">Home</a><span
+          class="u-separate"></span> <a href="/about/">About</a><span class="u-separate"></span> <a href="https://nibnalin.substack.com">Newsletter</a><span class="u-separate"></span> <a href="/feed.xml">RSS</a><span class="u-separate"></span>
+  </p>
+</header>
+
+  <div class="c-page__main">
+    <article class="c-article">
+  <header class="c-article__header">
+    <h1 class="c-article__title">Bellman's Curse on Advice</h1>
+    <p class="c-article__time"><time datetime="2021-04-18T00:00:00+00:00" itemprop="datePublished">Apr 18, 2021</time></p>
+  </header>
+  <!-- Post Tags -->
+  <ul class="c-tags">
+    
+    <li class="c-tag">#math</li>
+    
+    <li class="c-tag">#rationality</li>
+    
+    <li class="c-tag">#advice</li>
+    
+  </ul>
+  <div class="c-article__main">
+    <p>In dynamic programming and reinforcement learning, the most fundamental challenge we face is just grokking the high dimensionality of a state space. Go is a “simple” game whose rules can be fully explained on a single sheet of paper, yet those rules yield more board configurations than the number of atoms in the universe (~10<sup>174</sup>). Given the state space, how does any solver for this game even represent these configurations, let alone evaluate them? While games are helpful toys to start with, this phenomenon of “exponential explosion” in systems is extremely common in many real-world problems, where we’ve given it the stage name: <em>Bellman’s Curse of Dimensionality</em>.</p>
+
+<p>While popular study of dimensionality is usually focused on tight, mathematical systems, I’ve found that thinking about dimensionality as a metaphor in other, less well-defined systems is a surprisingly helpful tool.</p>
+
+<p>Advice, for instance, tends to fit such a model very naturally. You have an extremely large state space (<em>life</em>) where you only get one opportunity to traverse a path. To add to that, like the typical exponential problem, as dimensionality of life increases, the volume of the space of possibilities increases so fast that the available data on historical outcomes becomes quite sparse. How, then, can someone evaluate others’ advice, or look at someone else’s life to figure out what they should do with their own?</p>
+
+<p>I don’t claim to have a solution to this problem, but in my experience it’s helpful to keep the dimensionality framework suggested by Bellman in the back of your mind as you navigate advice. For starters, thinking about the dimensions in this space independently is helpful to evaluate different states clearly:</p>
+
+<ul>
+  <li><em>Time:</em> Your professor probably don’t have the best advice for you because their own experience about your situation was frozen in 1980s, and a lot about the world has changed since then.</li>
+  <li><em>Space:</em> Advice about fundraising from a US entrepreneur is obviously not as relevant for someone raising in India or China.</li>
+  <li><em>Internal state:</em> This is one of the harder categories to pin down. One way to think about these is as some function of an individual’s personality and thought processes, but I think that only scratches the surface of what this broad category intends to cover. If someone attempts to use Steve Jobs’ offbeat management methods, but lacks the charisma and the “reality distortion field” Steve Jobs is said to have conjured, they’re not going be as successful in their endeavours.</li>
+</ul>
+
+<p>I’ve always found it somewhat surprising how much different, often entirely contradictory, advice you can hear about any choices you can think of. When just about everyone has their own strongly held opinions about everything, it’s really hard to evaluate the applicability and the net delta of any singular piece of advice.</p>
+
+<p>I think the only antidote to evaluating advice given such dimensional differences is to figure out relative distortions in the advisor’s state to your state, and “port” the advice as necessary. Don’t do what Napoleon did, do what he <em>would</em> do if he was a founder born in silicon valley during the Information Age.</p>
+
+<p>Another consequence of this framework is that differences in multiple dimensions scale non-linearly. A 60 year old college professor will always have strictly less <em>applicable</em> advice, since they are separated from you in time and space vs. someone of your age living in the same city as you. Note that I’m only making a claim about the <em>applicability</em> of their advice here, whether the advice itself is good or bad is a completely different question that one should evaluate separately.</p>
+
+<p>Notably, however, there are many flaws in this framework. The most obvious flaw to me is that it isn’t clear if the aforementioned dimensions are linearly independent, and treating them as such has unintended consequences (for instance, someone at different space and time but with the same internal state aren’t necessarily as bad as someone at the same space and time but wildly different internal state).</p>
+
+<h2 id="blessing-of-dimensionality">Blessing of dimensionality</h2>
+
+<p>There is one other interesting result that arises from this framework that’s applicable to advice: <em>the blessing of dimensionality</em>. In math, the curse of dimensionality leads to a conjugate that feels un-intuitive on first consideration: because exponential problems are so hard, even basic heuristics are good enough to get reasonably close to optimal solutions. The oversimplified explanation for this is that state spaces for such problems are so large that taking random paths is exponentially worse than taking a path that’s just good enough.<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></p>
+
+<p>When I first read Dale Carnegie’s “How to Win Friends and Influence People”, I was extremely surprised by the blandness and obviousness of all the advice it described. Surely, I thought, this couldn’t be a multi-decade bestselling book with advice that claims to have changed countless lives. Weirdly enough, Dale Carnegie doesn’t need his readers to develop Steve Jobs’ charisma to be successful, if they take the basic, most obvious steps they’ll already be good enough to be reasonably successful in life. This “blessing of dimensionality” is why most popular advice you’ll find is un-specific and vague, even though, in practice, most of us will end up applying that advice to the most specific scenarios and circumstances.</p>
+
+<p>On a broader perspective, this conjugate “blessing of dimensionality” is a good reminder to avoid traps of overthinking and taking life overly seriously. If your actions have some reasonable motivations, at the end of the day, the worse you’ll do in expectation is really not that bad in absolute terms: You’re unlikely to end up in a ditch in a forest due to picking a wrong choice at some fork in the road once, if all the other forks you’ve picked before had some reasonable amount of consideration behind them too.</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>More technical details about the set up for this class of problems are better described <a href="https://en.wikipedia.org/wiki/Curse_of_dimensionality#Blessing_of_dimensionality">here</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+  <div class="pagenav">
+    <h3 class="c-pagenav__head">More?</h3>
+    <iframe src="https://nibnalin.substack.com/embed" width="100%" height="200" style="background:$c-accent__purple;" frameborder="0" scrolling="no"></iframe>
+  </div>
+</article>
+
+  </div>
+  <footer class="c-page__footer">
+  <p>Nalin Bhardwaj</p>
+  <p><a href="https://twitter.com/nibnalin">Twitter</a><span class="u-separate"></span><a href="mailto:dustnib@nibnalin.me">Email</a></p>
+</footer>
+
+</div>
+
+    </main>
+    
+  </body>
+</html>

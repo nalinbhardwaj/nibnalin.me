@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Analysing Image Dithering - dust-nib</title>
+  <meta name="description" content="">
+  <link href='https://fonts.googleapis.com/css?family=Inter:300,400,900,400italic' rel='stylesheet' type='text/css'>
+  <link rel='stylesheet' href='//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack-subset.css'>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://nibnalin.me/dust-nib/analysing-image-dithering.html">
+  <link rel="alternate" type="application/rss+xml" title="dust-nib" href="https://nibnalin.me/feed.xml">
+  <!--KaTeX-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          renderMathInElement(document.body, {
+              // ...options...
+          });
+      });
+  </script>
+</head>
+
+  <body>
+    <main class="u-container">
+      <div class="c-page">
+  <header class="c-page__header">
+  <h1><code>dust-nib</code></h1>
+  <p>
+    <span class="u-separate"></span> <a href="/">Home</a><span
+          class="u-separate"></span> <a href="/about/">About</a><span class="u-separate"></span> <a href="https://nibnalin.substack.com">Newsletter</a><span class="u-separate"></span> <a href="/feed.xml">RSS</a><span class="u-separate"></span>
+  </p>
+</header>
+
+  <div class="c-page__main">
+    <article class="c-article">
+  <header class="c-article__header">
+    <h1 class="c-article__title">Analysing Image Dithering</h1>
+    <p class="c-article__time"><time datetime="2018-07-15T00:00:00+00:00" itemprop="datePublished">Jul 15, 2018</time></p>
+  </header>
+  <!-- Post Tags -->
+  <ul class="c-tags">
+    
+    <li class="c-tag">#image</li>
+    
+    <li class="c-tag">#visualization</li>
+    
+    <li class="c-tag">#ML</li>
+    
+  </ul>
+  <div class="c-article__main">
+    <p><img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=image-dithering-cover.gif&amp;userId=1371661" alt="image dithering cover" /></p>
+
+<p>This summer, as part of the Wolfram High School Summer Camp program, I decided to do a project analysing image dithering, and the various ways to do it. Over the course of two weeks, I learnt and understood how the algorithms work. Since resources about this process are sparse on the internet, in this post, I not only implement the algorithms, but additionally describe in detail what image dithering is and how it works.</p>
+
+<p>The second part of my project was to use machine learning to classify images that originate from different image dithering algorithms.</p>
+
+<p>After failing to get high accuracy with a large number of machine learning techniques, I finally came up with one that has an <strong>accuracy of about 90%</strong>.</p>
+
+<p>Note that this community post is an adapted version of my computational essay. <em>My computational essay is attached at the bottom of the post.</em></p>
+
+<h1 id="what-is-image-dithering">What is image dithering?</h1>
+
+<p><img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=ScreenShot2018-07-13at3.50.44PM.png&amp;userId=1371661" alt="image-dithering-FS-example" /></p>
+
+<p><em>Can you tell the difference between the two images above?</em></p>
+
+<p>The image on the right uses <strong>just 24 colours</strong> .
+Yet, using Floyd-Steinberg dithering, it manages to look as detailed and beautiful as the one on the left, which is using more than 16 million colours!</p>
+
+<p>Let’ s formally define what the aim of image dithering is :</p>
+
+<p>Given an RGB image with \(256^3\) colors, reduce the colour space of the image to only belong to a certain color palette.</p>
+
+<p><img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=ScreenShot2018-07-13at4.11.46PM.png&amp;userId=1371661" alt="chromaticity-plot comparison" /></p>
+
+<p><em>A comparison of the chromaticity plots of the above images</em></p>
+
+<h1 id="color-palette">Color Palette</h1>
+
+<p>First, let us tackle the easier problem at hand. Say that we are given the option to choose our color palette, the only restriction being the number of colours in the palette. What would be the best way to obtain a color palette that is the most appropriate for an image?</p>
+
+<p>Thankfully, the Wolfram Language makes this task very easy for us, as we can simply use the inbuilt function <code class="language-plaintext highlighter-rouge">DominantColors[image, n]</code>. For example, regarding the image above:</p>
+
+<p><img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=ScreenShot2018-07-13at4.15.27PM.png&amp;userId=1371661" alt="dominant-colors of the image" /></p>
+
+<p>would be the most appropriate color palette with 12 colours.</p>
+
+<p>Here are some visualisations of the process of choosing the color palette in 3D RGB space.</p>
+
+<p>The color palette of the original image:
+<img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=color-palette-og.gif&amp;userId=1371661" alt="original color palette" /></p>
+
+<p>The color palette of the dithered image:
+<img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=color-palette-final.gif&amp;userId=1371661" alt="final color palette" /></p>
+
+<p><em>Notice how the final color palette is quite close to points on the diagonal of the cube. I go into a lot more detail about this in my computational essay.</em></p>
+
+<p><strong>Now, let us try to solve the main part of the problem, actually figuring out the mapping of a pixel colour to its new colour.</strong></p>
+
+<h1 id="naive-idea">Naive idea</h1>
+
+<figure class="highlight"><pre><code class="language-mathematica" data-lang="mathematica"><span class="nv">colorPallete</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">32</span><span class="o">,</span><span class="w"> </span><span class="m">64</span><span class="o">,</span><span class="w"> </span><span class="m">96</span><span class="o">,</span><span class="w"> </span><span class="m">128</span><span class="o">,</span><span class="w"> </span><span class="m">159</span><span class="o">,</span><span class="w"> </span><span class="m">191</span><span class="o">,</span><span class="w"> </span><span class="m">223</span><span class="p">}</span><span class="o">;</span><span class="w">
+</span><span class="nv">pixel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="m">34</span><span class="o">,</span><span class="w"> </span><span class="m">100</span><span class="o">,</span><span class="w"> </span><span class="m">222</span><span class="p">}</span><span class="o">,</span><span class="w">
+         </span><span class="p">{</span><span class="m">200</span><span class="o">,</span><span class="w"> </span><span class="m">50</span><span class="o">,</span><span class="w"> </span><span class="m">150</span><span class="p">}}</span><span class="o">;</span><span class="w">
+</span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">pixel</span><span class="o">;</span><span class="w">
+</span><span class="nb">Do</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="nv">result</span><span class="p">[[</span><span class="nv">x</span><span class="o">,</span><span class="w"> </span><span class="nv">y</span><span class="p">]]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">First</span><span class="p">[</span><span class="nb">Nearest</span><span class="p">[</span><span class="nv">colorPallete</span><span class="o">,</span><span class="w"> </span><span class="nv">pixel</span><span class="p">[[</span><span class="nv">x</span><span class="o">,</span><span class="w"> </span><span class="nv">y</span><span class="p">]]]]</span><span class="o">;,</span><span class="w">
+    </span><span class="p">{</span><span class="nv">x</span><span class="o">,</span><span class="w"> </span><span class="nb">Length</span><span class="p">[</span><span class="nv">pixel</span><span class="p">]}</span><span class="o">,</span><span class="w">
+    </span><span class="p">{</span><span class="nv">y</span><span class="o">,</span><span class="w"> </span><span class="nb">Length</span><span class="p">[</span><span class="nb">First</span><span class="p">[</span><span class="nv">pixel</span><span class="p">]]}</span><span class="w">
+  </span><span class="p">]</span><span class="o">;</span><span class="w">
+</span><span class="nb">Grid</span><span class="p">[</span><span class="nv">result</span><span class="o">,</span><span class="w"> </span><span class="nb">Frame</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">All</span><span class="o">,</span><span class="w"> </span><span class="nb">Spacings</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="p">}]</span></code></pre></figure>
+
+<p><img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=ScreenShot2018-07-13at4.19.57PM.png&amp;userId=1371661" alt="grid naive idea" /></p>
+
+<h2 id="extra">Extra!</h2>
+
+<p>I had to implement my own (but slower) version of the Wolfram function <code class="language-plaintext highlighter-rouge">Nearest</code> for the final functions, since pre-compiling Wolfram code to C code does not support <code class="language-plaintext highlighter-rouge">Nearest</code> natively.
+However, at the time of writing, I have heard that there is an internal project going on in Wolfram to enable support for compiling all inbuilt Wolfram function to C natively.</p>
+
+<h1 id="better-idea">Better idea</h1>
+
+<p>As one can guess, this idea can be improved a lot. One of the important ideas is that of “smoothing”. We want the transition between two objects/colours to look smoother. One way to do that would be make a gradient as the transition occurs.</p>
+
+<p>However, how do you formalise a “gradient”? And how do you make a smooth one when all you have are 24 colours?</p>
+
+<p>Dithering basically attempts to solves these problems.</p>
+
+<p>To solve our questions, let’s think about a pixel: what’s the best way to make it look closest to its original colour?
+In the naive idea, we created some error by rounding to some nearby values.</p>
+
+<p>For each pixel, let’s formalise the error as:</p>
+
+<p><img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=ScreenShot2018-07-13at4.23.38PM.png&amp;userId=1371661" alt="error in pixel[1, 1] screenshot" /></p>
+
+<h2 id="error-diffusion">Error diffusion</h2>
+
+<p>It is clear that the error should somehow be transmitted to the neighbouring elements so we can account for the error in a pixel in its neighbours. To maintain an even order of processing, let us assume that we will traverse the 2D array of pixels from the top-left corner, row-wise until we reach the bottom-right corner.</p>
+
+<p>Therefore, it never makes sense to “push” the effects of an error to a cell we’ve already processed. Finally, let us see some ways to actually diffuse the error across the image.</p>
+
+<h1 id="floyd---steinberg-dithering">Floyd - Steinberg Dithering</h1>
+
+<p>In 1976, Robert Floyd and Louis Steinberg published the most popular dithering algorithm<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>. The pattern for error diffusion can be described as:</p>
+
+<figure class="highlight"><pre><code class="language-mathematica" data-lang="mathematica"><span class="nv">diffusionFormula</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">7</span><span class="p">}</span><span class="o">,</span><span class="w">
+                    </span><span class="p">{</span><span class="m">3</span><span class="o">,</span><span class="w"> </span><span class="m">5</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="p">}}</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">16</span><span class="o">;</span><span class="w">
+</span><span class="nv">diffusionPosition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="p">}</span><span class="o">;</span></code></pre></figure>
+
+<h2 id="what-does-this-mean">What does this mean?</h2>
+
+<p><code class="language-plaintext highlighter-rouge">diffusionFormula</code> is simply a way to encode the diffusion from a pixel.</p>
+
+<p><code class="language-plaintext highlighter-rouge">diffusionPosition</code> refers to the position of the pixel, relative to the <code class="language-plaintext highlighter-rouge">diffusionFormula</code> encoding.</p>
+
+<p>So, for example, an error of <code class="language-plaintext highlighter-rouge">2</code> at pixel <code class="language-plaintext highlighter-rouge">{1, 1}</code>  translates to the following additions:</p>
+
+<figure class="highlight"><pre><code class="language-mathematica" data-lang="mathematica"><span class="nv">pixel</span><span class="p">[[</span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="p">]]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">error</span><span class="o">*</span><span class="p">(</span><span class="m">7</span><span class="o">/</span><span class="m">16</span><span class="p">)</span><span class="o">;</span><span class="w">
+</span><span class="nv">pixel</span><span class="p">[[</span><span class="m">2</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="p">]]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">error</span><span class="o">*</span><span class="p">(</span><span class="m">3</span><span class="o">/</span><span class="m">16</span><span class="p">)</span><span class="o">;</span><span class="w">
+</span><span class="nv">pixel</span><span class="p">[[</span><span class="m">2</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="p">]]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">error</span><span class="o">*</span><span class="p">(</span><span class="m">5</span><span class="o">/</span><span class="m">16</span><span class="p">)</span><span class="o">;</span><span class="w">
+</span><span class="nv">pixel</span><span class="p">[[</span><span class="m">2</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">]]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">error</span><span class="o">*</span><span class="p">(</span><span class="m">1</span><span class="o">/</span><span class="m">16</span><span class="p">)</span><span class="o">;</span></code></pre></figure>
+
+<p><img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=ScreenShot2018-07-13at4.28.38PM.png&amp;userId=1371661" alt="grid floyd steinberg error diffusion" /></p>
+
+<p><img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=ScreenShot2018-07-13at4.29.39PM.png&amp;userId=1371661" alt="floyd Steinberg dithering" /></p>
+
+<h2 id="how-does-one-come-up-with-these-weird-constants">How does one come up with these weird constants?</h2>
+
+<p>Notice how the numerator constants are the first 4 odd numbers.
+The pattern is chosen specifically to create an even checkerboard pattern for perfect grey images using black and white.</p>
+
+<p><img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=ScreenShot2018-07-13at4.31.40PM.png&amp;userId=1371661" alt="grayscale floyd steinberg dithering example" /></p>
+
+<p><em>Example Grayscale image dithered with Floyd Steinberg</em></p>
+
+<p><img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=image-1.png&amp;userId=1371661" alt="grayscale picture in picture thing" /></p>
+
+<p><em>Note the checkerboard pattern in the image above.</em></p>
+
+<h1 id="atkinson-dithering">Atkinson Dithering</h1>
+
+<p>Relative to the other dithering algorithms here, Atkinson’s algorithm diffuses a lot less of the error to its surroundings. It tends to preserve detail well, but very continuous sections of colours appear blown out.</p>
+
+<p>This was made by Bill Atkinson<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>, an Apple employee.The pattern for error diffusion is as below :</p>
+
+<figure class="highlight"><pre><code class="language-mathematica" data-lang="mathematica"><span class="nv">diffusionFormula</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="p">}</span><span class="o">,</span><span class="w">
+                    </span><span class="p">{</span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="p">}</span><span class="o">,</span><span class="w">
+                    </span><span class="p">{</span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="p">}}</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">8</span><span class="o">;</span><span class="w">
+</span><span class="nv">diffusionPosition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="p">}</span><span class="o">;</span></code></pre></figure>
+
+<p><img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=ScreenShot2018-07-13at4.38.01PM.png&amp;userId=1371661" alt="atkinson dithering example" /></p>
+
+<h1 id="jarvis-judice-and-ninke-dithering">Jarvis, Judice, and Ninke Dithering</h1>
+
+<p>This algorithm<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup> spreads the error over more rows and columns, therefore, images should be softer(in theory).
+The pattern for error diffusion is as below:</p>
+
+<figure class="highlight"><pre><code class="language-mathematica" data-lang="mathematica"><span class="nv">diffusionFormula</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">{</span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">7</span><span class="o">,</span><span class="w"> </span><span class="m">5</span><span class="p">}</span><span class="o">,</span><span class="w">
+                     </span><span class="p">{</span><span class="m">3</span><span class="o">,</span><span class="w"> </span><span class="m">5</span><span class="o">,</span><span class="w"> </span><span class="m">7</span><span class="o">,</span><span class="w"> </span><span class="m">5</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">}</span><span class="o">,</span><span class="w">
+                     </span><span class="p">{</span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="o">,</span><span class="w"> </span><span class="m">5</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="p">}}</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">48</span><span class="o">;</span><span class="w">
+</span><span class="nv">diffusionPosition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">}</span><span class="o">;</span></code></pre></figure>
+
+<p><img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=ScreenShot2018-07-13at4.39.37PM.png&amp;userId=1371661" alt="JJN algorithm example" /></p>
+
+<h4 id="the-final-2-dithering-algorithms-come-from-frankie-sierra-who-published-the-sierra-and-sierra-lite-matrices-in-1989-and-1990-respectively">The final 2 dithering algorithms come from Frankie Sierra, who published the Sierra and Sierra Lite matrices<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup> in 1989 and 1990 respectively.</h4>
+
+<h1 id="sierra-dithering">Sierra Dithering</h1>
+
+<p>Sierra dithering is based on Jarvis dithering, so it has similar results, but it’s negligibly faster.</p>
+
+<figure class="highlight"><pre><code class="language-mathematica" data-lang="mathematica"><span class="nv">diffusionFormula</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">{</span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">5</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">}</span><span class="o">,</span><span class="w">
+                     </span><span class="p">{</span><span class="m">2</span><span class="o">,</span><span class="w"> </span><span class="m">4</span><span class="o">,</span><span class="w"> </span><span class="m">5</span><span class="o">,</span><span class="w"> </span><span class="m">4</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="p">}</span><span class="o">,</span><span class="w">
+                     </span><span class="p">{</span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="p">}}</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">;</span><span class="w">
+</span><span class="nv">diffusionPosition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">}</span><span class="o">;</span></code></pre></figure>
+
+<p><img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=ScreenShot2018-07-13at4.41.39PM.png&amp;userId=1371661" alt="sierra dithering example" /></p>
+
+<h1 id="sierra-lite-dithering">Sierra Lite Dithering</h1>
+
+<p>This yields results similar to Floyd-Steinberg dithering, but is faster.</p>
+
+<figure class="highlight"><pre><code class="language-mathematica" data-lang="mathematica"><span class="nv">diffusionFormula</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="p">{{</span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="p">}</span><span class="o">,</span><span class="w">
+                     </span><span class="p">{</span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="p">}}</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">4</span><span class="o">;</span><span class="w">
+</span><span class="nv">diffusionPosition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="p">}</span><span class="o">;</span></code></pre></figure>
+
+<p><img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=ScreenShot2018-07-13at4.43.33PM.png&amp;userId=1371661" alt="Sierra Lite dithering" /></p>
+
+<h1 id="comparison">Comparison</h1>
+
+<p>Here’s an interactive comparison of the algorithms on different images:</p>
+
+<figure class="highlight"><pre><code class="language-mathematica" data-lang="mathematica"><span class="nb">Manipulate</span><span class="p">[</span><span class="w">
+ </span><span class="nv">Dither</span><span class="p">[</span><span class="nv">im</span><span class="o">,</span><span class="w"> </span><span class="nv">c</span><span class="o">,</span><span class="w"> 
+  </span><span class="nb">StringDelete</span><span class="p">[</span><span class="nb">StringDelete</span><span class="p">[</span><span class="nb">StringDelete</span><span class="p">[</span><span class="nv">algo</span><span class="o">,</span><span class="w"> </span><span class="s">" "</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="s">","</span><span class="p">]</span><span class="o">,</span><span class="w"> 
+   </span><span class="s">"-"</span><span class="p">]]</span><span class="o">,</span><span class="w"> </span><span class="p">{{</span><span class="nv">im</span><span class="o">,</span><span class="w"> </span><span class="nv">image</span><span class="o">,</span><span class="w"> </span><span class="s">"Image"</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="nv">im1</span><span class="o">,</span><span class="w"> </span><span class="nv">im2</span><span class="o">,</span><span class="w"> </span><span class="nv">im3</span><span class="p">}}</span><span class="o">,</span><span class="w"> </span><span class="p">{{</span><span class="nv">c</span><span class="o">,</span><span class="w"> </span><span class="m">12</span><span class="o">,</span><span class="w"> 
+   </span><span class="s">"Number of colours"</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="o">,</span><span class="w"> </span><span class="m">1024</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="p">}</span><span class="o">,</span><span class="w"> 
+ </span><span class="p">{{</span><span class="nv">algo</span><span class="o">,</span><span class="w"> </span><span class="s">"Floyd-Steinberg"</span><span class="o">,</span><span class="w"> </span><span class="s">"Algorithm"</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="s">"Floyd-Steinberg"</span><span class="o">,</span><span class="w"> 
+   </span><span class="s">"Jarvis, Judice, Ninke"</span><span class="o">,</span><span class="w"> </span><span class="s">"Atkinson"</span><span class="o">,</span><span class="w"> </span><span class="s">"Sierra"</span><span class="o">,</span><span class="w"> </span><span class="s">"Sierra Lite"</span><span class="p">}}]</span></code></pre></figure>
+
+<p>Download my computational essay to see it in action. Alternately, use the functions  in the “Implementation” section to evaluate the code. <code class="language-plaintext highlighter-rouge">im1</code>, <code class="language-plaintext highlighter-rouge">im2</code>, <code class="language-plaintext highlighter-rouge">im3</code> can be replaced by images. I have submitted the comparison to <a href="http://demonstrations.wolfram.com">Wolfram Demonstrations</a> as well, so it should be available online soon.</p>
+
+<h1 id="side-note">Side-note</h1>
+
+<p>Notice how the denominator in the <code class="language-plaintext highlighter-rouge">diffusionFormula</code> of a number of algorithms is a power of \(2\)?
+This is because division by a power of 2 is equivalent to <a href="https://stackoverflow.com/a/141873">bit-shifting</a> the number to the right by \(\log_{2}(divisor)\) bits, making it much faster than division by any other number.</p>
+
+<p>Given the improvements in computer hardware, this is not a major concern anymore.</p>
+
+<h2 id="come-up-with-your-own-dithering-algorithm">Come up with your own dithering algorithm!</h2>
+
+<p>I noticed that the dithering algorithms are almost the same as each other(especially the <code class="language-plaintext highlighter-rouge">diffusionPosition</code>).</p>
+
+<p>However, I have made my functions so that you can just tweak the input arguments <code class="language-plaintext highlighter-rouge">diffusionFormula</code> and <code class="language-plaintext highlighter-rouge">diffusionPosition</code>, and test out your own functions!</p>
+
+<p>Here’s one I tried:</p>
+
+<p><img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=ScreenShot2018-07-13at5.03.37PM.png&amp;userId=1371661" alt="my own dithering algorithm" /></p>
+
+<h1 id="implementation">Implementation</h1>
+
+<p>In this section, I will discuss the Wolfram implementation, and some of the features and functions I used in my code.</p>
+
+<h2 id="applydithering">applyDithering</h2>
+
+<p>Even though it’s probably the least interesting part of the algorithm, actually applying the dithering is the most important part of the algorithm, and the one that gave me the most trouble.</p>
+
+<p>I started off by writing it in the functional paradigm. With little knowledge of Wolfram, I stumbled through the docs to assemble pieces of the code. Finally, I had a “working” version of the algorithm, but there was a major problem: A \(512\cdot512\) RGB image took 700 seconds for processing!</p>
+
+<p>This number is way too large for an algorithm with linear time complexity in the size of input.</p>
+
+<h3 id="fixes">Fixes</h3>
+
+<p>Some of the trivial fixes involved making more use of inbuilt functions(for example, <code class="language-plaintext highlighter-rouge">Nearest</code>).</p>
+
+<p>The largest problem is that the Wolfram notebook is an interpreter, not a compiler. It interprets code every time it’s run.
+So the obvious step to optimising performance was using the <code class="language-plaintext highlighter-rouge">Compile</code> function in Wolfram.</p>
+
+<p>But, there’s a catch!</p>
+
+<figure class="highlight"><pre><code class="language-mathematica" data-lang="mathematica"><span class="nv">T</span><span class="w"> </span><span class="p">(</span><span class="nv">R1</span><span class="p">)</span><span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">MainEvaluate</span><span class="p">[</span><span class="w"> </span><span class="nb">Hold</span><span class="p">[</span><span class="nb">List</span><span class="p">][</span><span class="w"> </span><span class="nv">I27</span><span class="o">,</span><span class="w"> </span><span class="nv">I28</span><span class="o">,</span><span class="w"> </span><span class="nv">T</span><span class="w"> </span><span class="p">(</span><span class="nv">R1</span><span class="p">)</span><span class="w"> </span><span class="m">16</span><span class="o">,</span><span class="w"> </span><span class="nv">R6</span><span class="p">]]</span><span class="w">
+</span><span class="m">95</span><span class="w">  </span><span class="nb">Element</span><span class="p">[</span><span class="w"> </span><span class="nv">T</span><span class="w"> </span><span class="p">(</span><span class="nv">R2</span><span class="p">)</span><span class="w"> </span><span class="m">17</span><span class="o">,</span><span class="w"> </span><span class="nv">I20</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">T</span><span class="w"> </span><span class="p">(</span><span class="nv">R1</span><span class="p">)</span><span class="w"> </span><span class="m">18</span></code></pre></figure>
+
+<p>If you see something like the above in your machine code, your code is likely to be slow.</p>
+
+<p><code class="language-plaintext highlighter-rouge">MainEvaluate</code> basically means that the compiled function is calling back the kernel, which too, is a slow process.</p>
+
+<p>To view the human readable form of your compiled Wolfram function, you can use:</p>
+
+<figure class="highlight"><pre><code class="language-mathematica" data-lang="mathematica"><span class="nb">Needs</span><span class="p">[</span><span class="s">"CompiledFunctionTools`"</span><span class="p">]</span><span class="o">;</span><span class="w">
+</span><span class="nv">CompilePrint</span><span class="p">[</span><span class="nv">yourFunction</span><span class="p">]</span></code></pre></figure>
+
+<p>To fix this, you need to basically write everything in a procedural form using loops and similar constructs.</p>
+
+<p>The final step was <code class="language-plaintext highlighter-rouge">RuntimeOptions -&gt; "Speed"</code>, which trades off some integer overflow checks etc. for a faster runtime.</p>
+
+<p>Find the complete code for the function below:</p>
+
+<figure class="highlight"><pre><code class="language-mathematica" data-lang="mathematica"><span class="nv">applyDithering</span><span class="w"> </span><span class="o">=</span><span class="w"> 
+  </span><span class="nb">Compile</span><span class="p">[{{</span><span class="nv">data</span><span class="o">,</span><span class="w"> </span><span class="o">_</span><span class="nb">Real</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="nv">diffusionList</span><span class="o">,</span><span class="w"> </span><span class="o">_</span><span class="nb">Real</span><span class="o">,</span><span class="w"> 
+     </span><span class="m">2</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="nv">diffusionPos</span><span class="o">,</span><span class="w"> </span><span class="o">_</span><span class="nb">Integer</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="nv">colors</span><span class="o">,</span><span class="w"> </span><span class="o">_</span><span class="nb">Real</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="p">}}</span><span class="o">,</span><span class="w">
+    </span><span class="bp">Module</span><span class="p">[{</span><span class="nv">lenx</span><span class="o">,</span><span class="w"> </span><span class="nv">leny</span><span class="o">,</span><span class="w"> </span><span class="nv">lenz</span><span class="o">,</span><span class="w"> </span><span class="nv">lenxdiff</span><span class="o">,</span><span class="w"> </span><span class="nv">lenydiff</span><span class="o">,</span><span class="w"> </span><span class="nv">error</span><span class="o">,</span><span class="w"> </span><span class="nv">val</span><span class="o">,</span><span class="w"> 
+     </span><span class="nv">realLoc</span><span class="o">,</span><span class="w"> </span><span class="nv">closestColor</span><span class="o">,</span><span class="w"> </span><span class="nv">closestColordiff</span><span class="o">,</span><span class="w"> </span><span class="nv">res</span><span class="o">,</span><span class="w"> </span><span class="nv">a</span><span class="o">,</span><span class="w"> </span><span class="nv">diff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">data</span><span class="o">,</span><span class="w"> 
+     </span><span class="nv">diffusionFormula</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">diffusionList</span><span class="o">,</span><span class="w"> </span><span class="nv">xx</span><span class="o">,</span><span class="w"> </span><span class="nv">yy</span><span class="o">,</span><span class="w"> </span><span class="nv">curxx</span><span class="o">,</span><span class="w"> </span><span class="nv">curyy</span><span class="o">,</span><span class="w"> 
+     </span><span class="nv">colorAvailable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">colors</span><span class="o">,</span><span class="w"> </span><span class="nv">tmp</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionPosition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">diffusionPos</span><span class="o">,</span><span class="w"> 
+     </span><span class="nv">idx</span><span class="p">}</span><span class="o">,</span><span class="w">
+        </span><span class="p">{</span><span class="nv">lenx</span><span class="o">,</span><span class="w"> </span><span class="nv">leny</span><span class="o">,</span><span class="w"> </span><span class="nv">lenz</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Dimensions</span><span class="p">[</span><span class="nv">data</span><span class="p">]</span><span class="o">;</span><span class="w">
+      </span><span class="p">{</span><span class="nv">lenxdiff</span><span class="o">,</span><span class="w"> </span><span class="nv">lenydiff</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Dimensions</span><span class="p">[</span><span class="nv">diffusionFormula</span><span class="p">]</span><span class="o">;</span><span class="w">
+        </span><span class="nv">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">data</span><span class="o">;</span><span class="w">
+        </span><span class="nv">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">data</span><span class="o">;</span><span class="w">
+        </span><span class="nb">Do</span><span class="p">[</span><span class="w">
+        </span><span class="nv">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">a</span><span class="p">[[</span><span class="nv">x</span><span class="o">,</span><span class="w"> </span><span class="nv">y</span><span class="p">]]</span><span class="o">;</span><span class="w">
+        </span><span class="nv">realLoc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nv">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">diffusionPos</span><span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> 
+       </span><span class="nv">y</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">diffusionPos</span><span class="p">[[</span><span class="m">2</span><span class="p">]]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">}</span><span class="o">;</span><span class="w">
+        </span><span class="nv">closestColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="m">1000000000.</span><span class="o">,</span><span class="w"> </span><span class="m">1000000000.</span><span class="o">,</span><span class="w"> </span><span class="m">1000000000.</span><span class="p">}</span><span class="o">;</span><span class="w">
+        </span><span class="nv">closestColordiff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1000000000.</span><span class="o">;</span><span class="w">
+        </span><span class="nb">Do</span><span class="p">[</span><span class="w">
+            </span><span class="nv">tmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">N</span><span class="p">[</span><span class="nb">Total</span><span class="p">[</span><span class="nb">Table</span><span class="p">[(</span><span class="nv">i</span><span class="p">[[</span><span class="nv">idx</span><span class="p">]]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">val</span><span class="p">[[</span><span class="nv">idx</span><span class="p">]])</span><span class="o">^</span><span class="m">2</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="nv">idx</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">}]]]</span><span class="o">;</span><span class="w">
+            </span><span class="nb">If</span><span class="p">[</span><span class="nv">tmp</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nv">closestColordiff</span><span class="o">,</span><span class="w">
+              </span><span class="nv">closestColordiff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">tmp</span><span class="o">;</span><span class="w">
+              </span><span class="nv">closestColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">i</span><span class="o">;</span><span class="w">
+            </span><span class="p">]</span><span class="o">;,</span><span class="w">
+            </span><span class="p">{</span><span class="nv">i</span><span class="o">,</span><span class="w"> </span><span class="nv">colorAvailable</span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="o">;</span><span class="w">
+        </span><span class="nv">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">val</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">closestColor</span><span class="o">;</span><span class="w">
+        </span><span class="nv">res</span><span class="p">[[</span><span class="nv">x</span><span class="o">,</span><span class="w"> </span><span class="nv">y</span><span class="p">]]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">closestColor</span><span class="o">;</span><span class="w">
+        </span><span class="nb">Do</span><span class="p">[</span><span class="w"> 
+            </span><span class="nv">curxx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">realLoc</span><span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">xx</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="o">;</span><span class="w">
+            </span><span class="nv">curyy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">realLoc</span><span class="p">[[</span><span class="m">2</span><span class="p">]]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">yy</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="o">;</span><span class="w">
+            </span><span class="nb">If</span><span class="p">[</span><span class="nv">curxx</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nv">curxx</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nv">lenx</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nv">curyy</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nv">curyy</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nv">leny</span><span class="o">,</span><span class="w">
+              </span><span class="nv">a</span><span class="p">[[</span><span class="nv">curxx</span><span class="o">,</span><span class="w"> </span><span class="nv">curyy</span><span class="o">,</span><span class="w"> </span><span class="nv">z</span><span class="p">]]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">error</span><span class="p">[[</span><span class="nv">z</span><span class="p">]]</span><span class="o">*</span><span class="nv">diffusionFormula</span><span class="p">[[</span><span class="nv">xx</span><span class="o">,</span><span class="w"> </span><span class="nv">yy</span><span class="p">]]]</span><span class="o">;,</span><span class="w">
+            </span><span class="p">{</span><span class="nv">xx</span><span class="o">,</span><span class="w"> </span><span class="nv">lenxdiff</span><span class="p">}</span><span class="o">,</span><span class="w">
+            </span><span class="p">{</span><span class="nv">yy</span><span class="o">,</span><span class="w"> </span><span class="nv">lenydiff</span><span class="p">}</span><span class="o">,</span><span class="w">
+            </span><span class="p">{</span><span class="nv">z</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="o">;,</span><span class="w">
+        </span><span class="p">{</span><span class="nv">x</span><span class="o">,</span><span class="w"> </span><span class="nv">lenx</span><span class="p">}</span><span class="o">,</span><span class="w">
+        </span><span class="p">{</span><span class="nv">y</span><span class="o">,</span><span class="w"> </span><span class="nv">leny</span><span class="p">}</span><span class="w">
+          </span><span class="p">]</span><span class="o">;</span><span class="w">
+        </span><span class="nb">Round</span><span class="p">[</span><span class="nv">res</span><span class="p">]</span><span class="w">
+      </span><span class="p">]</span><span class="o">,</span><span class="w">
+    </span><span class="nb">CompilationTarget</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">"C"</span><span class="o">,</span><span class="w">
+    </span><span class="nb">RuntimeOptions</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">"Speed"</span><span class="w">
+   </span><span class="p">]</span><span class="o">;</span></code></pre></figure>
+
+<h2 id="dither">Dither</h2>
+
+<p>This is the main function that uses <code class="language-plaintext highlighter-rouge">applyDithering</code>. Their are multiple definitions of the function, one with the hardcoded values, and the other to allow one to easily implement their own dithering algorithm.</p>
+
+<figure class="highlight"><pre><code class="language-mathematica" data-lang="mathematica"><span class="c">(* This is the implementation that takes the algorithm name and applies it *)</span><span class="w">
+
+</span><span class="nv">Dither</span><span class="p">[</span><span class="nv">img</span><span class="o">_</span><span class="nb">Image</span><span class="o">,</span><span class="w"> </span><span class="nv">colorCount</span><span class="o">_</span><span class="nb">Integer</span><span class="o">,</span><span class="w"> </span><span class="nv">algorithm</span><span class="o">_</span><span class="nb">String</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="s">"FloydSteinberg"</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s">"JarvisJudiceNinke"</span><span class="w"> </span><span class="o">|</span><span class="w"> 
+     </span><span class="s">"Atkinson"</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s">"Sierra"</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s">"SierraLite"</span><span class="p">)]</span><span class="w"> </span><span class="o">:=</span><span class="w"> 
+ </span><span class="bp">Module</span><span class="p">[{</span><span class="nv">diffusionFormulaFS</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionPositionFS</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionFormulaJJN</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionPositionJJN</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionFormulaA</span><span class="o">,</span><span class="w"> 
+   </span><span class="nv">diffusionPositionA</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionFormulaS</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionPositionS</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionFormulaSL</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionPositionSL</span><span class="p">}</span><span class="o">,</span><span class="w">
+  
+  </span><span class="c">(* Floyd Steinberg algorithm constants *)</span><span class="w">
+    
+  </span><span class="nv">diffusionFormulaFS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">7</span><span class="p">}</span><span class="o">,</span><span class="w">
+                  </span><span class="p">{</span><span class="m">3</span><span class="o">,</span><span class="w"> </span><span class="m">5</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="p">}}</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">16</span><span class="o">;</span><span class="w">
+  </span><span class="nv">diffusionPositionFS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="p">}</span><span class="o">;</span><span class="w">
+  
+  </span><span class="c">(* Jarvis, Judice, and Ninke algorithm constants *)</span><span class="w">
+    
+  </span><span class="nv">diffusionFormulaJJN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">7</span><span class="o">,</span><span class="w"> </span><span class="m">5</span><span class="p">}</span><span class="o">,</span><span class="w">
+                </span><span class="p">{</span><span class="m">3</span><span class="o">,</span><span class="w"> </span><span class="m">5</span><span class="o">,</span><span class="w"> </span><span class="m">7</span><span class="o">,</span><span class="w"> </span><span class="m">5</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">}</span><span class="o">,</span><span class="w">
+                </span><span class="p">{</span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="o">,</span><span class="w"> </span><span class="m">5</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="p">}}</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">48</span><span class="o">;</span><span class="w">
+  </span><span class="nv">diffusionPositionJJN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">}</span><span class="o">;</span><span class="w">
+    
+  </span><span class="c">(* Atkinson algorithm constants *)</span><span class="w">
+    
+  </span><span class="nv">diffusionFormulaA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="p">}</span><span class="o">,</span><span class="w">
+                 </span><span class="p">{</span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="p">}</span><span class="o">,</span><span class="w">
+                 </span><span class="p">{</span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="p">}}</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="o">;</span><span class="w">
+  </span><span class="nv">diffusionPositionA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="p">}</span><span class="o">;</span><span class="w">
+  
+  </span><span class="c">(* Sierra algorithm constants *)</span><span class="w">
+    
+  </span><span class="nv">diffusionFormulaS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">5</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">}</span><span class="o">,</span><span class="w">
+                 </span><span class="p">{</span><span class="m">2</span><span class="o">,</span><span class="w"> </span><span class="m">4</span><span class="o">,</span><span class="w"> </span><span class="m">5</span><span class="o">,</span><span class="w"> </span><span class="m">4</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="p">}</span><span class="o">,</span><span class="w">
+                 </span><span class="p">{</span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="p">}}</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="o">;</span><span class="w">
+  </span><span class="nv">diffusionPositionS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">}</span><span class="o">;</span><span class="w">
+  
+  </span><span class="c">(* Sierra Lite algorithm constants*)</span><span class="w">
+    
+  </span><span class="nv">diffusionFormulaSL</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="p">{{</span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="p">}</span><span class="o">,</span><span class="w">
+                     </span><span class="p">{</span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="p">}}</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">4</span><span class="o">;</span><span class="w">
+  </span><span class="nv">diffusionPositionSL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="p">}</span><span class="o">;</span><span class="w">
+
+  </span><span class="nv">colorAvailable</span><span class="w"> </span><span class="o">=</span><span class="w"> 
+   </span><span class="nb">Round</span><span class="p">[</span><span class="nb">List</span><span class="w"> </span><span class="o">@@@</span><span class="w"> </span><span class="nb">ColorConvert</span><span class="p">[</span><span class="nb">DominantColors</span><span class="p">[</span><span class="nv">img</span><span class="o">,</span><span class="w"> </span><span class="nv">colorCount</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="s">"RGB"</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">255</span><span class="p">]</span><span class="o">;</span><span class="w">
+  </span><span class="nb">Switch</span><span class="p">[</span><span class="nv">algorithm</span><span class="o">,</span><span class="w">
+   </span><span class="s">"FloydSteinberg"</span><span class="o">,</span><span class="w"> 
+   </span><span class="nb">Image</span><span class="p">[</span><span class="w">
+       </span><span class="nv">applyDithering</span><span class="p">[</span><span class="nb">ImageData</span><span class="p">[</span><span class="nb">RemoveAlphaChannel</span><span class="p">[</span><span class="nv">img</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="s">"Byte"</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionFormulaFS</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionPositionFS</span><span class="o">,</span><span class="w"> </span><span class="nv">colorAvailable</span><span class="p">]</span><span class="o">,</span><span class="w">
+   </span><span class="s">"Byte"</span><span class="p">]</span><span class="o">,</span><span class="w">
+   </span><span class="s">"JarvisJudiceNinke"</span><span class="o">,</span><span class="w"> 
+   </span><span class="nb">Image</span><span class="p">[</span><span class="w">
+       </span><span class="nv">applyDithering</span><span class="p">[</span><span class="nb">ImageData</span><span class="p">[</span><span class="nb">RemoveAlphaChannel</span><span class="p">[</span><span class="nv">img</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="s">"Byte"</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionFormulaJJN</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionPositionJJN</span><span class="o">,</span><span class="w"> </span><span class="nv">colorAvailable</span><span class="p">]</span><span class="o">,</span><span class="w"> 
+   </span><span class="s">"Byte"</span><span class="p">]</span><span class="o">,</span><span class="w">
+   </span><span class="s">"Atkinson"</span><span class="o">,</span><span class="w"> 
+   </span><span class="nb">Image</span><span class="p">[</span><span class="w">
+       </span><span class="nv">applyDithering</span><span class="p">[</span><span class="nb">ImageData</span><span class="p">[</span><span class="nb">RemoveAlphaChannel</span><span class="p">[</span><span class="nv">img</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="s">"Byte"</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionFormulaA</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionPositionA</span><span class="o">,</span><span class="w"> </span><span class="nv">colorAvailable</span><span class="p">]</span><span class="o">,</span><span class="w">
+   </span><span class="s">"Byte"</span><span class="p">]</span><span class="o">,</span><span class="w">
+   </span><span class="s">"Sierra"</span><span class="o">,</span><span class="w"> 
+   </span><span class="nb">Image</span><span class="p">[</span><span class="w">
+       </span><span class="nv">applyDithering</span><span class="p">[</span><span class="nb">ImageData</span><span class="p">[</span><span class="nb">RemoveAlphaChannel</span><span class="p">[</span><span class="nv">img</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="s">"Byte"</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionFormulaS</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionPositionS</span><span class="o">,</span><span class="w"> </span><span class="nv">colorAvailable</span><span class="p">]</span><span class="o">,</span><span class="w">
+   </span><span class="s">"Byte"</span><span class="p">]</span><span class="o">,</span><span class="w">
+   </span><span class="s">"SierraLite"</span><span class="o">,</span><span class="w"> 
+   </span><span class="nb">Image</span><span class="p">[</span><span class="w">
+       </span><span class="nv">applyDithering</span><span class="p">[</span><span class="nb">ImageData</span><span class="p">[</span><span class="nb">RemoveAlphaChannel</span><span class="p">[</span><span class="nv">img</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="s">"Byte"</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionFormulaSL</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionPositionSL</span><span class="o">,</span><span class="w"> </span><span class="nv">colorAvailable</span><span class="p">]</span><span class="o">,</span><span class="w"> 
+   </span><span class="s">"Byte"</span><span class="p">]</span><span class="w">
+   </span><span class="p">]</span><span class="w">
+  </span><span class="p">]</span><span class="o">;</span><span class="w">
+
+</span><span class="c">(* This is the function that makes it easy to make your own dithering</span><span class="err">
+</span><span class="c">algorithm *)</span><span class="w">
+
+</span><span class="nv">Dither</span><span class="p">[</span><span class="nv">img</span><span class="o">_</span><span class="nb">Image</span><span class="o">,</span><span class="w"> </span><span class="nv">colorCount</span><span class="o">_</span><span class="nb">Integer</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionFormula</span><span class="o">_</span><span class="nb">List</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionPosition</span><span class="o">_</span><span class="nb">List</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="bp">Module</span><span class="p">[{}</span><span class="o">,</span><span class="w">
+    </span><span class="nv">colorAvailable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Round</span><span class="p">[</span><span class="nb">List</span><span class="w"> </span><span class="o">@@@</span><span class="w"> </span><span class="nb">ColorConvert</span><span class="p">[</span><span class="nb">DominantColors</span><span class="p">[</span><span class="nv">img</span><span class="o">,</span><span class="w"> </span><span class="nv">colorCount</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="s">"RGB"</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">255</span><span class="p">]</span><span class="o">;</span><span class="w">
+    </span><span class="nb">Image</span><span class="p">[</span><span class="w">
+        </span><span class="nv">applyDithering</span><span class="p">[</span><span class="nb">ImageData</span><span class="p">[</span><span class="nb">RemoveAlphaChannel</span><span class="p">[</span><span class="nv">img</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="s">"Byte"</span><span class="p">]</span><span class="o">,</span><span class="w">  </span><span class="nv">diffusionFormula</span><span class="o">,</span><span class="w"> </span><span class="nv">diffusionPosition</span><span class="o">,</span><span class="w"> </span><span class="nv">colorAvailable</span><span class="p">]</span><span class="o">,</span><span class="w"> 
+    </span><span class="s">"Byte"</span><span class="p">]</span><span class="w">
+   </span><span class="p">]</span><span class="o">;</span></code></pre></figure>
+
+<h1 id="classifying-images"><strong>Classifying images</strong></h1>
+
+<p>The second part of my project involves classifying dithered images and mapping them to the algorithm they were obtained from.</p>
+
+<p>This sounds like a relatively easy task for machine learning, but it turned out to be much harder. Besides, no similar research on image “metadata” has existed before, which made the task more rewarding.</p>
+
+<p>I ended up creating a model which has an <strong>accuracy of more than 90%</strong>, which is reasonably good for machine learning.</p>
+
+<p>If you are uninterested in the failures encountered and the details of the dataset used, please skip ahead to the section on “ResNet-50 with preprocessing”.</p>
+
+<h1 id="dataset">Dataset</h1>
+
+<p>To obtain data, I did a web search for images with a keyword chosen randomly from a dictionary of common words.</p>
+
+<p>The images obtained are then run through the five algorithms I implemented and is stored as the training data. This is to ensure that the images aren’t distinguished much in terms of their actual contents, since that would interfere with learning about the dithering algorithms used in the image.</p>
+
+<p>The images were allowed to use up to 24 colours which are auto-selected, as described in the section on “Color Palette”.</p>
+
+<p>Here is the code for downloading, applying the dithering, and re-storing the images. Note that it is not designed with re-usability in mind, these are just snippets coded at the speed of thought:</p>
+
+<figure class="highlight"><pre><code class="language-mathematica" data-lang="mathematica"><span class="c">(* This function scrapes random images from the internet and stores \</span><span class="err">
+</span><span class="c">them to my computer *)</span><span class="w">
+
+</span><span class="nv">getImages</span><span class="p">[</span><span class="nv">out</span><span class="o">_</span><span class="nb">Integer</span><span class="o">,</span><span class="w"> </span><span class="nv">folderTo</span><span class="o">_</span><span class="nb">String</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="bp">Module</span><span class="p">[{}</span><span class="o">,</span><span class="w">
+  </span><span class="nv">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span><span class="o">;</span><span class="w">
+  </span><span class="nb">Do</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="nb">Echo</span><span class="p">[</span><span class="nv">x</span><span class="p">]</span><span class="o">;</span><span class="w">
+   </span><span class="nv">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">RemoveAlphaChannel</span><span class="w"> </span><span class="o">/@</span><span class="w"> 
+     </span><span class="nb">Map</span><span class="p">[</span><span class="nb">ImageResize</span><span class="p">[</span><span class="nf">#</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="m">512</span><span class="o">,</span><span class="w"> </span><span class="m">512</span><span class="p">}]</span><span class="w"> </span><span class="o">&amp;,</span><span class="w"> 
+      </span><span class="nb">Select</span><span class="p">[</span><span class="nb">WebImageSearch</span><span class="p">[</span><span class="nb">RandomChoice</span><span class="p">[</span><span class="nb">WordList</span><span class="p">[</span><span class="s">"CommonWords"</span><span class="p">]]</span><span class="o">,</span><span class="w"> 
+        </span><span class="s">"Images"</span><span class="p">]</span><span class="o">,</span><span class="w">
+        </span><span class="nb">Min</span><span class="p">[</span><span class="nb">ImageDimensions</span><span class="p">[</span><span class="nf">#</span><span class="p">]]</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="m">512</span><span class="w"> </span><span class="o">&amp;</span><span class="p">]]</span><span class="o">;</span><span class="w">
+    </span><span class="nb">AppendTo</span><span class="p">[</span><span class="nv">res</span><span class="o">,</span><span class="w"> </span><span class="nb">Take</span><span class="p">[</span><span class="nb">RandomSample</span><span class="p">[</span><span class="nv">l</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="nb">Min</span><span class="p">[</span><span class="nb">Length</span><span class="p">[</span><span class="nv">l</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="m">2</span><span class="p">]]]</span><span class="o">;</span><span class="w">
+    </span><span class="nb">Pause</span><span class="p">[</span><span class="m">10</span><span class="p">]</span><span class="o">;,</span><span class="w">
+    </span><span class="p">{</span><span class="nv">x</span><span class="o">,</span><span class="w"> </span><span class="nv">out</span><span class="p">}</span><span class="w">
+   </span><span class="p">]</span><span class="o">;</span><span class="w">
+  </span><span class="nb">MapIndexed</span><span class="p">[</span><span class="nb">Export</span><span class="p">[</span><span class="w">
+     </span><span class="nb">StringJoin</span><span class="p">[</span><span class="nv">folderTo</span><span class="o">,</span><span class="w"> </span><span class="nb">ToString</span><span class="p">[</span><span class="m">97</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">#2</span><span class="p">[[</span><span class="m">1</span><span class="p">]]]</span><span class="o">,</span><span class="w">  </span><span class="s">"-"</span><span class="o">,</span><span class="w"> 
+      </span><span class="nb">ToString</span><span class="p">[</span><span class="nf">#2</span><span class="p">[[</span><span class="m">2</span><span class="p">]]]</span><span class="o">,</span><span class="w"> </span><span class="s">".png"</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="nf">#1</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;,</span><span class="w"> </span><span class="nv">res</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="m">2</span><span class="p">}]</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+
+</span><span class="c">(* This function applies the dithering and stores the image *)</span><span class="w">
+
+</span><span class="nv">applyAndStore</span><span class="p">[</span><span class="nv">folderFrom</span><span class="o">_</span><span class="nb">String</span><span class="o">,</span><span class="w"> </span><span class="nv">folderTo</span><span class="o">_</span><span class="nb">String</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="bp">Module</span><span class="p">[{}</span><span class="o">,</span><span class="w">
+    </span><span class="nv">images</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">FileNames</span><span class="p">[</span><span class="s">"*.png"</span><span class="o">,</span><span class="w"> </span><span class="nv">folderFrom</span><span class="p">]</span><span class="o">;</span><span class="w">
+    </span><span class="nv">origImages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Map</span><span class="p">[{</span><span class="nb">RemoveAlphaChannel</span><span class="p">[</span><span class="nb">Import</span><span class="p">[</span><span class="nf">#</span><span class="p">]]</span><span class="o">,</span><span class="w"> </span><span class="nf">#</span><span class="p">}</span><span class="w"> </span><span class="o">&amp;,</span><span class="w"> </span><span class="nv">images</span><span class="p">]</span><span class="o">;</span><span class="w">
+    </span><span class="nb">Map</span><span class="p">[</span><span class="nb">Export</span><span class="p">[</span><span class="nb">StringJoin</span><span class="p">[</span><span class="nv">folderTo</span><span class="o">,</span><span class="w"> </span><span class="nb">StringTake</span><span class="p">[</span><span class="nf">#</span><span class="p">[[</span><span class="m">2</span><span class="p">]]</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="m">66</span><span class="o">,</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="p">}]]</span><span class="o">,</span><span class="w"> 
+      </span><span class="nv">Dither</span><span class="p">[</span><span class="nf">#</span><span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="o">,</span><span class="w"> </span><span class="m">24</span><span class="o">,</span><span class="w"> </span><span class="s">"Sierra"</span><span class="p">]]</span><span class="w"> </span><span class="o">&amp;,</span><span class="w"> </span><span class="nv">origImages</span><span class="p">]</span><span class="w">
+   </span><span class="p">]</span><span class="o">;</span></code></pre></figure>
+
+<p>Here are some more variable definitions and metadata about the dataset that is referenced in the following sections.</p>
+
+<p><img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=ScreenShot2018-07-14at1.11.09AM.png&amp;userId=1371661" alt="dataset metadata" /></p>
+
+<h1 id="plain-resnet-50">Plain ResNet-50</h1>
+
+<p>My first attempt was to use a popular neural net named “ResNet-50 Trained on ImageNet Competition Data,<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">5</a></sup> and retrain it on my training data.
+One of the major reasons for choosing this architecture was that it identifies the main object in an image very accurately, and is quite deep. Both these properties seemed very suitable for my use case.</p>
+
+<p>However, the results turned out to be very poor. When I noticed this during the training session, I stopped the process early on. It can be speculated that the poor results were because it was trying to infer relations between the colours in the image.</p>
+
+<h1 id="border-classification">Border classification</h1>
+
+<p>Since the borders in an image are least affected by the image dithering algorithm, and simply rounded to the closest colours, it should be easier to learn the constants of the diffusionFormula from it.</p>
+
+<p>Therefore, we can pre-process an image and only use its border pixels for classification.</p>
+
+<h2 id="bordernet">borderNet</h2>
+
+<p>Observing the aforementioned fact, I implemented a neural net which tried to work with just the borders of the image. This decreased the size of the data to \(512 \cdot 4\) per image.</p>
+
+<h2 id="bordernet-with-just-left-and-top-border">borderNet with just left and top border</h2>
+
+<p>Since my implementation of the dithering algorithms starts by applying the algorithm from the top-left corner, the pattern in the left and top borders should be even easier for the net to learn. However, this decreased the size of the data even more to \(512 \cdot 2\) per image.</p>
+
+<p>Both the nets failed to work very well, and had <strong>accuracies of around 20%</strong>. This was probably the case because of the lack of data for the net to actually train well enough.</p>
+
+<p>Wolfram code for the net follows:</p>
+
+<figure class="highlight"><pre><code class="language-mathematica" data-lang="mathematica"><span class="nv">borderNet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NetChain</span><span class="p">[{</span><span class="w">
+   </span><span class="nb">LongShortTermMemoryLayer</span><span class="p">[</span><span class="m">100</span><span class="p">]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">SequenceLastLayer</span><span class="p">[]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">DropoutLayer</span><span class="p">[</span><span class="m">0.3</span><span class="p">]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">LinearLayer</span><span class="p">[</span><span class="nb">Length</span><span class="o">@</span><span class="nv">classes</span><span class="p">]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">SoftmaxLayer</span><span class="p">[]</span><span class="w">
+   </span><span class="p">}</span><span class="o">,</span><span class="w">
+  </span><span class="s">"Input"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="s">"Varying"</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">}</span><span class="o">,</span><span class="w">
+  </span><span class="s">"Output"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">NetDecoder</span><span class="p">[{</span><span class="s">"Class"</span><span class="o">,</span><span class="w"> </span><span class="nv">classes</span><span class="p">}]</span><span class="w">
+  </span><span class="p">]</span></code></pre></figure>
+
+<h1 id="row-and-column-specific-classification">Row and column specific classification</h1>
+
+<p>The aim with this approach was to first make the neural net infer patterns in the columns of the image, then combine that information and observe patterns in the rows of the image.</p>
+
+<p>This didn’t work very well either. The major reason for the failure was probably that the diffusion is not really as independent as the net might assume it to be.</p>
+
+<h1 id="row-and-column-combined-classification">Row and column combined classification</h1>
+
+<p>Building on the results of Section 2.5, the right method to do the processing seemed to be to use two separate chains, and a <code class="language-plaintext highlighter-rouge">CatenateLayer</code> to combine the results.
+For understanding the architecture, observe the <code class="language-plaintext highlighter-rouge">NetGraph</code> object below:
+<img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=ScreenShot2018-07-14at1.21.55AM.png&amp;userId=1371661" alt="netgraph-lstmNet branchy thingy" /></p>
+
+<p>The Wolfram language code for the net is as follows:</p>
+
+<figure class="highlight"><pre><code class="language-mathematica" data-lang="mathematica"><span class="nv">lstmNet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NetGraph</span><span class="p">[{</span><span class="w">
+   </span><span class="nb">TransposeLayer</span><span class="p">[</span><span class="m">1</span><span class="w"> </span><span class="o">&lt;-&gt;</span><span class="w"> </span><span class="m">2</span><span class="p">]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">NetMapOperator</span><span class="p">[</span><span class="w">
+    </span><span class="nb">NetBidirectionalOperator</span><span class="p">[</span><span class="nb">LongShortTermMemoryLayer</span><span class="p">[</span><span class="m">25</span><span class="p">]</span><span class="o">,</span><span class="w"> 
+     </span><span class="s">"Input"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="m">512</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">}]</span><span class="o">,</span><span class="w"> </span><span class="s">"Input"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="m">512</span><span class="o">,</span><span class="w"> </span><span class="m">512</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">}]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">NetMapOperator</span><span class="p">[</span><span class="w">
+    </span><span class="nb">NetBidirectionalOperator</span><span class="p">[</span><span class="nb">LongShortTermMemoryLayer</span><span class="p">[</span><span class="m">25</span><span class="p">]</span><span class="o">,</span><span class="w"> 
+     </span><span class="s">"Input"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="m">512</span><span class="o">,</span><span class="w"> </span><span class="m">50</span><span class="p">}]</span><span class="o">,</span><span class="w"> </span><span class="s">"Input"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="m">512</span><span class="o">,</span><span class="w"> </span><span class="m">512</span><span class="o">,</span><span class="w"> </span><span class="m">50</span><span class="p">}]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">NetMapOperator</span><span class="p">[</span><span class="w">
+    </span><span class="nb">NetBidirectionalOperator</span><span class="p">[</span><span class="nb">LongShortTermMemoryLayer</span><span class="p">[</span><span class="m">25</span><span class="p">]</span><span class="o">,</span><span class="w"> 
+     </span><span class="s">"Input"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="m">512</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">}]</span><span class="o">,</span><span class="w"> </span><span class="s">"Input"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="m">512</span><span class="o">,</span><span class="w"> </span><span class="m">512</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">}]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">NetMapOperator</span><span class="p">[</span><span class="w">
+    </span><span class="nb">NetBidirectionalOperator</span><span class="p">[</span><span class="nb">LongShortTermMemoryLayer</span><span class="p">[</span><span class="m">25</span><span class="p">]</span><span class="o">,</span><span class="w"> 
+     </span><span class="s">"Input"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="m">512</span><span class="o">,</span><span class="w"> </span><span class="m">50</span><span class="p">}]</span><span class="o">,</span><span class="w"> </span><span class="s">"Input"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="m">512</span><span class="o">,</span><span class="w"> </span><span class="m">512</span><span class="o">,</span><span class="w"> </span><span class="m">50</span><span class="p">}]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">TransposeLayer</span><span class="p">[</span><span class="m">1</span><span class="w"> </span><span class="o">&lt;-&gt;</span><span class="w"> </span><span class="m">2</span><span class="p">]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">SequenceLastLayer</span><span class="p">[]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">SequenceLastLayer</span><span class="p">[]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">LongShortTermMemoryLayer</span><span class="p">[</span><span class="m">25</span><span class="p">]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">LongShortTermMemoryLayer</span><span class="p">[</span><span class="m">25</span><span class="p">]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">SequenceLastLayer</span><span class="p">[]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">SequenceLastLayer</span><span class="p">[]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">CatenateLayer</span><span class="p">[]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">DropoutLayer</span><span class="p">[</span><span class="m">0.3</span><span class="p">]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">LinearLayer</span><span class="p">[</span><span class="nb">Length</span><span class="o">@</span><span class="nv">classes</span><span class="p">]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">SoftmaxLayer</span><span class="p">[]</span><span class="w">
+   </span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="w">
+   </span><span class="nb">NetPort</span><span class="p">[</span><span class="s">"Input"</span><span class="p">]</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="m">7</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="m">9</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="m">11</span><span class="o">,</span><span class="w">
+   </span><span class="nb">NetPort</span><span class="p">[</span><span class="s">"Input"</span><span class="p">]</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="m">12</span><span class="o">,</span><span class="w">
+   </span><span class="p">{</span><span class="m">11</span><span class="o">,</span><span class="w"> </span><span class="m">12</span><span class="p">}</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="m">16</span><span class="w">
+   </span><span class="p">}</span><span class="o">,</span><span class="w">
+  </span><span class="s">"Input"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="m">512</span><span class="o">,</span><span class="w"> </span><span class="m">512</span><span class="o">,</span><span class="w"> </span><span class="m">3</span><span class="p">}</span><span class="o">,</span><span class="w">
+  </span><span class="s">"Output"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">NetDecoder</span><span class="p">[{</span><span class="s">"Class"</span><span class="o">,</span><span class="w"> </span><span class="nv">classes</span><span class="p">}]</span><span class="w">
+  </span><span class="p">]</span><span class="o">;</span></code></pre></figure>
+
+<p>However, this net didn’t work very well either.</p>
+
+<p>The net had a somewhat unconventional architecture, and the excessive parameter count crashed the Wolfram kernel, so they had to be cut down.
+Ultimately, it only managed to get an <strong>accuracy rate of around 25-30%</strong>.</p>
+
+<h1 id="resnet-50-with-preprocessing">ResNet-50 with preprocessing</h1>
+
+<p>The final idea was to use pre-processing to our advantage. Dithering, in its essence, shifts the error downward and towards the right. Therefore, one way to filter the image would be to pad the image with one row of pixels at the top and one column at the left, and subtracting the padded image from the original one.</p>
+
+<p>Here’s an example of what that looks like:
+<img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=ScreenShot2018-07-14at1.24.56AM.png&amp;userId=1371661" alt="FS image preprocessing for net" /></p>
+
+<p>The code for doing this to an image is as simple as:</p>
+
+<figure class="highlight"><pre><code class="language-mathematica" data-lang="mathematica"><span class="nv">img</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">ImageTake</span><span class="p">[</span><span class="nb">ImagePad</span><span class="p">[</span><span class="nv">img</span><span class="o">,</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">512</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="m">512</span><span class="p">}]</span></code></pre></figure>
+
+<p><em>Notice how the image(right side, after processing) resembles the parts with the “checkerboard” pattern described in the section “How does one come up with these weird constants?” under “Floyd - Steinberg Dithering” .</em></p>
+
+<p>The main reason this net works well is that, even with same color palettes, the gradient of the images coming from dithering algorithms is quite different. This is because of the differences in the error diffusion, and by subtracting the padded image from the original image, we obtain a filtered version of the dithering patterns, making it easy for the neural net to spot them.</p>
+
+<p>The net was trained on AWS for more than 7 hours, on a larger dataset of 1500 images.</p>
+
+<p>The results outperformed my expectations, and on a test-set of more than 700 images, 300 of which were part of the original training data, it showed an <strong>accuracy rate of nearly 91%</strong>.</p>
+
+<p><img src="http://community.wolfram.com//c/portal/getImageAttachment?filename=ScreenShot2018-07-14at1.28.45AM.png&amp;userId=1371661" alt="classifier measurement object" /></p>
+
+<p>Here is a code of the net with details:</p>
+
+<figure class="highlight"><pre><code class="language-mathematica" data-lang="mathematica"><span class="nv">baseModel</span><span class="w"> </span><span class="o">=</span><span class="w"> 
+ </span><span class="nb">NetTake</span><span class="p">[</span><span class="nb">NetModel</span><span class="p">[</span><span class="s">"ResNet-50 Trained on ImageNet Competition Data"</span><span class="o">,</span><span class="w"> 
+   </span><span class="s">"UninitializedEvaluationNet"</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="m">23</span><span class="p">]</span><span class="w">
+
+</span><span class="nv">net</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NetChain</span><span class="p">[{</span><span class="w">
+   </span><span class="nb">NetReplacePart</span><span class="p">[</span><span class="nv">baseModel</span><span class="o">,</span><span class="w">
+    </span><span class="s">"Input"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">NetEncoder</span><span class="p">[{</span><span class="s">"Image"</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="m">512</span><span class="o">,</span><span class="w"> </span><span class="m">512</span><span class="p">}}]]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">LinearLayer</span><span class="p">[</span><span class="nb">Length</span><span class="o">@</span><span class="nv">classes</span><span class="p">]</span><span class="o">,</span><span class="w">
+   </span><span class="nb">SoftmaxLayer</span><span class="p">[]}</span><span class="o">,</span><span class="w">
+  </span><span class="s">"Input"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">NetEncoder</span><span class="p">[{</span><span class="s">"Image"</span><span class="o">,</span><span class="w"> </span><span class="p">{</span><span class="m">512</span><span class="o">,</span><span class="w"> </span><span class="m">512</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="nb">ColorSpace</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">"RGB"</span><span class="p">}]</span><span class="o">,</span><span class="w">
+  </span><span class="s">"Output"</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">NetDecoder</span><span class="p">[{</span><span class="s">"Class"</span><span class="o">,</span><span class="w"> </span><span class="nv">classes</span><span class="p">}]</span><span class="w">
+  </span><span class="p">]</span></code></pre></figure>
+
+<p>So, it’s just the <strong>ResNet - 50</strong> modified to work with \(512 \cdot 512\) images.</p>
+
+<h1 id="future-work">Future Work</h1>
+
+<ul>
+  <li>
+    <p>Look into using machine learning for un-dithering an image.</p>
+  </li>
+  <li>
+    <p>Look into creating new dithering algorithms that perform faster or better than the existing ones.</p>
+  </li>
+</ul>
+
+<h1 id="notes">Notes</h1>
+
+<p>All images and visualisations in this post were generated in Wolfram. Their code may be seen in the computational essay attached below.</p>
+
+<p>I would like to thank all the mentors, especially Greg “Chip” Hurst, Michael Kaminsky, Christian Pasquel and Matteo Salvarezza, for their help throughout the project.</p>
+
+<p>Further, I would like to thank Pyokyeong Son and Colin Weller for their help during the project, and refining the essay.</p>
+
+<p>The original, high resolution copies of the images are credited to <a href="https://unsplash.com/photos/zNN6ubHmruI?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Robert Lukeman</a>, <a href="https://unsplash.com/photos/_4Ib-a8g9aA?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Teddy Kelley</a>, and <a href="https://unsplash.com/photos/CoD2Q92UaEg?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Sebastian Unrau</a> on <a href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a>.</p>
+
+<h1 id="link-to-my-computational-essay"><a href="https://www.dropbox.com/s/kmtzq6x4xkdn9y8/computational-essay.cdf?dl=0">Link to my computational essay</a></h1>
+
+<h1 id="references">References</h1>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>R.W. Floyd, L. Steinberg, An adaptive algorithm for spatial grey scale. Proceedings of the Society of Information Display 17, 75-77 (1976). <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>Bill Atkinson, private correspondence with John Balestrieri, January 2003 (unpublished) <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p>J. F. Jarvis, C. N. Judice and W. H. Ninke, A Survey of Techniques for the Display of Continuous Tone Pictures on Bi-level Displays. Computer Graphics and Image Processing, 5 13-40, 1976 <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:4" role="doc-endnote">
+      <p>Frankie Sierra, in LIB 17 (Developer’s Den), CIS Graphics Support Forum (unpublished) <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:5" role="doc-endnote">
+      <p>K. He, X. Zhang, S. Ren, J. Sun, “Deep Residual Learning for Image Recognition,” arXiv:1512.03385 (2015) <a href="#fnref:5" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+  <div class="pagenav">
+    <h3 class="c-pagenav__head">More?</h3>
+    <iframe src="https://nibnalin.substack.com/embed" width="100%" height="200" style="background:$c-accent__purple;" frameborder="0" scrolling="no"></iframe>
+  </div>
+</article>
+
+  </div>
+  <footer class="c-page__footer">
+  <p>Nalin Bhardwaj</p>
+  <p><a href="https://twitter.com/nibnalin">Twitter</a><span class="u-separate"></span><a href="mailto:dustnib@nibnalin.me">Email</a></p>
+</footer>
+
+</div>
+
+    </main>
+    
+  </body>
+</html>
