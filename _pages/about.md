@@ -17,7 +17,8 @@ I don't know who I want to be when I grow up. Eternally looking for an answer.
 - [Email](mailto:nalinbhardwaj@nibnalin.me) for 👋
 - [GitHub](//www.github.com/nalinbhardwaj) for 💻
 - [Twitter](//www.twitter.com/nibnalin) for 🐦
-- [Instagram](//www.instagram.com/nibnalin) for 📸
-- [Facebook](//www.facebook.com/nibnalin) for 🐻
+- [Instagram](//www.instagram.com/nibnalin) for 🐻
+- [LinkedIn](//www.linkedin.com/in/nibnalin) for 💼
+- [Google Scholar](//scholar.google.com/citations?user=IDC-kXQAAAAJ) for 🧐
 
 <iframe src="https://nibnalin.substack.com/embed" width="100%" height="200" style="background:$c-accent__purple;" frameborder="0" scrolling="no"></iframe>
