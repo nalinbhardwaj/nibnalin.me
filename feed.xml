@@ -6,9 +6,513 @@
 </description>
     <link>https://nibnalin.me/</link>
     <atom:link href="https://nibnalin.me/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 08 Aug 2021 01:37:07 +0000</pubDate>
-    <lastBuildDate>Sun, 08 Aug 2021 01:37:07 +0000</lastBuildDate>
+    <pubDate>Wed, 15 Sep 2021 19:20:50 +0000</pubDate>
+    <lastBuildDate>Wed, 15 Sep 2021 19:20:50 +0000</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>Duolingo: The antithesis to the bazaar</title>
+        <description>&lt;p&gt;Twitter. Uber. Tinder. Spotify. Coursera. These seemingly unrelated companies all share one common feature: they exist as a layer on top of a marketplace. Their bets are deeply and inherently tied to the dimensions of the underlying marketplaces, whether it’s content for reddit, sex for tinder or ride-hailing for Uber&lt;sup id=&quot;fnref:4&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:4&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. About 90% of successful “tech” companies are a layer on a marketplace, and the ed-tech category (with its multitudes of marketplaces like Coursera, MasterClass, EdX, and Udemy) is no exception.&lt;sup id=&quot;fnref:5&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:5&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;div&gt;
+&lt;img align=&quot;right&quot; src=&quot;../assets/duolingo/icon.png&quot; width=&quot;25%&quot; style=&quot;margin-top: 10px;&quot; /&gt;
+
+&lt;span style=&quot;&quot;&gt;
+In this bazaar of shopfronts, one company does something interestingly unique: Duolingo. They generate their own content, they define their own platform and they are responsible for their own growth/marketing end-to-end (and they have the cutest mascot ever :]) owning the learner experience end to end. In this post, I'll summarise their S-1, selecting the things I find most interesting and adding some context and commentary to their facts.
+&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;contents&quot;&gt;Contents&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#mission-education&quot;&gt;Mission Education&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#product&quot;&gt;Product&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#how-to-think&quot;&gt;How to think&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#how-to-execute&quot;&gt;How to execute&lt;/a&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#bets&quot;&gt;Bets&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#acts&quot;&gt;Acts&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#the-lesson-beats&quot;&gt;The lesson beats&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#the-game-beats&quot;&gt;The game beats&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#the-cinematic-universe-beats&quot;&gt;The cinematic universe beats&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#the-side-story-beats&quot;&gt;The side story beats&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#backstage&quot;&gt;Backstage&lt;/a&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;#machine-learning&quot;&gt;Machine learning&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#data-analytics&quot;&gt;Data Analytics&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;#sales-and-marketing&quot;&gt;Sales and marketing&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#climax&quot;&gt;Climax&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#growth-numbers--all-that-jazz&quot;&gt;Growth, numbers &amp;amp; all that jazz&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#key-operating-metrics&quot;&gt;Key Operating Metrics&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#monetisation&quot;&gt;Monetisation&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#monetisation-in-2020--covid-19&quot;&gt;Monetisation in 2020 &amp;amp; COVID-19&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#future-strategy&quot;&gt;Future Strategy&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#systems&quot;&gt;Systems&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#eng--product&quot;&gt;Eng &amp;amp; Product&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#expenses&quot;&gt;Expenses&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#footnotes&quot;&gt;Footnotes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;mission-education&quot;&gt;Mission Education&lt;/h1&gt;
+
+&lt;p&gt;Let’s start by looking at Duolingo’s mission statement, in their words:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Duolingo believes that everyone, regardless of how wealthy they are, should have access to high quality education. And for the first time in history, the technology necessary to enable this is in the hands of billions of people, in the form of a smartphone. At Duolingo, we build products native to the smartphone—bite-sized, on-demand and engaging — to make learning accessible and effective, opening doors for everyone alike.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Note the interesting prioritization in their mission, while their mobile-first commitment is the centerpiece, language education is not something they choose to fixate on in particular.&lt;/p&gt;
+
+&lt;p&gt;The founders’ noble motivations and tech-driven problem solving approach seem quite natural if we consider their personal backgrounds:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Luis and Severin met at Carnegie Mellon University, where Luis was a professor in the Computer Science Department and Severin was his Ph.D. student. Luis, a MacArthur Fellow, grew up in Guatemala and witnessed firsthand the tremendous impact that access to high quality education can have on people’s lives.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Fun fact: Luis von Ahn was also a co-founder at &lt;a href=&quot;https://en.wikipedia.org/wiki/ReCAPTCHA&quot;&gt;reCAPTCHA&lt;/a&gt; with his own doctoral advisor, &lt;a href=&quot;https://en.wikipedia.org/wiki/Manuel_Blum&quot;&gt;Manuel Blum&lt;/a&gt; a few years earlier. Seems like he never had to choose between theoretical academia research and industry startups, after all, scraping the best of both worlds between CMU, reCAPTCHA, and Duolingo.&lt;/p&gt;
+
+&lt;p&gt;Duolingo has managed to distinguish their product so much from their competitors that while Masterclass and Coursera might have synonymous mission statements to that of Duolingo, Duolingo doesn’t even care to name them competitors in their S-1. Funnily enough, the only competitor they directly mention in their “Risk Factors” is Apple:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;…in 2020, Apple released “Translate,” an iOS translation app developed by Apple for iOS devices, to translate text sentences or speech between several languages.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Perhaps, that’s what happens when you make your product so unique compared to others in your segment: Duolingo has carved a small monopoly for itself in the niche of auto-generated content when everyone else in the ed-tech industry was busy fighting the perfect competition of marketplaces. &lt;a href=&quot;https://youtu.be/3Fx5Q8xGU8k&quot;&gt;Competition is for Losers&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;product&quot;&gt;Product&lt;/h1&gt;
+
+&lt;h2 id=&quot;how-to-think&quot;&gt;How to think&lt;/h2&gt;
+
+&lt;p&gt;Duolingo considers their product with respect to two interesting “flywheel” effects:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The learning flywheel: The greater the scale of our learner base, the more we can use insights from data analytics to improve both engagement and efficacy.&lt;/li&gt;
+  &lt;li&gt;The investment flywheel: Our learner scale and word-of-mouth growth allow us to focus our capital investments on product innovation and data analytics, as opposed to brand or performance marketing.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/duolingo/flywheel.png&quot; alt=&quot;Flywheels&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Their way of thinking relies on growth being a natural side effect of an extremely great product, and while product-led growth is not a natural assumption for all startups, it’s certainly the most rewarding model of growth if you can make it work.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-execute&quot;&gt;How to execute&lt;/h2&gt;
+
+&lt;h3 id=&quot;bets&quot;&gt;Bets&lt;/h3&gt;
+
+&lt;p&gt;Every product must select some large overcasting “bets” about the world their product will live in. If building a great product is an exercise in predicting the future, these bets are the tools we employ to pull the future into the present. Duolingo’s biggest bets, as they describe, are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;A mobile-first world&lt;/strong&gt;: Consumers are increasingly gravitating to mobile, app-based experiences, and Duolingo aims to own the mobile experience from the get-go.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Fun, effective, free&lt;/strong&gt;: Education in future will feel more like games than lessons. Education industry has historically lagged behind other industries, and Duolingo will exploit this to establish their moat: They will use high quality storytelling and strong gamification features to make free game-like educational apps, and use strong technical data analytics and personalization to make their lessons extremely effective.&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Now that we’ve established the basis for the story Duolingo is writing, let’s look at their screenplay itself: the product they’ve executed thus far.&lt;/p&gt;
+
+&lt;h3 id=&quot;acts&quot;&gt;Acts&lt;/h3&gt;
+
+&lt;p&gt;There are many dimensions (acts) to any product (screenplay), so let’s break down the beats of Duolingo’s product on all these dimensions (acts) independently:&lt;/p&gt;
+
+&lt;h4 id=&quot;the-lesson-beats&quot;&gt;The lesson beats&lt;/h4&gt;
+
+&lt;p&gt;They use 4 beats to enunciate their lessons: skills, levels, lessons, and tips&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/duolingo/lesson-beats.png&quot; alt=&quot;Lesson Beats&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Each &lt;strong&gt;Skill&lt;/strong&gt; introduces new vocabulary, grammar concepts, and linguistic constructs.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Each Skill is divided into five &lt;strong&gt;Levels&lt;/strong&gt;, and each Level provides learners practice on the same content, but with progressively more challenging exercises.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Each Level consists of a number of engaging, bite-sized &lt;strong&gt;Lessons&lt;/strong&gt; that implicitly teach the vocabulary and linguistic concepts associated with that Skill.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Tips&lt;/strong&gt; are short text explanations designed to explicitly teach the concepts that might be hard to grasp when introduced implicitly in Lessons.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;the-game-beats&quot;&gt;The game beats&lt;/h4&gt;
+
+&lt;p&gt;They gamify their product using many different mechanisms traditionally seen in video games: experience points, streaks, collectibles, and leaderboards. They break down their gamification features as follows:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/duolingo/game-beats-1.png&quot; alt=&quot;Game beats&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/duolingo/game-beats-2.png&quot; alt=&quot;Game beats&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;XP&lt;/strong&gt;: Learners earn Experience Points, or “XP,” for completing learning activities in Duolingo.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Streaks&lt;/strong&gt;: A streak represents the number of days in a row that a learner has used Duolingo, and appears as a flame icon in the app.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Crowns&lt;/strong&gt;: Learners collect crowns upon completion of a Level of a Skill. Accumulating a certain number of crowns unlocks additional features.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Gems&lt;/strong&gt;: Gems are the Duolingo virtual currency, which rewards learners for accomplishments like leveling up a Skill. This currency allows learners to buy virtual items from our “Shop”.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Leaderboards&lt;/strong&gt;: Leaderboards are weekly cohorts of 30 learners who compete to earn the most XP. Leaderboards are organized into Leagues based on the volume of XP earned, starting with the Bronze league, and ending with the Diamond league for the highest XP earners. Each week, the top 10 learners in each Leaderboard advance to the next League. Learners can track their Leaderboard progress daily and are motivated to accumulate XP to earn a place in the top 10.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Hearts&lt;/strong&gt;: Hearts ensure that learners are mastering content as they progress through a course. Learners start each day with five Hearts, and then lose a heart for each exercise completed incorrectly.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;the-cinematic-universe-beats&quot;&gt;The cinematic universe beats&lt;/h4&gt;
+
+&lt;p&gt;Reacting to the original memes and fan art about their adorable owl mascot Duo, Duolingo picked up on the idea of using &lt;strong&gt;storytelling&lt;/strong&gt; as a brand recognition moat. This is a unique marketing strategy, and as they explain, it seems to work very well:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;In 2019, we introduced an additional cast of characters to the app, each with their own personality and backstory. Our iconic characters now feature prominently in our Lessons and Stories, cheering learners on as they progress. Already, our characters are regularly the subject of “fan art” created by Duolingo learners and shared on social media. We believe that recognizable characters and character-driven storytelling increase learner engagement and stickiness.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/duolingo/cinematic-universe.png&quot; alt=&quot;The Duolingo Cinematic Universe&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;the-side-story-beats&quot;&gt;The side story beats&lt;/h4&gt;
+
+&lt;p&gt;Like most companies, they have a few other side projects that seem like promising bets/surface areas they are still exploring:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Stories&lt;/strong&gt;: Stories are short, engaging dialogues presented with both text and audio that expose learners to conversational language and support practice of both reading and listening comprehension.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/duolingo/stories.png&quot; alt=&quot;Stories&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Audio lessons&lt;/strong&gt;: Audio-only lessons allow learners to spend focused time developing listening comprehension skills and practicing speaking.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Duolingo ABC&lt;/strong&gt;: an app for young children that teaches early literacy skills, which won the 2020 Time Magazine “Best New Product” award.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;…we also offer a diverse set of experiences to build language proficiency outside of the app, such as our podcasts. The &lt;strong&gt;Duolingo Spanish podcast&lt;/strong&gt; is consistently among the top five education podcasts in the US on the Apple Podcast platform.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;None of these seem significant enough (yet!) to impact their bottom line significantly. Nonetheless, these are interesting ideas that could work very well in an alternate world or some context Duolingo hasn’t yet dipped into. I’ll leave this task as an exercise to the reader with the reward for the right solutions being the spawn point for another billion-dollar company. 🐶&lt;/p&gt;
+
+&lt;h3 id=&quot;backstage&quot;&gt;Backstage&lt;/h3&gt;
+
+&lt;p&gt;To complete the trifecta of making Duolingo “fun, effective and free”, let’s now look at how Duolingo makes learning &lt;strong&gt;effective&lt;/strong&gt; using machine learning and data analytics.&lt;/p&gt;
+
+&lt;h4 id=&quot;machine-learning&quot;&gt;Machine learning&lt;/h4&gt;
+
+&lt;p&gt;Duolingo seems to have taken everything human teachers are good at, productized it into discrete buckets, and use AI for all these interaction surfaces to personalize and optimize lesson flows. Here’s a couple of production examples they cite:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;…our “student model,” called &lt;strong&gt;BirdBrain&lt;/strong&gt;, which evaluates every learner’s answer to every exercise every day and learns to predict the probability that any learner will answer any given exercise correctly. We use BirdBrain predictions to adaptively construct lessons where each exercise is “just right” in terms of difficulty for each learner.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;…our &lt;strong&gt;Smart Tips&lt;/strong&gt; system, which uses an AI model to classify common learner mistakes and then briefly interrupts lessons with a relevant “just in time” grammar explanation when needed. Instead of asking learners to repeatedly read through conjugation tables, we accurately classify their mistakes and surface a grammar rule when it is most useful and engaging—right after they make a mistake.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;data-analytics&quot;&gt;Data Analytics&lt;/h4&gt;
+
+&lt;p&gt;Duolingo appears to be constantly running tons of A/B tests to improve their lesson engagement and effectiveness, “Data from over 2.3 billion tracking events, broken down into about 1,500 unique event types, generated every day by our learners informs the 500+ A/B tests we run every quarter”. It’s impressive that Duolingo pulls off so many A/B tests cleanly and still sees a net high ROI compared to sales and marketing (which they evaluate as having a lower impact) at their maturity stage.&lt;/p&gt;
+
+&lt;p&gt;When I hear of products running so many A/B tests, I often feel pessimistic about the company and their vision (or lack thereof) since A/B tests can often be a substitute for product vision — serving as an amortization of risk over conviction. But it becomes hard to complain about these things in the context of an S-1 document filed by the company itself to convince the market to buy their stock.&lt;/p&gt;
+
+&lt;h4 id=&quot;sales-and-marketing&quot;&gt;Sales and marketing&lt;/h4&gt;
+
+&lt;p&gt;While sales and marketing is certainly not the primary bread-winner for Duolingo (as they repeatedly make it clear), it’s worth noting their strategic position on it in the different campaigns they’ve run previously:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Brand campaigns&lt;/strong&gt;: For example, in December 2020, we launched our New Year’s 2021 campaign, our largest ad campaign to date, delivering a unified brand message across multiple international markets that resulted in an increase in aided brand awareness of 6% in the United States, 3% in the United Kingdom, and 3% in Mexico.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Owned media marketing&lt;/strong&gt;: We send our learners personalized emails and push notifications that provide progress reports, lesson reminders, and sometimes a simple message of positivity to encourage them to remain engaged.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Paid acquisition&lt;/strong&gt;: Our paid acquisition strategy is focused on targeting high quality user segments that are more likely to subscribe and on investing in new markets to kickstart our organic growth&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Geographic expansion&lt;/strong&gt;: we hire experienced local marketing managers and engage in localized social media and influencer-led campaigns, app store optimization, and paid advertising to generate interest in our products and drive new learner growth.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;climax&quot;&gt;Climax&lt;/h3&gt;
+&lt;p&gt;While I’ll write more about their general success and the impressive retention/growth they’ve seen in a &lt;a href=&quot;#growth-numbers--all-that-jazz&quot;&gt;later section&lt;/a&gt;, I’ll quickly make a note about the successfulness of some of the individual &lt;a href=&quot;#acts&quot;&gt;Acts&lt;/a&gt; they mention in their S-1:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Launching Leaderboards, which encourage both social connectivity and competition, increased the overall average time spent learning on Duolingo by almost 20%.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Over 50% of our daily active users have a Streak longer than seven days. And approximately one million learners have an active Streak longer than 365 days, meaning they have used Duolingo daily for at least one year.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;One million users (~2.5% MAUs) using an educational app every day for a straight year is nuts! Goes to show they’ve built a product a lot of people love deeply.&lt;/p&gt;
+
+&lt;p&gt;On optimization via A/B testing:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Through A/B testing, we have increased the fraction of learners who came back one day after starting Duolingo from 12% when we first launched in 2012, to over 40% today. A/B tests also provide us with the data to make decisions that positively impact paid subscriber conversion.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This visual depiction of how Duolingo thinks of their funnel is also very informative of their company strategy (besides being a good indicator of their potential vs. realized energy):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/duolingo/funnel.png&quot; alt=&quot;Funnel&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;More on monetisation to follow in the &lt;a href=&quot;#monetisation&quot;&gt;Monetisation&lt;/a&gt; section.&lt;/p&gt;
+
+&lt;h1 id=&quot;growth-numbers--all-that-jazz&quot;&gt;Growth, numbers &amp;amp; all that jazz&lt;/h1&gt;
+
+&lt;p&gt;The numbers Duolingo shares in their S-1 tell a beautiful story. They have built a product their users love deeply, and their retention metrics reflect this love. But the more remarkable discovery in these numbers is about growth, not retention. Despite having no &lt;strong&gt;natural&lt;/strong&gt; growth loop on the surface, their product seems to have explosive growth.&lt;/p&gt;
+
+&lt;p&gt;They don’t plaster the app with screens asking you to invite friends, nor do they use shady buttons that send invites on your behalf (looking at you, every “social” platform ever) and they don’t rely on paid advertising and other sales-and-marketingy strategies (MasterClass and Udemy seem to rely on this heavily) to acquire users en-masse. So, how do they have such explosive growth? Most of their users come from word-of-mouth referrals. My theory for why word-of-mouth works so well for them is the so-called property of &lt;a href=&quot;https://twitter.com/eshear/status/1402449655208632321&quot;&gt;intrinsic virality&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Learning a language is an intrinsically social activity. The only way to get good at communicating in a new language is to… well, communicate with others using it. Unlike a regular classroom where you’re surrounded by other students learning the same language as yourself, you are learning “alone” on Duolingo. What seems like a strict negative for Duolingo is actually a surprising positive since it silently forces this natural growth loop: You have to use your Duolingo education with friends/family outside the app, and that’s perhaps the best kind of word-of-mouth plug any product could ever hope to generate.&lt;/p&gt;
+
+&lt;p&gt;Duolingo has managed to build something monumental. Besides being the best-in-class language education platform with over 500 million downloads and the top-grossing education app on iOS and Android, their app has outsized socio-cultural impact invisible in the soup of numbers. Model this: “There are more people in the United States learning languages on Duolingo than there are foreign language learners in all US high schools combined, and there are more people learning certain languages on Duolingo, like Irish and Hawaiian, than there are native speakers of those languages worldwide.” and further, “almost 80% of Duolingo users in the US were not already learning a language when they began using Duolingo.”&lt;/p&gt;
+
+&lt;p&gt;Unsurprisingly, Duolingo is probably also one of the most effective educational institutions anyone has built — their 40 million+ MAUs complete 500 million exercises every &lt;strong&gt;day&lt;/strong&gt;. As an independent benchmark, they report findings from an internal study, “People who complete five ‘Units’ of Duolingo, or roughly half of one of our courses, learn as much as students taking four university semesters of language education — and they do so in half the time.”&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/duolingo/proficiency.png&quot; alt=&quot;Proficiency&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;key-operating-metrics&quot;&gt;Key Operating Metrics&lt;/h2&gt;
+
+&lt;p&gt;Let’s start by looking at some of their topline metrics: MAUs, DAUs, and Paid subscribers.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/duolingo/mau.png&quot; alt=&quot;MAUs&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/duolingo/dau.png&quot; alt=&quot;DAUs&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/duolingo/paid-sub.png&quot; alt=&quot;Paid subscribers&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Starting from less than 1% paid subscriber penetration in 2017, Duolingo has increased to approximately 4% paid subscriber penetration in 2020. For most freemium products, paid subscriber penetration is between 1-5%, so Duolingo’s 4% is pretty impressive! Here’s paid subscribers as % of MAU over time:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/duolingo/growth-paid-sub-fraction.png&quot; alt=&quot;Paid subscribers as % of MAU&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;On cohort retention, this chart showcasing a fraction of first-time subscription bookings from users who joined the platform that year (in green) vs. users who joined before 2020 (in gray) is a strong indicator:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/duolingo/sub-fraction-cohort.png&quot; alt=&quot;Paid subscription cohort breakdown&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;While I don’t have a good comparative stat for other freemium products, half the first-time subscriptions coming from old user cohorts seems like a pretty good LTV extraction from Duolingo. Their own comment agrees:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;We believe this is a business justification for having a high-quality, deeply engaging free user experience: it leads to users staying on the platform over long periods of time and provides us with repeated opportunities to convert them to paid subscribers.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/duolingo/sub-plan-cohort.png&quot; alt=&quot;Subscribers by subscription plan&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Note the push towards the annual subscription plan, annual subscribers went from being ~47% of paid subscribers in 2018 to ~71% in 202. Concerning that, Duolingo notes that subscribers on their annual subscription plan tend to stay on the platform longer and are stickier than subscribers on the monthly plan, and that this push has had a positive impact on subscriber lifetime value. They also note the higher retention rate of annual subscribers: ~40% of annual plan subscribers renew their plans, and ~9% monthly plan subscribers renew their subscription after 12 months.&lt;/p&gt;
+
+&lt;h1 id=&quot;monetization&quot;&gt;Monetization&lt;/h1&gt;
+
+&lt;p&gt;It is rather unfortunate that a large majority of public investors have very little understanding of tech moats and instead almost exclusively care only about monetization and operating metrics. While it’s a good-enough heuristic for their purposes, for us it means a vast majority of an S-1 will focus only on monetization related data, mostly in a bid to reassure potential investors of the hope of profitability. Following the source’s lead, this section will devote itself to only discussing monetization related data, which you may choose to &lt;a href=&quot;#future-strategy&quot;&gt;skip by clicking here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div&gt;
+&lt;img align=&quot;right&quot; src=&quot;../assets/duolingo/revenue.png&quot; width=&quot;66%&quot; style=&quot;margin-top: 10px;&quot; /&gt;
+&lt;/div&gt;
+
+&lt;p&gt;At the time of the S-1 filing, Duolingo monetized in three ways: Duolingo Plus &lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;, their paid subscription service with extra features and ad block; advertising and the Duolingo English Test. From their S-1, Duolingo Plus had approximately 1.6 million paying subscribers accounted for approximately 73% of our revenue in 2020. Advertising revenue represented 17% of their revenue, and fees from the Duolingo English Test accounted for ~9%. Duolingo’s revenue has more than doubled every year since 2017.&lt;/p&gt;
+
+&lt;p&gt;Here’s a high level summary of all the monetisation stats mentioned in the S-1, mostly without any of my own commentary:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Revenue&lt;/strong&gt;: $70.8 million in 2019 → $161.7 million in 2020, 129% year-over-year growth.
+    &lt;ul&gt;
+      &lt;li&gt;$28.1 million in Q1 2020 -&amp;gt; $55.4 million in Q1 2021, 97% growth&lt;/li&gt;
+      &lt;li&gt;Subscription revenue: $54.8 million in Q1 2020 -&amp;gt; $117.5 million in Q1 2021, 114% growth.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Gross profit&lt;/strong&gt;: $50.0 million in Q1 2020 -&amp;gt; $115.7 million in Q1 2021, 131% year-over-year growth&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Net loss&lt;/strong&gt;:  $13.6 million in 2019 -&amp;gt; $15.8 million in 2020
+    &lt;ul&gt;
+      &lt;li&gt;$2.2 million in Q1 2020 -&amp;gt; $13.5 million in Q1 2021&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Adjusted EBITDA aka raw earnings&lt;/strong&gt;: -$8.0 million in 2019 -&amp;gt; +$3.6 million in 2020
+    &lt;ul&gt;
+      &lt;li&gt;-$0.9 million in Q1 2020 -&amp;gt; +$0.9 million in Q1 2021&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Total bookings aka total earnings&lt;/strong&gt;:  $88.0 million in 2019 -&amp;gt; $190.2 million in 2020, representing 116% growth
+    &lt;ul&gt;
+      &lt;li&gt;$36.9 million in Q1 2020  -&amp;gt; $65.8 million in Q1 2021, representing 78% growth.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Earning platform breakdown&lt;/strong&gt;:
+    &lt;ul&gt;
+      &lt;li&gt;In 2020, 51% of our revenue and 53% of our total bookings from the Apple App Store, and 19% of our revenue and 20% of our total bookings from the Google Play Store. The leftover is presumably processed by Stripe, their web payments provider (as mentioned in a detailed GAAP measures table elsewhere)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;monetisation-in-2020--covid-19&quot;&gt;Monetisation in 2020 &amp;amp; COVID-19&lt;/h2&gt;
+
+&lt;p&gt;They don’t comment too much on the impact of COVID-19 on Duolingo in general, but here are their few comments:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;We believe that COVID-19 increased our bookings for a period of time in 2020: most notably in the second quarter.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Revenue and total bookings by quarter in 2020 (in $M):&lt;/p&gt;
+
+&lt;table class=&quot;mbtablestyle&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2020 Quarter&lt;/th&gt;
+      &lt;th&gt;Revenue&lt;/th&gt;
+      &lt;th&gt;Total Bookings&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Q1&lt;/td&gt;
+      &lt;td&gt;28.1&lt;/td&gt;
+      &lt;td&gt;36.9&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Q2&lt;/td&gt;
+      &lt;td&gt;40.0&lt;/td&gt;
+      &lt;td&gt;49.6&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Q3&lt;/td&gt;
+      &lt;td&gt;45.3&lt;/td&gt;
+      &lt;td&gt;46.7&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Q4&lt;/td&gt;
+      &lt;td&gt;48.3&lt;/td&gt;
+      &lt;td&gt;57.1&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Here’s their overall take on monetization stats in 2020:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Revenues increased $90.9 million, or 129%, to $161.7 million during the year ended December 31, 2020, from revenue of $70.8 million during the year ended December 31, 2019. The main driver was an increase in subscription revenue of $62.7 million, primarily due to a 107% increase in the average number of paid subscribers during 2020 as compared to 2019, with the remainder of the increase driven by a change in mix of plans purchased and increased pricing. We also saw an increase in advertising revenues, primarily due to a 58% increase in DAUs during 2020 as compared to 2019, which resulted in increased advertisements served. Average revenue per DAU for our ads also increased year over year, accounting for the remainder of the increase in advertising revenues.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;future-strategy&quot;&gt;Future Strategy&lt;/h1&gt;
+
+&lt;p&gt;Duolingo notes their opportunity to expand in many regions in Asia and Latin America, citing a couple interesting data points:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;In Asia, for example, our investments contributed to 136% growth in DAUs from 2019 to 2020.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;…as of March 2021, 54% of our MAUs were learning English, and 37% were learning other languages using our English UI; 9% were neither learning English nor using our English UI.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;On the expansion potential of the Duolingo English Test, they note that they might face difficulty keeping up with the past growth rate as the pandemic recedes (and universities become hesitant to replace the likes of TOEFL and IELTS), but they also note that the Duolingo English Test revenue increased by $4.3 million in Q1 2021 vs. Q1 2020, which is a good sign of the durability of their past growth, and pandemic being an accelerant, not an impulse function anomaly.&lt;/p&gt;
+
+&lt;p&gt;On the expansion of their sales and marketing channels, they note that they’re planning to devote their overall marketing expenditure to newer advertising channels such as mobile and online video platforms as well as targeted campaigns.&lt;/p&gt;
+
+&lt;h1 id=&quot;systems&quot;&gt;Systems&lt;/h1&gt;
+
+&lt;p&gt;This section primarily talks about the systems that run Duolingo behind the scenes: the engineers, managers, designers, marketers, and everyone else who’s assembled as a part of Duolingo the company.&lt;/p&gt;
+
+&lt;p&gt;Duolingo is headquartered in Pittsburgh, Pennsylvania, where most of their 400+ employees work. They also have offices in New York, Seattle, and Beijing.&lt;/p&gt;
+
+&lt;p&gt;
+&lt;center&gt;
+&lt;img src=&quot;../assets/duolingo/hiring.png&quot; alt=&quot;Cheeky hiring ad campaign Duolingo ran in SF&quot; width=&quot;50%&quot; /&gt;
+&lt;/center&gt;
+&lt;center&gt;
+&lt;em&gt;&lt;a href=&quot;https://twitter.com/BayCity_Beacon/status/978750468829495296&quot;&gt;Cheeky hiring ad campaign Duolingo ran in SF 2018&lt;/a&gt;&lt;/em&gt;
+&lt;/center&gt;
+&lt;/p&gt;
+
+&lt;p&gt;On the culture they’re building, Duolingo explains their internal operating principles:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../assets/duolingo/operating-principles.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;On hiring, Duolingo mentions a few different stats in their S-1:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;…we hire one out of every 353 applicants.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;We have an offer-to-accept ratio of 85% for industry hires.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;In 2020, our employee attrition was a record low: four employees, or under 2% of our workforce. In 2019, our yearly attrition was approximately 6%.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;From December 31, 2018 to May 31, 2021, our headcount grew from approximately 140 employees to over 400 employees.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Note that the record low attrition is probably something that’s not unique to Duolingo during 2020. From what I can tell, most booming tech companies saw record low attritions during this period, likely due to the extraordinary circumstances of COVID/WFH policies.&lt;/p&gt;
+
+&lt;h2 id=&quot;eng--product&quot;&gt;Eng &amp;amp; Product&lt;/h2&gt;
+
+&lt;p&gt;At the time of filing the S-1, Duolingo had a team of ~280 software engineers, product designers and product managers. Approximately 20% of them were on functional engineering teams, building and maintaining foundational infrastructure, while the remaining 80% were on product teams, iterating on features as well as researching and prototyping new product extensions.&lt;/p&gt;
+
+&lt;h2 id=&quot;expenses&quot;&gt;Expenses&lt;/h2&gt;
+
+&lt;p&gt;Duolingo reports expenses primarily on research &amp;amp; development and sales &amp;amp; marketing.&lt;/p&gt;
+
+&lt;p&gt;Research &amp;amp; Development accounts for 45% and 33% of their total revenue in 2019 and 2020, and 34% and 41% of revenue in Q1 2020 and Q1 2021, respectively. Most of the increase (~68% increase in 2020 vs. 2019) is attributable to an increase in employee growth and contractor costs incurred to help sustain the revenue growth.&lt;/p&gt;
+
+&lt;p&gt;Duolingo spent ~22% of revenue in the sales and marketing department (and saw a ~133% increase in 2020 vs. 2019), with their investments primarily focusing on high-leverage brand advertising and, to a lesser extent, on performance marketing.&lt;/p&gt;
+
+&lt;hr style=&quot;height: 3px;margin-bottom: 24px;&quot; /&gt;
+
+&lt;p&gt;Duolingo has accomplished something very unique and counts as one of my most underrated consumer products of the past decade. If this post hasn’t convinced you, I encourage you to download their app and try it out yourself. I convinced a skeptical friend to do this exercise a couple months ago, and despite their complete lack of interest in learning a new language, they had a &amp;gt; 15-day streak on Duolingo at the time of writing.&lt;/p&gt;
+
+&lt;p&gt;I have a vision for a future where GPT-&lt;em&gt;N&lt;/em&gt; (and generative machine learning in general) will eventually unlock a whole new category of products based on content from these models. Conditioning on that, I wonder if history books from the distant future will see Duolingo as an “early” pioneer of that auto-generated product category. Perhaps, as that category replaces many of the menial human marketplaces in exchange for personalization and consistent quality of AI, we’ll see companies realize an even larger potential of the Duolingo product model, or perhaps Duolingo itself will front-run and dominate this category.&lt;/p&gt;
+
+&lt;hr style=&quot;height: 3px;margin-bottom: 24px;&quot; /&gt;
+
+&lt;h3 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h3&gt;
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:4&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;In the case of Uber’s marketplace bet, for instance, the impact of COVID-19 on the marketplace is &lt;a href=&quot;https://pluralistic.net/2021/08/10/unter/#bezzle-no-more&quot;&gt;apparent :(&lt;/a&gt; &lt;a href=&quot;#fnref:4&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:5&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;Necessary disclaimer that I am not associated with Duolingo in any way. I do not own their stock nor have had any direct relationship with the company in the past. I’m just a fan sharing my thoughts about their product. &lt;a href=&quot;#fnref:5&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;For completeness, I’ll also note the future-facing bet they mention, “We also have a significant opportunity to impact more learners around the world by extending our platform beyond language learning.” &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;Here’s the list of features Duolingo Plus unlocks: No ads, Unlimited Hearts, Mistakes practice, Unlimited test out (Ability to skip levels of a Skill), and a Progress Tracker&lt;/p&gt;
+
+      &lt;p&gt;&lt;img src=&quot;../assets/duolingo/duolingo-plus.png&quot; alt=&quot;Duolingo Plus features&quot; /&gt; &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Wed, 15 Sep 2021 00:00:00 +0000</pubDate>
+        <link>https://nibnalin.me/dust-nib/duolingo-the-antithesis-to-the-bazaar.html</link>
+        <guid isPermaLink="true">https://nibnalin.me/dust-nib/duolingo-the-antithesis-to-the-bazaar.html</guid>
+        
+        <category>duolingo</category>
+        
+        <category>analys1s</category>
+        
+        <category>startups</category>
+        
+        
+      </item>
     
       <item>
         <title>Bellman's Curse on Advice</title>
