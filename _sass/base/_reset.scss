@@ -156,3 +156,14 @@ small {
         color: gray;
 }
 
+.mbtablestyle {
+    border-collapse: collapse;
+
+    > table, td, th {
+        border: 1px solid black;
+        padding-right:10px;
+        padding-left:10px;
+        padding-top:5px;
+        padding-bottom:5px;
+        }
+}
