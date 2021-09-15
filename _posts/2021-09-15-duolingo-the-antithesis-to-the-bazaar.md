@@ -2,7 +2,7 @@
 layout: post
 title: "Duolingo: The antithesis to the bazaar"
 description: "Deep dive on Duolingo"
-tags: duolingo analys1s draft
+tags: duolingo analys1s startups
 ---
 
 Twitter. Uber. Tinder. Spotify. Coursera. These seemingly unrelated companies all share one common feature: they exist as a layer on top of a marketplace. Their bets are deeply and inherently tied to the dimensions of the underlying marketplaces, whether it's content for reddit, sex for tinder or ride-hailing for Uber[^4]. Virtually every successful "tech" company is a layer on a marketplace, and the ed-tech category (with its multitudes of marketplaces like Coursera, MasterClass, EdX and Udemy) is no exception.
@@ -37,10 +37,12 @@ In this bazaar of shopfronts, one company does something surprisingly unique: Du
 - [Growth, numbers & all that jazz](#growth-numbers--all-that-jazz)
   * [Key Operating Metrics](#key-operating-metrics)
 - [Monetisation](#monetisation)
+  * [Monetisation in 2020 & COVID-19](#monetisation-in-2020--covid-19)
 - [Future Strategy](#future-strategy)
 - [Systems](#systems)
   * [Eng & Product](#eng--product)
   * [Expenses](#expenses)
+- [Footnotes](#footnotes)
 
 # Mission Education
 
@@ -265,7 +267,7 @@ Here's a high level summary of all the monetisation stats mentioned in the S-1, 
 - **Earning platform breakdown**:
     - In 2020, 51% of our revenue and 53% of our total bookings from the Apple App Store, and 19% of our revenue and 20% of our total bookings from the Google Play Store. The leftover is presumably processed by Stripe, their web payments provider (as mentioned in a detailed GAAP measures table elsewhere)
 
-## Monetisation in 2020 & COVID-19:
+## Monetisation in 2020 & COVID-19
 
 They don't comment too much on the impact of COVID-19 on Duolingo in general, but here are their few comments:
 
@@ -341,8 +343,12 @@ Research & Development accounts for 45% and 33% of their total revenue in 2019 a
 
 Duolingo spent \~22% of revenue in the sales and marketing department (and saw a \~133% increase in 2020 vs. 2019), with their investments primarily focusing on high-leverage brand advertising and, to a lesser extent, on performance marketing.
 
+<hr style="height: 3px;margin-bottom: 24px;">
+
 Duolingo has accomplished something very unique and counts as one of my most underrated consumer products of the past decade. If this post hasn't convinced you, I encourage you to download their app and try it out yourself. I convinced a skeptical friend to do this exercise a couple months ago, and despite their complete lack of interest in learning a new language, they had a >15 day streak on Duolingo at the time of writing.
 
-I have a vision for a future where GPT-*N* (and generative machine learning in general) will eventually unlock a whole new category of products based on content from these models. Then, I wonder if history books from the distant future will see Duolingo as an “early” pioneer of that auto-generated product category. Perhaps, as that category replaces many of the menial human marketplaces in exchange for personalisation and consistent quality of AI, we'll see companies realise an even larger potential of the Duolingo product model, or perhaps Duolingo itself will front-run and dominate this category.
+I have a vision for a future where GPT-*N* (and generative machine learning in general) will eventually unlock a whole new category of products based on content from these models. Conditioning on that, I wonder if history books from the distant future will see Duolingo as an “early” pioneer of that auto-generated product category. Perhaps, as that category replaces many of the menial human marketplaces in exchange for personalisation and consistent quality of AI, we'll see companies realise an even larger potential of the Duolingo product model, or perhaps Duolingo itself will front-run and dominate this category.
 
-# Footnotes
+<hr style="height: 3px;margin-bottom: 24px;">
+
+### Footnotes
