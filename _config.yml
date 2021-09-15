@@ -23,6 +23,3 @@ sass:
     style: compressed
 
 exclude: [vendor]
-
-plugins:
-  - jekyll-spaceship
