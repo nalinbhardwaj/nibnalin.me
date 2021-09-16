@@ -19,6 +19,8 @@ In this bazaar of shopfronts, one company does something interestingly unique: D
 </span>
 </div>
 
+*Editor's note:* This is a pretty long and detailed deep dive. If you'd like to read a TL;DR before investing too much time, check out this [tweet thread](https://twitter.com/nibnalin/status/1438284326265778176).
+
 # Contents
 
 - [Mission Education](#mission-education)
