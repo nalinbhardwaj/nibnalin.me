@@ -3,7 +3,7 @@ layout: content
 title: About
 permalink: /about/
 ---
-Hi, I'm nibnalin! ~~I'm a math and literature student at UC San Diego, and a tech hobbyist.~~ I took an indefinite leave of absence from UCSD and now work at [Lunchclub](https://lunchclub.ai).
+Hi, I'm nibnalin! <del style="text-decoration-style: double;">I'm a math and literature student at UC San Diego, and a tech hobbyist.</del> ~~I took an indefinite leave of absence from UCSD and now work at [Lunchclub](https://lunchclub.ai).~~ I un-left university and I'm now back at UCSD. I'm not quite sure I know what I'm doing. ¯\\\_(ツ)\_/¯
 
 I use this space as an experimental ground to develop my own ideas and share them with others. I've found that I learn a lot more _in public_ (whether it is in IRL conversations or long winded email threads), and this website intends to encourage those interactions. As a result, most of the things I write about here are rather weakly held strong opinions, or summarizations, meant to be treated as interesting indulgences, not defining beliefs.
 

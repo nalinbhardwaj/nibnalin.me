@@ -3,6 +3,7 @@ layout: post
 title: "The Manic Pixie Dream Girls of Antiquity"
 description: "Symptoms of a revolution?"
 date: 2020-01-31
+interest_index: 3
 tags: literature antiquity film
 ---
 

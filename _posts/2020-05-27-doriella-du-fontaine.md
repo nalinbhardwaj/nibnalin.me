@@ -3,6 +3,7 @@ layout: post
 title: "Doriella Du Fontaine"
 description: "Lightnin’ Rod 🎤, Jimi Hendrix 🎸 and Buddy Miles 🥁"
 date: 2019-12-3
+interest_index: 4
 tags: music hip-hop history
 ---
 

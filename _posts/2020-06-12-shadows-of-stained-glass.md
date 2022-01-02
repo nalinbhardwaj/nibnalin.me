@@ -2,7 +2,7 @@
 layout: post
 title: "Shadows of Stained Glass"
 description: "An analytical look at animated horror"
-category: 
+interest_index: 5
 tags: film data analysis
 ---
 

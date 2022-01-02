@@ -3,6 +3,7 @@ layout: post
 title: "Analysing Image Dithering"
 description: "Image Dithering and using neural nets for classifying linear programs"
 date: 2018-07-15
+interest_index: 3
 tags: image visualization ML
 ---
 

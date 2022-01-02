@@ -2,6 +2,7 @@
 layout: post
 title: "Duolingo: The antithesis to the bazaar"
 description: "Deep dive on Duolingo"
+interest_index: 5
 tags: duolingo analys1s startups
 ---
 

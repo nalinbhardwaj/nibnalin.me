@@ -4,8 +4,10 @@ title: Home
 ---
 <section class="c-archives">
   <link rel="shortcut icon" href="">
-  <h2 class="c-archives__year" id="{{ this_year }}-ref">Posts</h2>
-  {% for post in site.posts  %}
+  <h2 class="c-archives__year" id="{{ this_year }}-ref">Writings</h2>
+  <h3 class="c-archives__subyear" id="{{ this_year }}-ref">Ordered by interestingness.</h3>
+  {% assign sorted = site.posts | sort: 'interest_index' | reverse %}
+  {% for post in sorted  %}
   <ul class="c-archives__list">
     <li class="c-archives__item">
       <h3>

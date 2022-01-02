@@ -2,7 +2,7 @@
 layout: post
 title: "Benford's Squid Game"
 description: "Does Squid Games follow Benford's Law? 🦑🔫"
-category: 
+interest_index: 1
 tags: data visualization
 ---
 

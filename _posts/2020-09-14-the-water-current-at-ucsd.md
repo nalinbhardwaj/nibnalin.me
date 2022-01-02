@@ -3,6 +3,7 @@ layout: post
 title: "The water current at UCSD"
 description: "🚰 Water consumption data from a college"
 date: 2020-09-14
+interest_index: 2
 tags: visualization data
 ---
 

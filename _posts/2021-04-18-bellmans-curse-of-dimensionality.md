@@ -3,6 +3,7 @@ layout: post
 title: "Bellman's Curse on Advice"
 description: "On applicability of advice"
 date: 2021-04-18
+interest_index: 3
 tags: math rationality advice
 ---
 
