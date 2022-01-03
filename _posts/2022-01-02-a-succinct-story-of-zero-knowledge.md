@@ -5,6 +5,7 @@ description: "Studying the theory behind zero-knowledge proofs"
 category: 
 interest_index: 6
 tags: [zero-knowledge,complexity-theory,cryptography]
+image: "https://nibnalin.me/assets/preview-images/sheaf.png"
 ---
 
 # [Link to paper](//nibnalin.me/assets/zk.pdf)
