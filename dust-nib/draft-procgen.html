@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>[DRAFT] Procgen - dust-nib</title>
+  <meta name="description" content="0xPARC is perhaps most well known for its contributions in applied ZK research, with projects surrounding ZK identity primitives in particular. But another, ...">
+  <link href='https://fonts.googleapis.com/css?family=Inter:300,400,900,400italic' rel='stylesheet' type='text/css'>
+  <link rel='stylesheet' href='//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack-subset.css'>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://nibnalin.me/dust-nib/draft-procgen.html">
+  <link rel="alternate" type="application/rss+xml" title="dust-nib" href="https://nibnalin.me/feed.xml">
+  <!-- Twitter cards -->
+  <meta name="twitter:site"    content="@nibnalin">
+  <meta name="twitter:creator" content="Nalin Bhardwaj">
+  <meta name="twitter:title"   content="[DRAFT] Procgen">
+
+  
+  <meta name="twitter:description" content="Just a test for html">
+  
+
+  
+  <meta name="twitter:card"  content="summary_large_image">
+  <meta name="twitter:image" content="https://nibnalin.me/assets/preview-images/sheaf.png">
+  
+  <!-- end of Twitter cards -->
+  <!--KaTeX-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          renderMathInElement(document.body, {
+              // ...options...
+          });
+      });
+  </script>
+</head>
+
+  <body>
+    <main class="u-container">
+      <div class="c-page">
+  <header class="c-page__header">
+  <h1><code>dust-nib</code></h1>
+  <p>
+    <span class="u-separate"></span> <a href="/">Home</a><span
+          class="u-separate"></span> <a href="/about/">About</a><span class="u-separate"></span> <a href="https://nibnalin.substack.com">Newsletter</a><span class="u-separate"></span> <a href="/feed.xml">RSS</a><span class="u-separate"></span>
+  </p>
+</header>
+
+  <div class="c-page__main">
+    <article class="c-article">
+  <header class="c-article__header">
+    <h1 class="c-article__title">[DRAFT] Procgen</h1>
+    <p class="c-article__time"><time datetime="2022-05-05T00:00:00+00:00" itemprop="datePublished">May 5, 2022</time></p>
+  </header>
+  <!-- Post Tags -->
+  <ul class="c-tags">
+    
+    <li class="c-tag">#draft</li>
+    
+    <li class="c-tag">#test</li>
+    
+  </ul>
+  <div class="c-article__main">
+    <p>0xPARC is perhaps most well known for its contributions in applied ZK research, with projects surrounding ZK identity primitives in particular. But another, perhaps less well-known, branch of the 0xPARC community are world-builders. With games and systems like <a href="https://zkga.me">Dark Forest</a>, <a href="https://twitter.com/latticexyz">Lattice (Ember)</a> and <a href="https://twitter.com/exgrasia">exgrasia</a>, many of us have been exploring novel visions for what on-chain, crypto-native gaming looks like. In this post, we’ll talk about one of the coolest primitives used by all three of the aforementioned games: procedural generation.</p>
+
+<p>Procedural generation is the idea to create worlds (landscapes, dungeons, castles, clouds…) programmatically by the use of generation algorithms. Procedural generation algorithms typically attempt to emulate natural world formation processes, embedding variety and realism in the pseudorandomness of their outputs.</p>
+
+<h1 id="why-procgen">Why procgen?</h1>
+
+<p>Your first instinct as a game developer might be to make maps block by block - by hand. Off chain, handmade maps are extremely commonplace - games like DayZ and Fortnite carefully engineer detailed towns and hills optimizing for maximum <em>fun</em>.</p>
+
+<p>On-chain, however, we deal with a big constraint - storage cost. If you were to store a 1000x1000 grid world on Ethereum (of uint256s), for instance, it would cost you X gas (which amounts to ~$Y on mainnet today). Instead the use of procedural generation allows you to generate each of these tiles on-demand, only costing money when a player first steps on a particular coordinate for instance. Each individual call to a procedural generation algorithm (perlin noise, for instance) is also significantly cheaper, costing less than A gas (~$B). By running procedural generation and caching a tile’s attributes when someone first steps on it, you can amortize the cost of storing the map on-chain amongst all the players of your world. In some sense, a procedural generation algorithm is a trick to compress a complex world into an executable.</p>
+
+<p>Procedural generation isn’t a new idea specific to onchain gaming! All your favourite roguelike games use procedural generation in some way or the other, including minecraft (for landscape generation), No Man’s Sky (for planet generation) and Dwarf Fortress (for creatures, religions etc.) among <a href="https://en.wikipedia.org/wiki/List_of_games_using_procedural_generation">many others</a>.</p>
+
+<p>Procedural generation for world building is, unsurprisingly, a technique originally pioneered by games running on 16kb RAM and 1mhz processors back in the 90s. It’s interesting how many similarities there are between the resource-limited personal computers of the 90s and the resource-limited shared computer today that is Ethereum. In many ways, we’re in the 90s of crypto-native gaming, and developing an on chain world right now is an exercise in balancing constrained creativity and being resourceful and hacky with what’s possible with on-chain compute.</p>
+
+<h1 id="how-procgen">How procgen?</h1>
+
+<p>So far, we’ve only considered procedural generation in hand wavy terms - “make me a cool looking world”. One layer deeper, however, what we mean is that we want a source of entropy that feels random, but also isn’t chaotic to look at. More formally, our aim is to create some sort of a noise function that is variant when looked at globally, but locally consistent zooming in. To understand the intuition to making such a function, let’s start with something fundamental: sine waves! As a quick refresher, a sine wave is an equation that looks like \(y = amplitude * sin(x * frequency)\). Amplitude and Frequency parameters allow you to squish or stretch the wave horizontally and vertically.</p>
+
+<div id="observablehq-viewof-res-35890384"></div>
+<div style="display: flex;align-items: center;">
+<div style="margin: 0px 20px;" id="observablehq-viewof-sineAmplitude-35890384"></div>
+<div style="margin: 0px 20px;" id="observablehq-viewof-sineFrequency-35890384"></div>
+</div>
+
+<script type="module">
+import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+import define from "https://api.observablehq.com/@nalinbhardwaj/procgen-experiments.js?v=3";
+new Runtime().module(define, name => {
+  if (name === "viewof res") return new Inspector(document.querySelector("#observablehq-viewof-res-35890384"));
+  if (name === "viewof sineAmplitude") return new Inspector(document.querySelector("#observablehq-viewof-sineAmplitude-35890384"));
+  if (name === "viewof sineFrequency") return new Inspector(document.querySelector("#observablehq-viewof-sineFrequency-35890384"));
+});
+</script>
+
+<p>Another interesting concept is super-position: the ability to add up different wave functions. See what happens when we add up many sine waves with random parameters:</p>
+
+<div id="observablehq-viewof-res2-3c38f78d"></div>
+
+<div style="display: flex;align-items: center;">
+<div style="margin: 0px 20px;" id="observablehq-viewof-sineAAmplitude-3c38f78d"></div>
+<div style="margin: 0px 20px;" id="observablehq-viewof-sineAFrequency-3c38f78d"></div>
+</div>
+<div style="display: flex;align-items: center;">
+<div style="margin: 0px 20px;" id="observablehq-viewof-sineBAmplitude-3c38f78d"></div>
+<div style="margin: 0px 20px;" id="observablehq-viewof-sineBFrequency-3c38f78d"></div>
+</div>
+<div style="display: flex;align-items: center;">
+<div style="margin: 0px 20px;" id="observablehq-viewof-sineCAmplitude-3c38f78d"></div>
+<div style="margin: 0px 20px;" id="observablehq-viewof-sineCFrequency-3c38f78d"></div>
+</div>
+
+<script type="module">
+import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+import define from "https://api.observablehq.com/@nalinbhardwaj/procgen-experiments.js?v=3";
+new Runtime().module(define, name => {
+  if (name === "viewof res2") return new Inspector(document.querySelector("#observablehq-viewof-res2-3c38f78d"));
+  if (name === "viewof sineCAmplitude") return new Inspector(document.querySelector("#observablehq-viewof-sineCAmplitude-3c38f78d"));
+  if (name === "viewof sineBAmplitude") return new Inspector(document.querySelector("#observablehq-viewof-sineBAmplitude-3c38f78d"));
+  if (name === "viewof sineAAmplitude") return new Inspector(document.querySelector("#observablehq-viewof-sineAAmplitude-3c38f78d"));
+  if (name === "viewof sineCFrequency") return new Inspector(document.querySelector("#observablehq-viewof-sineCFrequency-3c38f78d"));
+  if (name === "viewof sineBFrequency") return new Inspector(document.querySelector("#observablehq-viewof-sineBFrequency-3c38f78d"));
+  if (name === "viewof sineAFrequency") return new Inspector(document.querySelector("#observablehq-viewof-sineAFrequency-3c38f78d"));
+  return ["sum"].includes(name);
+});
+</script>
+
+<p>We get a lot more variation in our output globally, while maintaining the local similarity property we desired. This is how procedural generation works! Formally, each of the constituent waves is called an “octave”<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>, each adding more complexity to the surface of the output.</p>
+
+<p>Instead of using a sine wave, Perlin Noise uses a different function. While it follows the same idea, it’s less regular compared to sine waves and its amplitude is more consistent. While it is technically possible to build all the generations we describe below with simple trigonometric functions like sine waves, Perlin noise is easier (and prettier) to use, so we’ll focus on Perlin Noise going forward.</p>
+
+<h2 id="how-does-perlin-noise-work">How does Perlin noise work?</h2>
+
+<p>Before we start exploring worldly Perlin structures, we’ll introduce one more idea of procedural generation: dimensionality. In the previous section, we’ve only worked with one dimensional waves — how can we extend this idea to 2D maps (or for that matter, N-dimensions)? Primarily, we now have to maintain the notion of regularity across not just one, but two dimensions.</p>
+
+<p>The core idea of Perlin can be summarised as follows: take your 2D grid and break it into chunks (of say, size 5 x 5). Next, put random vectors at the corners of each chunk. Next, to compute the noise function at any (x, y) coordinate, obtain the random vectors at the corners of the chunk, and interpolate between them - this is just a fancy way of saying “compute a smoothened value that translates between the random vectors at the corners” using some calculus. There are some tricks to making a clean/clever interpolation between the vectors, but those are not particularly important for this discussion.</p>
+
+<p align="center">
+  <img src="../assets/procgen/perlin-2d.png" />
+  <p align="right">
+  <i>Credits: <a href="https://www.cs.umd.edu/class/spring2018/cmsc425/Lects/lect13-2d-perlin.pdf">UMD CMSC 425</a></i>
+  </p>
+</p>
+
+<h2 id="creative-world-building-with-perlin-noise">Creative world building with Perlin Noise</h2>
+
+<p>[gubsheep fills jump from one octave greyscale to land water]</p>
+
+<p>Now that we have a simple landscape resembling some sort of archipelago, let’s look at ideas that bridge this to more interesting world maps. For starters, what if we built something resembling our own world - with a North Pole at the top and more tropical/equatorial regions as me move downward from the Pole. We already have a notion of height of a tile. We essentially want to add a temperature parameter to our tile, one that while being somewhat random, follows the pattern we observe in the real world. To imbue this pattern, we’ll cleverly super position perlin output with a simple linear function of our own:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">temperature</span> <span class="o">+=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">coords</span><span class="p">.</span><span class="nx">x</span> <span class="o">-</span> <span class="mi">50</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span></code></pre></figure>
+
+<p>By taking our old sine-wave-esque function and adding a linear function to it, we can retain the rough pattern we desired, along with the realistic landscape features. Now, we can use this temperature value in conjunction with height to switch tile types:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">seedToTileType</span> <span class="o">=</span> <span class="p">(</span><span class="nx">coords</span><span class="p">:</span> <span class="nx">WorldCoords</span><span class="p">,</span> <span class="nx">perlin1</span><span class="p">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">perlin2</span><span class="p">:</span> <span class="nx">number</span><span class="p">):</span> <span class="nx">TileType</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">height</span> <span class="o">=</span> <span class="nx">perlin1</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">temperature</span> <span class="o">=</span> <span class="nx">perlin2</span><span class="p">;</span>
+  <span class="nx">temperature</span> <span class="o">+=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nx">coords</span><span class="p">.</span><span class="nx">x</span> <span class="o">-</span> <span class="mi">50</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">);</span>
+
+  <span class="kd">let</span> <span class="nx">altitudeType</span> <span class="o">=</span> <span class="nx">AltitudeType</span><span class="p">.</span><span class="nx">SEA</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">height</span> <span class="o">&gt;</span> <span class="mi">37</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">altitudeType</span> <span class="o">=</span> <span class="nx">AltitudeType</span><span class="p">.</span><span class="nx">MOUNTAIN</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">height</span> <span class="o">&gt;</span> <span class="mi">32</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">altitudeType</span> <span class="o">=</span> <span class="nx">AltitudeType</span><span class="p">.</span><span class="nx">LAND</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">height</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">altitudeType</span> <span class="o">=</span> <span class="nx">AltitudeType</span><span class="p">.</span><span class="nx">BEACH</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">let</span> <span class="nx">temperatureType</span> <span class="o">=</span> <span class="nx">TemperatureType</span><span class="p">.</span><span class="nx">COLD</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">temperature</span> <span class="o">&gt;</span> <span class="mi">42</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">temperatureType</span> <span class="o">=</span> <span class="nx">TemperatureType</span><span class="p">.</span><span class="nx">HOT</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">temperature</span> <span class="o">&gt;</span> <span class="mi">22</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">temperatureType</span> <span class="o">=</span> <span class="nx">TemperatureType</span><span class="p">.</span><span class="nx">NORMAL</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">let</span> <span class="nx">tileType</span> <span class="o">=</span> <span class="nx">TileType</span><span class="p">.</span><span class="nx">UNKNOWN</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">temperatureType</span> <span class="o">===</span> <span class="nx">TemperatureType</span><span class="p">.</span><span class="nx">COLD</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">altitudeType</span> <span class="o">===</span> <span class="nx">AltitudeType</span><span class="p">.</span><span class="nx">MOUNTAINTOP</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">tileType</span> <span class="o">=</span> <span class="nx">TileType</span><span class="p">.</span><span class="nx">SNOW</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">altitudeType</span> <span class="o">===</span> <span class="nx">AltitudeType</span><span class="p">.</span><span class="nx">MOUNTAIN</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">tileType</span> <span class="o">=</span> <span class="nx">TileType</span><span class="p">.</span><span class="nx">SNOW</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">tileType</span> <span class="o">=</span> <span class="nx">TileType</span><span class="p">.</span><span class="nx">WATER</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">temperatureType</span> <span class="o">===</span> <span class="nx">TemperatureType</span><span class="p">.</span><span class="nx">NORMAL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// put less snow</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// do something else (no snow)</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">tileType</span><span class="p">;</span>
+<span class="p">};</span></code></pre></figure>
+
+<p>With this set of patches, we obtain this nice, earthly map:</p>
+
+<p align="center">
+  <img src="../assets/procgen/exgrasia-map.png" />
+  <p align="right">
+  <i><a href="https://github.com/nalinbhardwaj/devconnect-procgen-workshop/tree/part2-2">Code</a>. Notably, this is also the exact map used by <a href="http://exgrasia.xyz">exgrasia</a></i>
+  </p>
+</p>
+
+<p>Interestingly, its also really simple to derive new maps by just being creative with color schemes and perceptions. This exact map with some changes can be seen as a Minecraft nether-like map, for instance:</p>
+
+<p align="center">
+  <img src="../assets/procgen/nether-map.png" />
+  <p align="right">
+  <i><a href="https://github.com/nalinbhardwaj/devconnect-procgen-workshop/tree/nether">Code</a></i>
+  </p>
+</p>
+
+<p>To create these previous two maps, we’ve used plain \(x\) coordinates to imbue a cool property to our procedurally generated temperature value. What if we assigned temperature based on distance from centre of the map? Let’s try it:</p>
+
+<p align="center">
+  <img src="../assets/procgen/island-map.png" />
+  <p align="right">
+  <i><a href="https://github.com/nalinbhardwaj/devconnect-procgen-workshop/tree/island">Code</a></i>
+  </p>
+</p>
+
+<p>We obtain an island with a mountain at the centre surrounded by snowy lands and a beach at the edges. And perhaps, if you run with imagination, it looks like the snowy area is a sideways portrait of a smiling ghost.</p>
+
+<p>Let’s take this idea one step further. Instead of thinking about our map in a Cartesian plane, what if we look at it in a polar coordinate system? As a quick reminder, polar coordinate systems demarcate points by their distance from the origin and the angle between the line from origin to the point with the x axis. Here’s what happens if we use this coordinate system as the basis of generation:</p>
+
+<p align="center">
+  <img src="../assets/procgen/amsterdam-map.png" />
+  <p align="right">
+  <i><a href="https://github.com/nalinbhardwaj/devconnect-procgen-workshop/tree/amsterdam">Code</a></i>
+  </p>
+</p>
+
+<p>We obtain a map with much more radial symmetry. This is not surprising - we’ve essentially unrolled a rectangular map into a series of concentric rings to obtain this map! Perhaps this map is also somewhat reminiscent of the city where this year’s Devconnect was hosted, Amsterdam, a city built around concentric rings of buildings and canals.</p>
+
+<h3 id="putting-worlds-on-chain">Putting worlds on-chain</h3>
+
+<p>So far, this blog has focused on the use cases for Perlin noise and procedural generation but all the described generations have accompanying solidity implementations - if you checkout the linked branches locally and right click any tile, you should see console logs verifying the generated tile types between the solidity and javascript versions - and you can find the generating code in <a href="https://github.com/nalinbhardwaj/devconnect-procgen-workshop/blob/master/eth/contracts/TinyWorld.sol#L29">eth/contracts/TinyWorld.sol</a>. Thanks to the DarkForest team, there’s also a <a href="https://github.com/darkforest-eth/circuits/tree/master/perlin">ZK circuit that can compute and verify Perlin Noise generations</a> that may be relevant to readers.</p>
+
+<h2 id="whackier-ideas">Whackier ideas</h2>
+
+<p>As you explore the world of procedural generation further, here’s some of my own favourite advanced uses of procedural generation:</p>
+
+<ul>
+  <li><a href="https://iquilezles.org/articles/warp/">Fractal Brownian motion</a>: The creation of maps that recursively use the output of Perlin Noise to create more noise - kind of like taking the aforementioned rectangular/polar coordinate systems described in our Amsterdam exploration and replacing those by a coordinate system itself defined by Perlin Noise.</li>
+</ul>
+
+<p align="center">
+  <img src="../assets/procgen/gfx00.jpg" />
+</p>
+
+<ul>
+  <li><a href="https://www.dannyking.uk/artwork/colororbs">Perlin Planets</a>: The creation of force fields to make continuous spherical maps is super neat!</li>
+</ul>
+
+<p align="center">
+  <img src="../assets/procgen/planet.png" />
+</p>
+
+<ul>
+  <li><a href="https://www.diva-portal.org/smash/get/diva2:1223894/FULLTEXT01.pdf">Volumetric clouds</a>: Creating convincing looking moving cloud skyscapes efficiently is a hard task! While there’s a lot of (noisy) details to the complete generation method, it, too, builds on Perlin Noise!</li>
+</ul>
+
+<h1 id="where-procgen">Where procgen?</h1>
+
+<p>It’s funny how on the one hand crypto-native games feel like this unscratched surface with seething potential to change how we think about games at all, and yet, these are such early days that some of the best on-chain games right now only require algorithms simple enough to describe in blogs like this one. Constraints breed creativity, and we hope this blog inspires you to go explore affordances of the blockchain by building your own crypto native game - regardless of how <em>basic</em> it might feel. Perhaps the biggest trap right now amongst crypto-native gaming devs is to fall into the trap of being over ambitious running L1s for land NFTs and tokenomics and what not. KISS.</p>
+
+<p align="center">
+  <img src="../assets/procgen/ss-1.png" />
+</p>
+<p align="center">
+  <img src="../assets/procgen/ss-2.png" />
+</p>
+
+<h1 id="credits">Credits</h1>
+
+<p>If this interested you, you may also find it interesting to explore and build tile contracts on top of exgrasia, which started with explorations of this on-chain procedural generation!</p>
+
+<p>This is a more polished version of a talk gubsheep and Nalin gave at <a href="https://defcon.0xparc.org">DEFCON</a>. The <a href="https://github.com/nalinbhardwaj/exgrasia/blob/master/eth/contracts/Perlin.sol">solidity implementation</a> of Perlin Noise was originally written by gubsheep, and the <a href="https://github.com/darkforest-eth/circuits/tree/master/perlin">zk-SNARK circuit implementation</a> was written by the Dark Forest team. Thanks to <a href="https://twitter.com/yush_g">Yush</a>, with whom the first explorations of the exgrasia landscape were made and to <a href="https://twitter.com/alanluo_0">Alan Luo</a> for introducing the Dark Forest team (and us!) to the magic of procedural generation on-chain.</p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>There’s some connection between these octaves and the music theory octaves, but it’s unclear to the author what that is <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+  <div class="pagenav">
+    <h3 class="c-pagenav__head">More?</h3>
+    <iframe src="https://nibnalin.substack.com/embed" width="100%" height="200" style="background:$c-accent__purple;" frameborder="0" scrolling="no"></iframe>
+  </div>
+</article>
+
+  </div>
+  <footer class="c-page__footer">
+  <p>Nalin Bhardwaj</p>
+  <p><a href="https://twitter.com/nibnalin">Twitter</a><span class="u-separate"></span><a href="mailto:dustnib@nibnalin.me">Email</a></p>
+</footer>
+
+</div>
+
+    </main>
+    
+  </body>
+</html>
