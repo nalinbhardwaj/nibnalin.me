@@ -6,7 +6,7 @@ title: Home
   <link rel="shortcut icon" href="">
   <h2 class="c-archives__year" id="{{ this_year }}-ref">Writings</h2>
   <h3 class="c-archives__subyear" id="{{ this_year }}-ref">Ordered by interestingness.</h3>
-  {% assign sorted = site.posts | sort: 'interest_index' | reverse %}
+  {% assign sorted = site.posts | sort: 'interest_index' | reverse | where_exp: "item", "item.interest_index > 0" %}
   {% for post in sorted  %}
   <ul class="c-archives__list">
     <li class="c-archives__item">
