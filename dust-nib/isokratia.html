@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>[DRAFT] Isokratia - dust-nib</title>
+  <meta name="description" content="By Nalin. Isokratia was developed in collaboration with lermchair (frontend!).">
+  <link href='https://fonts.googleapis.com/css?family=Inter:300,400,900,400italic' rel='stylesheet' type='text/css'>
+  <link rel='stylesheet' href='//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack-subset.css'>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="https://nibnalin.me/dust-nib/isokratia.html">
+  <link rel="alternate" type="application/rss+xml" title="dust-nib" href="https://nibnalin.me/feed.xml">
+  <!-- Twitter cards -->
+  <meta name="twitter:site"    content="@nibnalin">
+  <meta name="twitter:creator" content="Nalin Bhardwaj">
+  <meta name="twitter:title"   content="[DRAFT] Isokratia">
+
+  
+  <meta name="twitter:description" content="Infinitely Compressible Governance using Recursive SNARKs">
+  
+
+  
+  <meta name="twitter:card"  content="summary_large_image">
+  <meta name="twitter:image" content="https://i.imgur.com/YfDc5Ds.jpg">
+  
+  <!-- end of Twitter cards -->
+  <!--KaTeX-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          renderMathInElement(document.body, {
+              // ...options...
+          });
+      });
+  </script>
+</head>
+
+  <body>
+    <main class="u-container">
+      <div class="c-page">
+  <header class="c-page__header">
+  <h1><code>dust-nib</code></h1>
+  <p>
+    <span class="u-separate"></span> <a href="/">Home</a><span
+          class="u-separate"></span> <a href="/about/">About</a><span class="u-separate"></span> <a href="https://nibnalin.substack.com">Newsletter</a><span class="u-separate"></span> <a href="/feed.xml">RSS</a><span class="u-separate"></span>
+  </p>
+</header>
+
+  <div class="c-page__main">
+    <article class="c-article">
+  <header class="c-article__header">
+    <h1 class="c-article__title">[DRAFT] Isokratia</h1>
+    <p class="c-article__time"><time datetime="2022-09-05T00:00:00+00:00" itemprop="datePublished">Sep 5, 2022</time></p>
+  </header>
+  <!-- Post Tags -->
+  <ul class="c-tags">
+    
+    <li class="c-tag">#draft</li>
+    
+    <li class="c-tag">#test</li>
+    
+  </ul>
+  <div class="c-article__main">
+    <p><em>By <a href="https://twitter.com/nibnalin">Nalin</a>. Isokratia was developed in collaboration with <a href="https://twitter.com/lermchair">lermchair</a> (frontend!).</em></p>
+
+<p>In this blog post, we’re excited to present an application uniquely enabled by recursive SNARKs — Isokratia, a trust minimized governance platform with off-chain (free) voting.</p>
+
+<p><img src="../assets/isokratia/cover.png" alt="" /></p>
+
+<p>// TODO: insert demo video</p>
+
+<h1 id="live-demo-at-isokratiaxyz">Live demo at <a href="https://isokratia.xyz/">isokratia.xyz</a></h1>
+
+<p>Isokratia uses recursive SNARKs to enable trust-minimized governance for off-chain voting platforms.</p>
+
+<p>Note that for now, <strong>we only intend for Isokratia to be a proof of concept for what’s possible. None of our code is audited or recommended for production use without serious considerations.</strong> At the very least, the circuits require a trusted setup ceremony and proper auditing (if not formal verification) before production use.</p>
+
+<h2 id="why">Why?</h2>
+
+<p>To motivate the use case and construction of Isokratia, consider how governance platforms today work:</p>
+
+<p>On one hand, you have platforms like <a href="https://snapshot.org/#/">Snapshot Labs</a> that run entirely off-chain (making it free to vote for voters) and decisions are then enacted upon by the DAO’s core team/multisig (on-chain or otherwise). In this construction, voters not only trust Snapshot Nodes to be honest and censorship-resistant, but also the DAO’s multisig executors to be honest.</p>
+
+<p>On the other hand, you have platforms like <a href="https://compound.finance/governance">Compound Governance/GovernorBravo</a> which run entirely on-chain, eliminating almost all intermediary trust assumptions but then cost voters gas fees for participation (and thus often end up reducing participation).</p>
+
+<p>Isokratia achieves the best of both worlds: ~free and secure! Voters vote off-chain for free and aggregators “roll up” the votes into a succinct recursive SNARK proof. This aggregation only costs ~500k gas to verify ~infinite<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> votes on-chain! Simultaneously, voters make minimal trust assumptions. Anyone can run an aggregator, and aggregator incentives align such that even if there is one aggregator holding each of the voting opinions, the entire voting aggregation will be uncensored and honest. Additionally, using the chain as the source of truth also enables Isokratia to inherit the censorship-resistance properties of the chain: Voters have the option to exit and vote directly in the event the server censors them. We will expand upon these trust assumptions in the next section.</p>
+
+<h2 id="how">How?</h2>
+
+<p>Let’s start with the high level architecture of Isokratia:</p>
+
+<p><img src="../assets/isokratia/top-down.png" alt="" /></p>
+
+<p>In the happy path, the user experience of creating a new proposal and voting on proposals is pretty much the same as other off-chain voting platforms like Snapshot! Creating a new proposal additionally requires an on-chain transaction to replicate the proposal on-chain for aggregation. As ECDSA signatures verifying votes stream in to the server, aggregator nodes query the backend for new votes and continually generate larger and larger aggregations of the votes. Then, finally, they submit these aggregation proofs on-chain to settle the vote!</p>
+
+<p>Now, let’s consider the trust assumptions at each step more deeply, starting with the server. User signatures are used to authenticate votes, so the server cannot lie about votes, but it may censor voters. In this event, users have the option to exit by simply directly submitting their votes to an aggregating node (or run one themselves). This almost dispenses the server’s role to a convenient hub for off-chain data availability. While not implemented by Isokratia for simplicity, an alternate construction to prevent server censorship might be to construct a registry on-chain and let each voter self-host their votes (much like Farcaster’s <a href="https://www.varunsrinivasan.com//2022/01/11/sufficient-decentralization-for-social-networks">sufficiently decentralised</a> thesis). Another way to view this intermediate server instead is as a <a href="https://medium.com/starkware/volition-and-the-emerging-data-availability-spectrum-87e8bfa09bb">volition</a> with on-chain validity proofs.</p>
+
+<p>Now, consider the trust assumption on aggregators if the server is assumed to be honest. If the aggregator is not neutral to a vote, they may choose to not include votes they do not like in their aggregations. However, if even one aggregator is aligned with a voting option, they are directly incentivised to put <em>all</em> votes for that option in their aggregation on-chain. This makes the trust assumption 1-of-N style: If at least one of the N voters who chose a particular option for a proposal run an aggregation, all votes for that option should be posted on-chain uncensored. Additionally, in practice, one can imagine the DAO team/multisig holders will usually run their own neutral aggregation node as well, making the system quite robust in practice.</p>
+
+<p>Now that we have the basic setup of the system in mind, let’s dig into the SNARK circuit used for aggregation:</p>
+
+<h2 id="recursive-snark-construction">Recursive SNARK construction</h2>
+
+<p>SNARKs are used to compress votes into a single aggregate proof. At a high level, this proof shows that a subset of eligible voters voted for a particular option. To do so, it recursively breaks down the verification into two parts:</p>
+
+<ul>
+  <li>One of the voters in the set, let’s call them the singleton, voted for a particular option</li>
+  <li>The circuit correctly verified another SNARK proof saying that the set minus the singleton voted for the same option.</li>
+</ul>
+
+<p>Let’s build up the setup for each of these two parts:</p>
+
+<h3 id="the-singleton">The singleton</h3>
+
+<p>How do we verify even just one vote inside a SNARK? First, we’ll need to define some notion of who is eligible to vote. Typically, this will be the set of people who own an ERC-20 token or an ERC-721 NFT. During the creation of the proposal, the creator will take a snapshot of this set of people and post a vector commitment of them. Let’s call this vector commitment the eligibility merkle tree. Then, inside a SNARK, we’ll need to do 2 checks:</p>
+
+<ol>
+  <li>The voter’s address belongs to the eligibility merkle tree. This will be done by a merkle opening proof inside the SNARK.</li>
+  <li>The voter ECDSA-signed a message saying “I vote {insert vote option} for proposal {insert proposal ID}”.</li>
+</ol>
+
+<p>With this context, you’ll note that our overall circuit is actually just an ECDSA signature aggregation circuit with a some set membership checks.</p>
+
+<h3 id="from-singleton-to-sets">From singleton to sets</h3>
+
+<p>Checking a single vote is simple, but here comes the hard part: how do we extend these checks to work with sets of voters <em>across</em> recursive proofs while counting the size of the set. We need to deal with two complex problems:</p>
+
+<ul>
+  <li>We must not allow the aggregation to be able to repeat the same vote twice and double-count it.</li>
+  <li>We can’t just pass the entirety of the set in plain text to the circuit. So we need to pass around a succinct representation of it.</li>
+</ul>
+
+<p>Therefore, we need a vector commitment scheme that supports the ability to efficiently “delete” elements from the vector. Conveniently, Merkle trees support this if we just introduce the notion of NULL values to the tree leafs.</p>
+
+<p>How exactly does this work? First, let’s construct a modification of the eligibility merkle tree. The leafs of the eligibility merkle tree are addresses that are eligible to vote, and the votes we’re aggregating are from a subset of the eligible addresses, so let’s make a merkle tree where all the leafs outside of the set of voters are set to NULL. So, for instance, an eligibility merkle tree’s leafs might look like <code class="language-plaintext highlighter-rouge">[nibnalin.eth, vitalik.eth, alice.eth, bob.eth, charlie.eth]</code> and the leafs of a voter tree corresponding to this eligiblity merkle tree could look like <code class="language-plaintext highlighter-rouge">[nibnalin.eth, NULL, alice.eth, NULL, NULL]</code>. We’ll see why it’s important to NULL-pad this way later.</p>
+
+<p>Then, let’s formalise the statement our recursive circuit proves: “I prove everyone in the voter merkle tree has voted for a particular option”. Now, our recursive circuit proceeds like this at each layer:</p>
+
+<ol>
+  <li>Prove that a singleton voted correctly</li>
+  <li>Delete the singleton’s leaf in the voter merkle tree by replacing it with a NULL, call this the <em>modded</em> voter merkle tree.</li>
+  <li>Prove that I can verify another SNARK proof saying “I prove everyone in the <em>modded</em> voter tree root has voted for a particular option”</li>
+</ol>
+
+<p>Continuing our example from before where the eligibility merkle tree leafs were <code class="language-plaintext highlighter-rouge">[nibnalin.eth, vitalik.eth, alice.eth, bob.eth, charlie.eth]</code> and the voter merkle tree leafs were <code class="language-plaintext highlighter-rouge">[nibnalin.eth, NULL, alice.eth, NULL, NULL]</code>, the first layer of recursion could verify a vote from <code class="language-plaintext highlighter-rouge">nibnalin.eth</code>, and delete <code class="language-plaintext highlighter-rouge">nibnalin.eth</code> from the leafs to obtain the <em>modded</em> voter tree with leafs: <code class="language-plaintext highlighter-rouge">[NULL, NULL, alice.eth, NULL, NULL]</code>. This circuit would then verify another proof saying “I prove everyone in the modded voter tree (<code class="language-plaintext highlighter-rouge">[NULL, NULL, alice.eth, NULL, NULL]</code>) has voted YES” and this would recurse down until all the leafs are <code class="language-plaintext highlighter-rouge">NULL</code>.</p>
+
+<p><img src="../assets/isokratia/walkthrough.png" alt="" />
+<em>A diagram walking through this example. To read this, start at the top left, and move to the bottom right anticlockwise.</em></p>
+
+<p>Now that our aggregation circuit is clearer, notice that the aggregator cannot double count votes in this scheme because once counted, the leaf gets replaced by a NULL value in the next layer of recursion. Since no addresses are repeated in the eligibility merkle tree, no votes can be repeated in the aggregation. Secondly, this scheme is very composable and streamable. In particular, if I have a proof for the leafs <code class="language-plaintext highlighter-rouge">[nibnalin.eth, NULL, alice.eth, NULL, NULL]</code> voting (as above) and then <code class="language-plaintext highlighter-rouge">vitalik.eth</code> also casts a vote, we can re-use the previous proof as the inner proof for the circuit verifying voter tree <code class="language-plaintext highlighter-rouge">[nibnalin.eth, vitalik.eth, alice.eth, NULL, NULL]</code> out of the box.</p>
+
+<p>For the curious, replacements in a merkle tree are quite simple to support: Much like a path proof, replacing a leaf’s value only impacts hash values along the path from the leaf to the root. So, much like a <a href="https://codeforces.com/blog/entry/15729">segment tree point update</a>, we can traverse this path and only need to recompute hashes along this path in O(log N) cost.</p>
+
+<p>This may seem like a rather complicated concoction on the surface, but it is relatively straightforward to implement and perhaps the only solution I could think of that would be composable and cheap. I’d be curious to hear other ideas for this structuring.</p>
+
+<h3 id="offloading-checks-outside">Offloading checks outside</h3>
+
+<p>Note that merkle trees in the above construction can be replaced by any vector commitments that allow for efficient replacements inside a SNARK. It is worth noting that this vector commitment trick points to a general shortcoming/note on designing efficient recursive SNARKs: Often, developers will expose data as public inputs and offload checks and computations on that public input to the “outside the SNARK” environment. For instance, you might want to check an ECDSA signature is signed correctly for a message inside a SNARK. If the message itself contains no sensitive data, you would just run checks on the message outside the SNARK (for instance if it is indeed equal to keccak hash of your smart contract’s requirement).</p>
+
+<p>While that pattern works nicely for non-recursive SNARKs, for recursive SNARKs it becomes problematic as you essentially need to <em>unroll</em> the entirety of the “inner” SNARKs outside the outermost SNARK to be able to access their inputs/checks in a non-SNARK environment. If you do so, you end up stacking up the number of public inputs with each iteration, so it essentially never makes sense to offload computation outside the SNARK: you should either make all checks inside the SNARK or come up with a method to aggregate the necessary checks into a constants number of outputs with each recursion level.</p>
+
+<p>Ultimately, this bag of tricks from semi-public inputs to vector commitments as vote carrying data structures enables us to build an aggregation circuit for ECDSA signatures in general, and apply it to Isokratia as a voting compression tool.</p>
+
+<p>The server and smart contracts are much less exotic. The client is a simple Next.js frontend (designed and built by <a href="https://twitter.com/lermchair">lermchair</a>!) and the backend uses Next’s serverless APIs with a PlanetScale DB. Smart contracts were written with tests and deploy scripts using the Foundry toolkit.</p>
+
+<h3 id="future-ideas">Future ideas</h3>
+
+<p><strong>Weighted voting</strong>: Currently, Isokratia is implemented as a proof-of-concept that only supports 1 address = 1 vote strategies. The client allows you to start a new vote for any Merkle tree generated from a mainnet NFT contract address. In future, it’d be useful to add in other strategies such as weighted voting. To do so, you can simply use another merkle tree containing weights corresponding to eligible voters and sum them in the aggregation proof.</p>
+
+<p>We also observed that some strategies are hard to adapt to this Isokratia-like system. For instance, ranked choice voting might be hard to support given the almost exponential number of options and as a result, a split of trust amongst the aggregating nodes. I’d be curious if folks have thoughts on the trust assumptions achievable for these sort of voting strategies.</p>
+
+<p><strong>Dark pools</strong>: We previously mentioned that users have the option to exit in the event of censorship. In fact, this exit option can be used to enable more interesting interactions beyond just censorship prevention. Users can group together and use this exit mechanism to create “dark pools” of votes where they all directly submit their votes to an aggregator and in the process, hide their votes from everyone else (with the anonymity set of the group). This dark pool construction, however, would require trusting the aggregator node.</p>
+
+<p><strong>Fully Autonomous Governance</strong>: As we previously discussed, governance platforms like Snapshot Labs often rely on intermediaries such as the DAO’s core team/multisig holders to execute upon polls. They essentially serve as trusted oracles that bridge external votes to the blockchain. In the case of Isokratia, however, since aggregators directly post votes on-chain, the Isokratia smart contract is already a trust-minimized source-of-truth for the voting results on-chain. This means that for many use cases, we can remove the dependency on DAO core teams and instead set up automatic execution based on voting results. This can also be used in conjunction with tools like <a href="https://keep3r.network">The Keep3r Network</a> to instrument more complex follow through actions. I’d be curious to see cool integrations of Isokratia’s voting mechanism for autonomous governance.</p>
+
+<p>If you would like to run your own aggregation node, check out USAGE.md(link here).</p>
+
+<p>We also made an attempt to fork the MIT-licensed code of Snapshot Labs and bake in this mechanism into their client/node software. While it’s certainly doable, we found it prohibitively hard to do so for a proof of concept. If you identify as Snapshot Labs (or another open-source governance platform) and are interested in integrating the Isokratia mechanism into your platform, hit us up!</p>
+
+<p><em>Thanks to lermchair for helping build the frontend of Isokratia, and to Jonathan Wang and the <a href="https://github.com/yi-sun/circom-pairing">circom-pairing</a> team for building pairing checks and helping build the groth16 verifier in Circom. Thanks also to Adhyyan Sekhsaria, Yi Sun, Amir Bolous, DC Posch, gubsheep and everyone else in the 0xPARC community for support in all forms: discussion, ideation and reviews of this blog post! The Isokratia cover image is an edit of an image generated using DALL-E, so the copyright on that belongs to OpenAI.</em></p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>There is a constant limit set to ~4 million votes currently, but the cost of increasing this limit grows logarithmically, so it is relatively easy to increase for any practical applications. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+  <div class="pagenav">
+    <h3 class="c-pagenav__head">More?</h3>
+    <iframe src="https://nibnalin.substack.com/embed" width="100%" height="200" style="background:$c-accent__purple;" frameborder="0" scrolling="no"></iframe>
+  </div>
+</article>
+
+  </div>
+  <footer class="c-page__footer">
+  <p>Nalin Bhardwaj</p>
+  <p><a href="https://twitter.com/nibnalin">Twitter</a><span class="u-separate"></span><a href="mailto:dustnib@nibnalin.me">Email</a></p>
+</footer>
+
+</div>
+
+    </main>
+    
+  </body>
+</html>
