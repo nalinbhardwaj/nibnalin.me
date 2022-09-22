@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "[DRAFT] Isokratia"
+title: "Isokratia"
 description: "Infinitely Compressible Governance using Recursive SNARKs"
 category: 
-interest_index: 0
-tags: [draft,test]
+interest_index: 7
+tags: [crypto,zero-knowledge,governance]
 image: "https://i.imgur.com/YfDc5Ds.jpg"
 ---
 
@@ -14,7 +14,12 @@ In this blog post, we’re excited to present an application uniquely enabled by
 
 ![](../assets/isokratia/cover.png)
 
-// TODO: insert demo video
+<video controls autoPlay>
+  <source
+    src="/assets/isokratia/demo.mp4"
+    type="video/mp4"
+  />
+</video>
 
 # Live demo at [isokratia.xyz](https://isokratia.xyz/)
 
@@ -31,6 +36,8 @@ On one hand, you have platforms like [Snapshot Labs](https://snapshot.org/#/) th
 On the other hand, you have platforms like [Compound Governance/GovernorBravo](https://compound.finance/governance) which run entirely on-chain, eliminating almost all intermediary trust assumptions but then cost voters gas fees for participation (and thus often end up reducing participation).
 
 Isokratia achieves the best of both worlds: ~free and secure! Voters vote off-chain for free and aggregators "roll up" the votes into a succinct recursive SNARK proof. This aggregation only costs ~500k gas to verify \~infinite[^1] votes on-chain! Simultaneously, voters make minimal trust assumptions. Anyone can run an aggregator, and aggregator incentives align such that even if there is one aggregator holding each of the voting opinions, the entire voting aggregation will be uncensored and honest. Additionally, using the chain as the source of truth also enables Isokratia to inherit the censorship-resistance properties of the chain: Voters have the option to exit and vote directly in the event the server censors them. We will expand upon these trust assumptions in the next section.
+
+Another way to view this construction is as a layer 2 rollup. This is quite an interesting perspective because most rollups base their security on monetary incentives. In the case of Isokratia, however, the incentivisation is pushed down to the individual polls: If even one person cares about a particular poll, there will be an honest aggregation and polling. This is quite unlike financially secured rollups, and perhaps, can inspire other rollup applications where monetary incentives do not exist (or are hard to instrument).
 
 [^1]: There is a constant limit set to \~4 million votes currently, but the cost of increasing this limit grows logarithmically, so it is relatively easy to increase for any practical applications.
 
@@ -114,7 +121,7 @@ We also observed that some strategies are hard to adapt to this Isokratia-like s
 
 **Fully Autonomous Governance**: As we previously discussed, governance platforms like Snapshot Labs often rely on intermediaries such as the DAO's core team/multisig holders to execute upon polls. They essentially serve as trusted oracles that bridge external votes to the blockchain. In the case of Isokratia, however, since aggregators directly post votes on-chain, the Isokratia smart contract is already a trust-minimized source-of-truth for the voting results on-chain. This means that for many use cases, we can remove the dependency on DAO core teams and instead set up automatic execution based on voting results. This can also be used in conjunction with tools like [The Keep3r Network](https://keep3r.network) to instrument more complex follow through actions. I'd be curious to see cool integrations of Isokratia's voting mechanism for autonomous governance.
 
-If you would like to run your own aggregation node, check out USAGE.md(link here).
+If you would like to run your own aggregation node, check out [USAGE.md](https://github.com/nalinbhardwaj/isokratia/blob/main/USAGE.md) in the repository.
 
 We also made an attempt to fork the MIT-licensed code of Snapshot Labs and bake in this mechanism into their client/node software. While it's certainly doable, we found it prohibitively hard to do so for a proof of concept. If you identify as Snapshot Labs (or another open-source governance platform) and are interested in integrating the Isokratia mechanism into your platform, hit us up!
 
