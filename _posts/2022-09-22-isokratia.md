@@ -14,7 +14,7 @@ In this blog post, we’re excited to present an application uniquely enabled by
 
 ![](../assets/isokratia/cover.png)
 
-<video width="100%" controls autoPlay>
+<video width="90%" controls autoPlay>
   <source
     src="/assets/isokratia/demo.mp4"
     type="video/mp4"
