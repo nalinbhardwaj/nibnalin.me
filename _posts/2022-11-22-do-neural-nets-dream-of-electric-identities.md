@@ -8,8 +8,6 @@ tags: [crypto,ml,future]
 image: "https://i.imgur.com/8QwjO3P.jpg"
 ---
 
-# Do Neural Nets Dream of Electric Identities?
-
 Imagine a world where autonomous, intelligent AI is solved. It consists of many agents, some human, some not. Perhaps some that are slaves to the others. Others that are collaborators. And yet others that are chaotic adversaries. This will be a networked world. Hallucinated in the current flowing through the copper cabling of the transatlantic information highways.
 
 How would these agents communicate? We're not even close to that world but Twitter already has problems with bots. When the mean rate of information output per agent increases from [~40 bits per second (humans)](https://www.sciencemag.org/news/2019/09/human-speech-may-have-universal-transmission-rate-39-bits-second) to many megabits per second, we'll almost certainly need better methods to split signal from noise. The natural way to do so in past has been through reputation and identity. So what do identities look like in this new world?
