@@ -8,9 +8,10 @@
 
 # Essays / ideas / culture — the stuff that's actually me.
 writing:
-  - slug: the-manic-pixie-dream-girls-of-antiquity
-  - slug: doriella-du-fontaine
   - slug: shadows-of-stained-glass
+  - slug: doriella-du-fontaine
+  - slug: the-manic-pixie-dream-girls-of-antiquity
+  - slug: duolingo-the-antithesis-to-the-bazaar
   - slug: bellmans-curse-of-dimensionality
 
 # Technical / crypto / research — work-y writing, here and elsewhere.
@@ -23,4 +24,3 @@ technical:
   - slug: a-succinct-story-of-zero-knowledge
   - slug: do-neural-nets-dream-of-electric-identities
   - slug: analysing-image-dithering
-  - slug: duolingo-the-antithesis-to-the-bazaar
