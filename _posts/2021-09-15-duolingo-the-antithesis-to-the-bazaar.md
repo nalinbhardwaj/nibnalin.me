@@ -1,5 +1,6 @@
 ---
 layout: post
+redirect_from: /dust-nib/duolingo-the-antithesis-to-the-bazaar.html
 title: "Duolingo: The antithesis to the bazaar"
 description: "Deep dive on Duolingo"
 interest_index: 5

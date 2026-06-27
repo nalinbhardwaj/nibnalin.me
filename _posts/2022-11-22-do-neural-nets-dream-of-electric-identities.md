@@ -1,11 +1,12 @@
 ---
 layout: post
+redirect_from: /dust-nib/do-neural-nets-dream-of-electric-identities.html
 title: "Do Neural Nets Dream of Electric Identities?"
 description: "Where do we go after AGI?"
 category: 
 interest_index: 8
 tags: [crypto,ml,future]
-image: "https://i.imgur.com/8QwjO3P.jpg"
+image: "https://nibnalin.me/assets/imgur/8QwjO3P.jpg"
 ---
 
 Imagine a world where autonomous, intelligent AI is solved. It consists of many agents, some human, some not. Perhaps some that are slaves to the others. Others that are collaborators. And yet others that are chaotic adversaries. This will be a networked world. Hallucinated in the current flowing through the copper cabling of the transatlantic information highways.
@@ -28,7 +29,7 @@ Much better than I would, Greg Egan writes about another, similar version of the
 
 *For context, Peer is a “Copy” of a person’s brain running on a digital machine, uniquely identified only by the jumble of a private key.*
 
-![](https://i.imgur.com/AMQ38a3.png)
+![](/assets/imgur/AMQ38a3.png)
 
 These identity fantasies may sound too far off, but subtle versions already exist. The identity “GPT-3” is authenticated by OpenAI’s DNS root server today. DALL-E throws in a little rainbow marker <span style="height: 1em; width: auto;"><img style="height: 1em; width: auto;" src="/assets/identity/dalle.png" /></span> of its identity into the images it creates. These identities, however, assume coordination from humans. GPT-3’s identity is a human-only facade granted by the DNS consortium, while DALL-E’s can simply be cropped out by uncharitable collaborators (users?).
 

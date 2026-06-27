@@ -1,5 +1,6 @@
 ---
 layout: post
+redirect_from: /dust-nib/doriella-du-fontaine.html
 title: "Doriella Du Fontaine"
 description: "Lightnin’ Rod 🎤, Jimi Hendrix 🎸 and Buddy Miles 🥁"
 date: 2019-12-3

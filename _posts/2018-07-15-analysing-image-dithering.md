@@ -1,5 +1,6 @@
 ---
 layout: post
+redirect_from: /dust-nib/analysing-image-dithering.html
 title: "Analysing Image Dithering"
 description: "Image Dithering and using neural nets for classifying linear programs"
 date: 2018-07-15

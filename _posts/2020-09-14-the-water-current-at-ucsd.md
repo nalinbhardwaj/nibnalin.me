@@ -1,5 +1,6 @@
 ---
 layout: post
+redirect_from: /dust-nib/the-water-current-at-ucsd.html
 title: "The water current at UCSD"
 description: "🚰 Water consumption data from a college"
 date: 2020-09-14

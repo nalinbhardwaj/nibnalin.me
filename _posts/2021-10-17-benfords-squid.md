@@ -1,5 +1,6 @@
 ---
 layout: post
+redirect_from: /dust-nib/benfords-squid.html
 title: "Benford's Squid Game"
 description: "Does Squid Games follow Benford's Law? 🦑🔫"
 interest_index: 1

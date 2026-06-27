@@ -1,5 +1,6 @@
 ---
 layout: post
+redirect_from: /dust-nib/shadows-of-stained-glass.html
 title: "Shadows of Stained Glass"
 description: "An analytical look at animated horror"
 interest_index: 5

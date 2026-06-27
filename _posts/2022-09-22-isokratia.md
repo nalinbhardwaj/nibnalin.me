@@ -1,11 +1,12 @@
 ---
 layout: post
+redirect_from: /dust-nib/isokratia.html
 title: "Isokratia"
 description: "Infinitely Compressible Governance using Recursive SNARKs"
 category: 
 interest_index: 7
 tags: [crypto,zero-knowledge,governance]
-image: "https://i.imgur.com/YfDc5Ds.jpg"
+image: "https://nibnalin.me/assets/imgur/YfDc5Ds.jpg"
 ---
 
 *By [Nalin](https://twitter.com/nibnalin). Isokratia was developed in collaboration with [lermchair](https://twitter.com/lermchair) (frontend!).*

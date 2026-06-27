@@ -1,0 +1,26 @@
+# Curated, ordered writing lists for the homepage.
+#
+# Two kinds of entry:
+#   - slug: <post-filename-slug>      → an internal post (title/year pulled in automatically)
+#   - title / url / year / external   → something I wrote elsewhere on the web
+#
+# Reorder freely — the homepage renders these top-to-bottom, exactly as listed.
+
+# Essays / ideas / culture — the stuff that's actually me.
+writing:
+  - slug: the-manic-pixie-dream-girls-of-antiquity
+  - slug: doriella-du-fontaine
+  - slug: shadows-of-stained-glass
+  - slug: bellmans-curse-of-dimensionality
+
+# Technical / crypto / research — work-y writing, here and elsewhere.
+technical:
+  - title: "Recursive zkSNARKs: Exploring New Territory"
+    url: https://0xparc.org/writings/groth16-recursion
+    year: 2022
+    external: true
+  - slug: isokratia
+  - slug: a-succinct-story-of-zero-knowledge
+  - slug: do-neural-nets-dream-of-electric-identities
+  - slug: analysing-image-dithering
+  - slug: duolingo-the-antithesis-to-the-bazaar

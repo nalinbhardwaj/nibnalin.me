@@ -6,3 +6,6 @@ _site/
 .DS_Store
 .bundle
 vendor/*
+
+# local full-res photo backup (not deployed)
+assets/me-full.jpg

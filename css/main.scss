@@ -1,30 +1,397 @@
 ---
-# Main scss file
+# Main stylesheet — warm paper, minimal, text-heavy.
 ---
 @charset "utf-8";
 
-// Helpers
+// Mixins + variables are kept only so the vendor syntax-highlight
+// partial (which uses the ff--code / fs--code mixins) keeps working.
 @import
     'helpers/mixins',
     'helpers/variables';
 
-// Base
-@import
-    'base/reset';
+/* ==========================================================================
+   Palette — warm paper / Teenage Engineering tones
+   ========================================================================== */
 
-// Utilities
-@import
-    'utilities/layout',
-    'utilities/separator';
+$paper:    #f9f8f4; // soft paperback off-white (near, but not pure, white)
+$ink:      #1d1b16; // warm near-black text
+$meta:     #948c7c; // warm grey for dates / secondary text
+$rule:     #e2ddcf; // hairline rules
+$red:      #d23a1f; // primary accent — links
+$orange:   #e0782a; // secondary accent
+$yellow:   #e6b53c; // tertiary accent
 
-// Components
-@import
-    'components/page',
-    'components/article',
-    'components/tag',
-    'components/archives';
+$mono: 'Hack', ui-monospace, 'SF Mono', 'Menlo', 'Consolas', monospace;
 
-// Vendor
-@import
-    'vendor/highlight';
+/* ==========================================================================
+   Reset
+   ========================================================================== */
 
+* { margin: 0; padding: 0; }
+*, *:before, *:after { box-sizing: border-box; }
+
+html {
+    font-size: 62.5%; // 1rem = 10px
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: $mono;
+    font-size: 1.6rem;
+    line-height: 1.7;
+    color: $ink;
+    background: $paper;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+img { max-width: 100%; vertical-align: middle; border: 0; }
+
+a {
+    color: $red;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color .12s ease-in;
+    &:hover { border-bottom-color: $red; }
+}
+
+hr {
+    margin: 3.2rem 0;
+    border: 0;
+    height: 1px;
+    background: $rule;
+}
+
+::selection { background: $orange; color: $paper; }
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+
+.u-container {
+    max-width: 78rem; // 780px — wide enough for two columns
+    margin: 0 auto;
+    padding: 7rem 2rem 10rem;
+}
+
+// Small lowercase section label — a little boxy tag.
+.label {
+    display: inline-block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: .01em;
+    color: $red;
+    background: $paper;
+    border: 1px solid $ink;
+    box-shadow: 3px 3px 0 rgba($ink, .16);
+    padding: .3rem .9rem;
+    margin-bottom: 2rem;
+}
+
+/* ==========================================================================
+   Home
+   ========================================================================== */
+
+// Three little colour blocks — boxy chips with a hard drop shadow.
+.mark {
+    display: flex;
+    gap: .7rem;
+    margin-bottom: 2.4rem;
+    span {
+        width: 1.5rem;
+        height: 1.5rem;
+        display: block;
+        border: 1px solid $ink;
+        box-shadow: 2px 2px 0 rgba($ink, .2);
+    }
+    .mark--red    { background: $red; }
+    .mark--orange { background: $orange; }
+    .mark--yellow { background: $yellow; }
+}
+
+// Masthead — intro on the left, portrait on the right.
+.masthead {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    align-items: center;
+    margin-bottom: 5.6rem;
+}
+
+.name {
+    font-size: 3.4rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.1;
+    color: $ink;
+    margin-bottom: 1.2rem;
+}
+
+.bio {
+    font-size: 1.6rem;
+    color: $ink;
+    max-width: 46rem;
+    margin-bottom: 1.6rem;
+}
+
+// "Now" line — opens a little retro window with the dated history.
+.now {
+    font-size: 1.5rem;
+    margin-bottom: 1.4rem;
+}
+
+.now__trigger {
+    color: $meta;
+    font-style: italic;
+    border-bottom: 1px dotted $rule;
+    &:hover { border-bottom-color: $meta; }
+}
+
+.now__ago {
+    font-style: normal;
+    color: $orange;
+    font-size: .82em;
+    margin-left: .4rem;
+}
+
+// :target modal — no JS, closes via backdrop / ✕ link.
+.now-modal { display: none; }
+.now-modal:target {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    align-items: center;
+    justify-content: center;
+}
+.now-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba($ink, .28);
+}
+
+// Early-2000s window chrome.
+.win {
+    position: relative;
+    width: unquote("min(90vw, 42rem)");
+    max-height: 80vh;
+    overflow: auto;
+    background: $paper;
+    border: 1px solid $ink;
+    box-shadow: 5px 5px 0 rgba($ink, .18);
+}
+.win__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .5rem .8rem;
+    background: $ink;
+    color: $paper;
+    font-size: 1.2rem;
+    letter-spacing: .04em;
+}
+.win__close {
+    color: $paper;
+    border: 1px solid rgba($paper, .5);
+    line-height: 1;
+    padding: .1rem .5rem;
+    &:hover { background: $red; border-color: $red; }
+}
+.win__body {
+    list-style: none;
+    padding: 1.4rem;
+    font-size: 1.4rem;
+    color: $ink;
+    li { padding: .35rem 0; }
+    li + li { border-top: 1px solid $rule; }
+    .win__date {
+        display: inline-block;
+        min-width: 13ch;
+        color: $orange;
+    }
+}
+
+.sayhi {
+    font-size: 1.5rem;
+    color: $ink;
+    margin-bottom: 1rem;
+}
+
+// Inline link row, like an old-web nav: / twitter / instagram / ...
+.nav-links {
+    font-size: 1.5rem;
+    a { color: $red; }
+}
+
+// Portrait — soft concentric zen ripples that diffuse outward, lifted
+// off the page by a gentle blurred shadow (a little depth, no hard edges).
+.portrait {
+    padding: 3.2rem 3.2rem 3.8rem; // room for the outer ripples + soft shadow
+    img {
+        display: block;
+        width: 17rem;
+        height: 17rem;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 50%;
+        box-shadow:
+            0 0 0 1px rgba($ink, .14),
+            0 0 0 6px $paper,
+            0 0 1px 7px rgba($ink, .085),
+            0 0 0 13px $paper,
+            0 0 2px 14px rgba($ink, .055),
+            0 0 0 20px $paper,
+            0 0 3px 21px rgba($ink, .035),
+            0 0 0 27px $paper,
+            0 0 6px 28px rgba($ink, .02),
+            0 16px 34px rgba($ink, .16);   // soft grounding shadow below
+    }
+}
+
+.home-section {
+    margin-bottom: 4.8rem;
+}
+
+// Writing + Technical side by side.
+.writing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 4rem;
+}
+
+// Row list — hover colours the row's own hairline instead of underlining text.
+.list {
+    list-style: none;
+    border-top: 1px solid $rule;
+    li { border-bottom: 1px solid $rule; }
+    li:hover { border-bottom-color: $red; }
+    a { border-bottom: none; } // the row line is the hover indicator
+}
+
+.entry {
+    display: flex;
+    gap: 1.2rem;
+    align-items: baseline;
+    padding: .6rem 0;
+    .entry__year { color: $meta; flex: 0 0 4ch; }
+    .entry__title { color: $red; }
+    .entry__desc { color: $meta; }
+    .entry__ext { color: $meta; font-size: .85em; }
+}
+
+// Stack to one column on narrow screens.
+@media (max-width: 38rem) {
+    .masthead { grid-template-columns: 1fr; }
+    .portrait { padding: 2.4rem 0 0; order: -1; }
+    .writing-grid { grid-template-columns: 1fr; }
+    .home-section { margin-bottom: 3.2rem; }
+}
+
+/* ==========================================================================
+   Post top-bar + footer (minimal)
+   ========================================================================== */
+
+.topbar {
+    margin-bottom: 5rem;
+    font-size: 1.4rem;
+    a { color: $meta; &:hover { border-bottom-color: $meta; } }
+}
+
+.c-page__footer {
+    margin-top: 6rem;
+    padding-top: 2rem;
+    border-top: 1px solid $rule;
+    font-size: 1.4rem;
+    color: $meta;
+    p { color: $meta; }
+    a { color: $meta; &:hover { border-bottom-color: $meta; } }
+}
+
+.u-separate {
+    margin: 0 .6rem;
+    color: $rule;
+    &:after { content: '/'; }
+}
+
+/* ==========================================================================
+   Article (blog posts)
+   ========================================================================== */
+
+.c-article { max-width: 66rem; } // comfortable reading measure
+
+.c-article__header { margin-bottom: 2.4rem; }
+
+.c-article__title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    line-height: 1.2;
+    color: $ink;
+    margin-bottom: .8rem;
+}
+
+.c-article__time {
+    font-size: 1.4rem;
+    color: $meta;
+}
+
+.c-tags {
+    list-style: none;
+    margin-bottom: 3.2rem;
+    li { display: inline-block; margin-right: 1rem; }
+}
+
+.c-tag {
+    font-size: 1.3rem;
+    color: $orange;
+}
+
+.c-article__main {
+    font-size: 1.6rem;
+    color: $ink;
+
+    > * { margin-bottom: 1.8rem; }
+
+    h2 { font-size: 2.2rem; font-weight: 700; margin-top: 1.2rem; }
+    h3 { font-size: 1.9rem; font-weight: 700; }
+    h4 { font-size: 1.6rem; font-weight: 700; }
+
+    strong { font-weight: 700; }
+    em { font-style: italic; }
+
+    a { border-bottom: 1px solid rgba($red, .35); &:hover { border-bottom-color: $red; } }
+
+    blockquote {
+        margin: 0;
+        padding-left: 1.8rem;
+        border-left: 3px solid $orange;
+        color: $meta;
+    }
+
+    ul, ol { margin-left: 2.4rem; }
+
+    img { border: 1px solid $rule; }
+
+    .web-container {
+        position: relative; width: 100%; max-width: 100%;
+        height: 0; padding-bottom: 62.5%;
+        border: 1px solid $rule; overflow: hidden;
+    }
+    .web-container iframe {
+        position: absolute; top: 0; left: 0;
+        width: 100%; max-width: 100%; height: 100%;
+    }
+}
+
+.center { text-align: center; }
+
+table {
+    border-collapse: collapse;
+    th, td { border: 1px solid $rule; padding: .5rem 1rem; }
+}
+
+/* ==========================================================================
+   Vendor — syntax highlighting (uses ff--code / fs--code mixins)
+   ========================================================================== */
+
+@import 'vendor/highlight';

@@ -1,5 +1,6 @@
 ---
 layout: post
+redirect_from: /dust-nib/the-manic-pixie-dream-girls-of-antiquity.html
 title: "The Manic Pixie Dream Girls of Antiquity"
 description: "Symptoms of a revolution?"
 date: 2020-01-31

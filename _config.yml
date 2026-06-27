@@ -1,9 +1,8 @@
 # Site settings
-title: "dust-nib"
-description: > 
-  Hi! I'm nibnalin.<br>This is my corner of the internet, a dust-nib for my thoughts.
+title: "Nalin"
+description: "Nalin's personal website."
 
-author: Nalin Bhardwaj
+author: Nalin
 email: nalinbhardwaj@nibnalin.me
 twitter_username: nibnalin
 github_username: nalinbhardwaj
@@ -14,7 +13,12 @@ url: "https://nibnalin.me" # the base hostname & protocol for your site
 # Build settings
 include: [_pages]
 markdown: kramdown
-permalink: /dust-nib/:title.html
+permalink: /:title.html
+
+# Old posts lived at /dust-nib/:title.html — jekyll-redirect-from keeps those
+# URLs alive (each post declares its old path via `redirect_from`).
+plugins:
+  - jekyll-redirect-from
 
 kramdown:
     math-engine: katex

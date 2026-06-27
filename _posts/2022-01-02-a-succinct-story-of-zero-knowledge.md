@@ -1,5 +1,6 @@
 ---
 layout: post
+redirect_from: /dust-nib/a-succinct-story-of-zero-knowledge.html
 title: "A Succinct Story of Zero Knowledge"
 description: "Studying the theory behind zero-knowledge proofs"
 category: 

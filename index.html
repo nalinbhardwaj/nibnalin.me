@@ -1,22 +1,67 @@
 ---
-layout: page
-title: Home
+layout: default
+title: Nalin
 ---
-<section class="c-archives">
-  <link rel="shortcut icon" href="">
-  <h2 class="c-archives__year" id="{{ this_year }}-ref">Writings</h2>
-  <h3 class="c-archives__subyear" id="{{ this_year }}-ref">Ordered by interestingness.</h3>
-  {% assign sorted = site.posts | sort: 'interest_index' | reverse | where_exp: "item", "item.interest_index > 0" %}
-  {% for post in sorted  %}
-  <ul class="c-archives__list">
-    <li class="c-archives__item">
-      <h3>
-        <a href="{{ post.url | prepend: site.baseurl }}">{{post.title}}</a>
-        <br>
-        <small>{{post.description}}</small>
-      </h3>
-      <p>{{ post.date | date: "%b %-d, %Y" }}</p>
-    </li>
-  </ul>
-  {% endfor %}
-</section>
+<div class="masthead">
+  <div class="intro">
+    <div class="mark">
+      <span class="mark--red"></span>
+      <span class="mark--orange"></span>
+      <span class="mark--yellow"></span>
+    </div>
+    <h1 class="name">nalin</h1>
+    <p class="bio">
+      Look what they made, they made it for me — happy technology.
+    </p>
+
+    {% assign now = site.data.now %}
+    {% if now and now.size > 0 %}
+    {% assign now_s = site.time | date: '%s' %}
+    {% assign then_s = now[0].date | date: '%s' %}
+    {% assign days = now_s | minus: then_s | divided_by: 86400 %}
+    <p class="now">
+      <a class="now__trigger" href="#now-history">{{ now[0].text }}</a>
+      <span class="now__ago">{% if days <= 0 %}today{% elsif days == 1 %}yesterday{% else %}{{ days }} days ago{% endif %}</span>
+    </p>
+    <div id="now-history" class="now-modal">
+      <a class="now-modal__backdrop" href="#" aria-label="close"></a>
+      <div class="win">
+        <div class="win__bar">
+          <span class="win__title">now — a history</span>
+          <a class="win__close" href="#" aria-label="close">✕</a>
+        </div>
+        <ul class="win__body">
+          {% for entry in now %}
+          <li><span class="win__date">{{ entry.date | date: "%b %-d, %Y" }}</span>{{ entry.text }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endif %}
+
+    <p class="sayhi">say hi — I like <a href="mailto:nalinbhardwaj@nibnalin.me">email from strangers</a>.</p>
+    <p class="nav-links">
+      <span class="u-separate"></span><a href="//twitter.com/nibnalin">twitter</a><span class="u-separate"></span><a href="//instagram.com/nibnalin">instagram</a><span class="u-separate"></span><a href="//github.com/nalinbhardwaj">github</a><span class="u-separate"></span><a href="//scholar.google.com/citations?user=IDC-kXQAAAAJ">scholar</a><span class="u-separate"></span>
+    </p>
+  </div>
+
+  <div class="portrait">
+    <img src="{{ "/assets/me.jpg" | prepend: site.baseurl }}" alt="Nalin">
+  </div>
+</div>
+
+<div class="writing-grid">
+  <section class="home-section">
+    <h2 class="label">writing</h2>
+    <ul class="list">
+      {% for entry in site.data.writing.writing %}{% include writing-entry.html entry=entry %}{% endfor %}
+    </ul>
+  </section>
+
+  <section class="home-section">
+    <h2 class="label">technical</h2>
+    <ul class="list">
+      {% for entry in site.data.writing.technical %}{% include writing-entry.html entry=entry %}{% endfor %}
+    </ul>
+  </section>
+</div>

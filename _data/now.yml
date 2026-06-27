@@ -1,0 +1,8 @@
+# A running "now" line. Newest entry first — the top one shows on the homepage,
+# the rest live in the click-to-expand history.
+#
+# Add a new line with:  ./bin/now "In Tokyo, learning to develop film"
+# (or just paste a new entry at the top by hand). Backdate freely.
+
+- date: 2026-06-27
+  text: "In Seoul, reading Zen and the Art of Motorcycle Maintenance"

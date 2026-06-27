@@ -1,5 +1,6 @@
 ---
 layout: post
+redirect_from: /dust-nib/bellmans-curse-of-dimensionality.html
 title: "Bellman's Curse on Advice"
 description: "On applicability of advice"
 date: 2021-04-18
