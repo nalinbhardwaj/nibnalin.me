@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>dust-nib</title>
-    <description>Hi! I'm nibnalin.&lt;br&gt;This is my corner of the internet, a dust-nib for my thoughts.
-</description>
+    <title>Nalin</title>
+    <description>Nalin's personal website.</description>
     <link>https://nibnalin.me/</link>
     <atom:link href="https://nibnalin.me/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 23 Nov 2022 02:33:38 +0000</pubDate>
-    <lastBuildDate>Wed, 23 Nov 2022 02:33:38 +0000</lastBuildDate>
+    <pubDate>Sat, 27 Jun 2026 12:31:59 +0000</pubDate>
+    <lastBuildDate>Sat, 27 Jun 2026 12:31:59 +0000</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -32,15 +31,15 @@
 
 &lt;p&gt;&lt;em&gt;For context, Peer is a “Copy” of a person’s brain running on a digital machine, uniquely identified only by the jumble of a private key.&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/AMQ38a3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/imgur/AMQ38a3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;These identity fantasies may sound too far off, but subtle versions already exist. The identity “GPT-3” is authenticated by OpenAI’s DNS root server today. DALL-E throws in a little rainbow marker &lt;span style=&quot;height: 1em; width: auto;&quot;&gt;&lt;img style=&quot;height: 1em; width: auto;&quot; src=&quot;/assets/identity/dalle.png&quot; /&gt;&lt;/span&gt; of its identity into the images it creates. These identities, however, assume coordination from humans. GPT-3’s identity is a human-only facade granted by the DNS consortium, while DALL-E’s can simply be cropped out by uncharitable collaborators (users?).&lt;/p&gt;
 
 &lt;p&gt;The future of digital identity, for humans and for machines, demands better cryptography. Let’s build it. :)&lt;/p&gt;
 </description>
         <pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate>
-        <link>https://nibnalin.me/dust-nib/do-neural-nets-dream-of-electric-identities.html</link>
-        <guid isPermaLink="true">https://nibnalin.me/dust-nib/do-neural-nets-dream-of-electric-identities.html</guid>
+        <link>https://nibnalin.me/do-neural-nets-dream-of-electric-identities.html</link>
+        <guid isPermaLink="true">https://nibnalin.me/do-neural-nets-dream-of-electric-identities.html</guid>
         
         <category>crypto</category>
         
@@ -183,252 +182,14 @@
 &lt;/div&gt;
 </description>
         <pubDate>Thu, 22 Sep 2022 00:00:00 +0000</pubDate>
-        <link>https://nibnalin.me/dust-nib/isokratia.html</link>
-        <guid isPermaLink="true">https://nibnalin.me/dust-nib/isokratia.html</guid>
+        <link>https://nibnalin.me/isokratia.html</link>
+        <guid isPermaLink="true">https://nibnalin.me/isokratia.html</guid>
         
         <category>crypto</category>
         
         <category>zero-knowledge</category>
         
         <category>governance</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>[DRAFT] Procgen</title>
-        <description>&lt;p&gt;0xPARC is perhaps most well known for its contributions in applied ZK research, with projects surrounding ZK identity primitives in particular. But another, perhaps less well-known, branch of the 0xPARC community are world-builders. With games and systems like &lt;a href=&quot;https://zkga.me&quot;&gt;Dark Forest&lt;/a&gt;, &lt;a href=&quot;https://twitter.com/latticexyz&quot;&gt;Lattice (Ember)&lt;/a&gt; and &lt;a href=&quot;https://twitter.com/exgrasia&quot;&gt;exgrasia&lt;/a&gt;, many of us have been exploring novel visions for what on-chain, crypto-native gaming looks like. In this post, we’ll talk about one of the coolest primitives used by all three of the aforementioned games: procedural generation.&lt;/p&gt;
-
-&lt;p&gt;Procedural generation is the idea to create worlds (landscapes, dungeons, castles, clouds…) programmatically by the use of generation algorithms. Procedural generation algorithms typically attempt to emulate natural world formation processes, embedding variety and realism in the pseudorandomness of their outputs.&lt;/p&gt;
-
-&lt;h1 id=&quot;why-procgen&quot;&gt;Why procgen?&lt;/h1&gt;
-
-&lt;p&gt;Your first instinct as a game developer might be to make maps block by block - by hand. Off chain, handmade maps are extremely commonplace - games like DayZ and Fortnite carefully engineer detailed towns and hills optimizing for maximum &lt;em&gt;fun&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;On-chain, however, we deal with a big constraint - storage cost. If you were to store a 1000x1000 grid world on Ethereum (of uint256s), for instance, it would cost you X gas (which amounts to ~$Y on mainnet today). Instead the use of procedural generation allows you to generate each of these tiles on-demand, only costing money when a player first steps on a particular coordinate for instance. Each individual call to a procedural generation algorithm (perlin noise, for instance) is also significantly cheaper, costing less than A gas (~$B). By running procedural generation and caching a tile’s attributes when someone first steps on it, you can amortize the cost of storing the map on-chain amongst all the players of your world. In some sense, a procedural generation algorithm is a trick to compress a complex world into an executable.&lt;/p&gt;
-
-&lt;p&gt;Procedural generation isn’t a new idea specific to onchain gaming! All your favourite roguelike games use procedural generation in some way or the other, including minecraft (for landscape generation), No Man’s Sky (for planet generation) and Dwarf Fortress (for creatures, religions etc.) among &lt;a href=&quot;https://en.wikipedia.org/wiki/List_of_games_using_procedural_generation&quot;&gt;many others&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Procedural generation for world building is, unsurprisingly, a technique originally pioneered by games running on 16kb RAM and 1mhz processors back in the 90s. It’s interesting how many similarities there are between the resource-limited personal computers of the 90s and the resource-limited shared computer today that is Ethereum. In many ways, we’re in the 90s of crypto-native gaming, and developing an on chain world right now is an exercise in balancing constrained creativity and being resourceful and hacky with what’s possible with on-chain compute.&lt;/p&gt;
-
-&lt;h1 id=&quot;how-procgen&quot;&gt;How procgen?&lt;/h1&gt;
-
-&lt;p&gt;So far, we’ve only considered procedural generation in hand wavy terms - “make me a cool looking world”. One layer deeper, however, what we mean is that we want a source of entropy that feels random, but also isn’t chaotic to look at. More formally, our aim is to create some sort of a noise function that is variant when looked at globally, but locally consistent zooming in. To understand the intuition to making such a function, let’s start with something fundamental: sine waves! As a quick refresher, a sine wave is an equation that looks like \(y = amplitude * sin(x * frequency)\). Amplitude and Frequency parameters allow you to squish or stretch the wave horizontally and vertically.&lt;/p&gt;
-
-&lt;div id=&quot;observablehq-viewof-res-35890384&quot;&gt;&lt;/div&gt;
-&lt;div style=&quot;display: flex;align-items: center;&quot;&gt;
-&lt;div style=&quot;margin: 0px 20px;&quot; id=&quot;observablehq-viewof-sineAmplitude-35890384&quot;&gt;&lt;/div&gt;
-&lt;div style=&quot;margin: 0px 20px;&quot; id=&quot;observablehq-viewof-sineFrequency-35890384&quot;&gt;&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;script type=&quot;module&quot;&gt;
-import {Runtime, Inspector} from &quot;https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js&quot;;
-import define from &quot;https://api.observablehq.com/@nalinbhardwaj/procgen-experiments.js?v=3&quot;;
-new Runtime().module(define, name =&gt; {
-  if (name === &quot;viewof res&quot;) return new Inspector(document.querySelector(&quot;#observablehq-viewof-res-35890384&quot;));
-  if (name === &quot;viewof sineAmplitude&quot;) return new Inspector(document.querySelector(&quot;#observablehq-viewof-sineAmplitude-35890384&quot;));
-  if (name === &quot;viewof sineFrequency&quot;) return new Inspector(document.querySelector(&quot;#observablehq-viewof-sineFrequency-35890384&quot;));
-});
-&lt;/script&gt;
-
-&lt;p&gt;Another interesting concept is super-position: the ability to add up different wave functions. See what happens when we add up many sine waves with random parameters:&lt;/p&gt;
-
-&lt;div id=&quot;observablehq-viewof-res2-3c38f78d&quot;&gt;&lt;/div&gt;
-
-&lt;div style=&quot;display: flex;align-items: center;&quot;&gt;
-&lt;div style=&quot;margin: 0px 20px;&quot; id=&quot;observablehq-viewof-sineAAmplitude-3c38f78d&quot;&gt;&lt;/div&gt;
-&lt;div style=&quot;margin: 0px 20px;&quot; id=&quot;observablehq-viewof-sineAFrequency-3c38f78d&quot;&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;div style=&quot;display: flex;align-items: center;&quot;&gt;
-&lt;div style=&quot;margin: 0px 20px;&quot; id=&quot;observablehq-viewof-sineBAmplitude-3c38f78d&quot;&gt;&lt;/div&gt;
-&lt;div style=&quot;margin: 0px 20px;&quot; id=&quot;observablehq-viewof-sineBFrequency-3c38f78d&quot;&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;div style=&quot;display: flex;align-items: center;&quot;&gt;
-&lt;div style=&quot;margin: 0px 20px;&quot; id=&quot;observablehq-viewof-sineCAmplitude-3c38f78d&quot;&gt;&lt;/div&gt;
-&lt;div style=&quot;margin: 0px 20px;&quot; id=&quot;observablehq-viewof-sineCFrequency-3c38f78d&quot;&gt;&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;script type=&quot;module&quot;&gt;
-import {Runtime, Inspector} from &quot;https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js&quot;;
-import define from &quot;https://api.observablehq.com/@nalinbhardwaj/procgen-experiments.js?v=3&quot;;
-new Runtime().module(define, name =&gt; {
-  if (name === &quot;viewof res2&quot;) return new Inspector(document.querySelector(&quot;#observablehq-viewof-res2-3c38f78d&quot;));
-  if (name === &quot;viewof sineCAmplitude&quot;) return new Inspector(document.querySelector(&quot;#observablehq-viewof-sineCAmplitude-3c38f78d&quot;));
-  if (name === &quot;viewof sineBAmplitude&quot;) return new Inspector(document.querySelector(&quot;#observablehq-viewof-sineBAmplitude-3c38f78d&quot;));
-  if (name === &quot;viewof sineAAmplitude&quot;) return new Inspector(document.querySelector(&quot;#observablehq-viewof-sineAAmplitude-3c38f78d&quot;));
-  if (name === &quot;viewof sineCFrequency&quot;) return new Inspector(document.querySelector(&quot;#observablehq-viewof-sineCFrequency-3c38f78d&quot;));
-  if (name === &quot;viewof sineBFrequency&quot;) return new Inspector(document.querySelector(&quot;#observablehq-viewof-sineBFrequency-3c38f78d&quot;));
-  if (name === &quot;viewof sineAFrequency&quot;) return new Inspector(document.querySelector(&quot;#observablehq-viewof-sineAFrequency-3c38f78d&quot;));
-  return [&quot;sum&quot;].includes(name);
-});
-&lt;/script&gt;
-
-&lt;p&gt;We get a lot more variation in our output globally, while maintaining the local similarity property we desired. This is how procedural generation works! Formally, each of the constituent waves is called an “octave”&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;, each adding more complexity to the surface of the output.&lt;/p&gt;
-
-&lt;p&gt;Instead of using a sine wave, Perlin Noise uses a different function. While it follows the same idea, it’s less regular compared to sine waves and its amplitude is more consistent. While it is technically possible to build all the generations we describe below with simple trigonometric functions like sine waves, Perlin noise is easier (and prettier) to use, so we’ll focus on Perlin Noise going forward.&lt;/p&gt;
-
-&lt;h2 id=&quot;how-does-perlin-noise-work&quot;&gt;How does Perlin noise work?&lt;/h2&gt;
-
-&lt;p&gt;Before we start exploring worldly Perlin structures, we’ll introduce one more idea of procedural generation: dimensionality. In the previous section, we’ve only worked with one dimensional waves — how can we extend this idea to 2D maps (or for that matter, N-dimensions)? Primarily, we now have to maintain the notion of regularity across not just one, but two dimensions.&lt;/p&gt;
-
-&lt;p&gt;The core idea of Perlin can be summarised as follows: take your 2D grid and break it into chunks (of say, size 5 x 5). Next, put random vectors at the corners of each chunk. Next, to compute the noise function at any (x, y) coordinate, obtain the random vectors at the corners of the chunk, and interpolate between them - this is just a fancy way of saying “compute a smoothened value that translates between the random vectors at the corners” using some calculus. There are some tricks to making a clean/clever interpolation between the vectors, but those are not particularly important for this discussion.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-  &lt;img src=&quot;../assets/procgen/perlin-2d.png&quot; /&gt;
-  &lt;p align=&quot;right&quot;&gt;
-  &lt;i&gt;Credits: &lt;a href=&quot;https://www.cs.umd.edu/class/spring2018/cmsc425/Lects/lect13-2d-perlin.pdf&quot;&gt;UMD CMSC 425&lt;/a&gt;&lt;/i&gt;
-  &lt;/p&gt;
-&lt;/p&gt;
-
-&lt;h2 id=&quot;creative-world-building-with-perlin-noise&quot;&gt;Creative world building with Perlin Noise&lt;/h2&gt;
-
-&lt;p&gt;[gubsheep fills jump from one octave greyscale to land water]&lt;/p&gt;
-
-&lt;p&gt;Now that we have a simple landscape resembling some sort of archipelago, let’s look at ideas that bridge this to more interesting world maps. For starters, what if we built something resembling our own world - with a North Pole at the top and more tropical/equatorial regions as me move downward from the Pole. We already have a notion of height of a tile. We essentially want to add a temperature parameter to our tile, one that while being somewhat random, follows the pattern we observe in the real world. To imbue this pattern, we’ll cleverly super position perlin output with a simple linear function of our own:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;temperature&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;floor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;coords&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;By taking our old sine-wave-esque function and adding a linear function to it, we can retain the rough pattern we desired, along with the realistic landscape features. Now, we can use this temperature value in conjunction with height to switch tile types:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;seedToTileType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;coords&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WorldCoords&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;perlin1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;perlin2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TileType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;perlin1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;temperature&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;perlin2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;temperature&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;floor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;coords&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-  &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;altitudeType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AltitudeType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SEA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;37&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;altitudeType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AltitudeType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;MOUNTAIN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;altitudeType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AltitudeType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;LAND&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;altitudeType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AltitudeType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;BEACH&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;temperatureType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TemperatureType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;COLD&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;temperature&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;temperatureType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TemperatureType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;HOT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;temperature&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;temperatureType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TemperatureType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;NORMAL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tileType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TileType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;UNKNOWN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;temperatureType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TemperatureType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;COLD&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;altitudeType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AltitudeType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;MOUNTAINTOP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;tileType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TileType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SNOW&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;altitudeType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AltitudeType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;MOUNTAIN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;tileType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TileType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SNOW&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;nx&quot;&gt;tileType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TileType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;WATER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;temperatureType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TemperatureType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;NORMAL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// put less snow&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// do something else (no snow)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tileType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;With this set of patches, we obtain this nice, earthly map:&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-  &lt;img src=&quot;../assets/procgen/exgrasia-map.png&quot; /&gt;
-  &lt;p align=&quot;right&quot;&gt;
-  &lt;i&gt;&lt;a href=&quot;https://github.com/nalinbhardwaj/devconnect-procgen-workshop/tree/part2-2&quot;&gt;Code&lt;/a&gt;. Notably, this is also the exact map used by &lt;a href=&quot;http://exgrasia.xyz&quot;&gt;exgrasia&lt;/a&gt;&lt;/i&gt;
-  &lt;/p&gt;
-&lt;/p&gt;
-
-&lt;p&gt;Interestingly, its also really simple to derive new maps by just being creative with color schemes and perceptions. This exact map with some changes can be seen as a Minecraft nether-like map, for instance:&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-  &lt;img src=&quot;../assets/procgen/nether-map.png&quot; /&gt;
-  &lt;p align=&quot;right&quot;&gt;
-  &lt;i&gt;&lt;a href=&quot;https://github.com/nalinbhardwaj/devconnect-procgen-workshop/tree/nether&quot;&gt;Code&lt;/a&gt;&lt;/i&gt;
-  &lt;/p&gt;
-&lt;/p&gt;
-
-&lt;p&gt;To create these previous two maps, we’ve used plain \(x\) coordinates to imbue a cool property to our procedurally generated temperature value. What if we assigned temperature based on distance from centre of the map? Let’s try it:&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-  &lt;img src=&quot;../assets/procgen/island-map.png&quot; /&gt;
-  &lt;p align=&quot;right&quot;&gt;
-  &lt;i&gt;&lt;a href=&quot;https://github.com/nalinbhardwaj/devconnect-procgen-workshop/tree/island&quot;&gt;Code&lt;/a&gt;&lt;/i&gt;
-  &lt;/p&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We obtain an island with a mountain at the centre surrounded by snowy lands and a beach at the edges. And perhaps, if you run with imagination, it looks like the snowy area is a sideways portrait of a smiling ghost.&lt;/p&gt;
-
-&lt;p&gt;Let’s take this idea one step further. Instead of thinking about our map in a Cartesian plane, what if we look at it in a polar coordinate system? As a quick reminder, polar coordinate systems demarcate points by their distance from the origin and the angle between the line from origin to the point with the x axis. Here’s what happens if we use this coordinate system as the basis of generation:&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-  &lt;img src=&quot;../assets/procgen/amsterdam-map.png&quot; /&gt;
-  &lt;p align=&quot;right&quot;&gt;
-  &lt;i&gt;&lt;a href=&quot;https://github.com/nalinbhardwaj/devconnect-procgen-workshop/tree/amsterdam&quot;&gt;Code&lt;/a&gt;&lt;/i&gt;
-  &lt;/p&gt;
-&lt;/p&gt;
-
-&lt;p&gt;We obtain a map with much more radial symmetry. This is not surprising - we’ve essentially unrolled a rectangular map into a series of concentric rings to obtain this map! Perhaps this map is also somewhat reminiscent of the city where this year’s Devconnect was hosted, Amsterdam, a city built around concentric rings of buildings and canals.&lt;/p&gt;
-
-&lt;h3 id=&quot;putting-worlds-on-chain&quot;&gt;Putting worlds on-chain&lt;/h3&gt;
-
-&lt;p&gt;So far, this blog has focused on the use cases for Perlin noise and procedural generation but all the described generations have accompanying solidity implementations - if you checkout the linked branches locally and right click any tile, you should see console logs verifying the generated tile types between the solidity and javascript versions - and you can find the generating code in &lt;a href=&quot;https://github.com/nalinbhardwaj/devconnect-procgen-workshop/blob/master/eth/contracts/TinyWorld.sol#L29&quot;&gt;eth/contracts/TinyWorld.sol&lt;/a&gt;. Thanks to the DarkForest team, there’s also a &lt;a href=&quot;https://github.com/darkforest-eth/circuits/tree/master/perlin&quot;&gt;ZK circuit that can compute and verify Perlin Noise generations&lt;/a&gt; that may be relevant to readers.&lt;/p&gt;
-
-&lt;h2 id=&quot;whackier-ideas&quot;&gt;Whackier ideas&lt;/h2&gt;
-
-&lt;p&gt;As you explore the world of procedural generation further, here’s some of my own favourite advanced uses of procedural generation:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://iquilezles.org/articles/warp/&quot;&gt;Fractal Brownian motion&lt;/a&gt;: The creation of maps that recursively use the output of Perlin Noise to create more noise - kind of like taking the aforementioned rectangular/polar coordinate systems described in our Amsterdam exploration and replacing those by a coordinate system itself defined by Perlin Noise.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-  &lt;img src=&quot;../assets/procgen/gfx00.jpg&quot; /&gt;
-&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.dannyking.uk/artwork/colororbs&quot;&gt;Perlin Planets&lt;/a&gt;: The creation of force fields to make continuous spherical maps is super neat!&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-  &lt;img src=&quot;../assets/procgen/planet.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.diva-portal.org/smash/get/diva2:1223894/FULLTEXT01.pdf&quot;&gt;Volumetric clouds&lt;/a&gt;: Creating convincing looking moving cloud skyscapes efficiently is a hard task! While there’s a lot of (noisy) details to the complete generation method, it, too, builds on Perlin Noise!&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;where-procgen&quot;&gt;Where procgen?&lt;/h1&gt;
-
-&lt;p&gt;It’s funny how on the one hand crypto-native games feel like this unscratched surface with seething potential to change how we think about games at all, and yet, these are such early days that some of the best on-chain games right now only require algorithms simple enough to describe in blogs like this one. Constraints breed creativity, and we hope this blog inspires you to go explore affordances of the blockchain by building your own crypto native game - regardless of how &lt;em&gt;basic&lt;/em&gt; it might feel. Perhaps the biggest trap right now amongst crypto-native gaming devs is to fall into the trap of being over ambitious running L1s for land NFTs and tokenomics and what not. KISS.&lt;/p&gt;
-
-&lt;p align=&quot;center&quot;&gt;
-  &lt;img src=&quot;../assets/procgen/ss-1.png&quot; /&gt;
-&lt;/p&gt;
-&lt;p align=&quot;center&quot;&gt;
-  &lt;img src=&quot;../assets/procgen/ss-2.png&quot; /&gt;
-&lt;/p&gt;
-
-&lt;h1 id=&quot;credits&quot;&gt;Credits&lt;/h1&gt;
-
-&lt;p&gt;If this interested you, you may also find it interesting to explore and build tile contracts on top of exgrasia, which started with explorations of this on-chain procedural generation!&lt;/p&gt;
-
-&lt;p&gt;This is a more polished version of a talk gubsheep and Nalin gave at &lt;a href=&quot;https://defcon.0xparc.org&quot;&gt;DEFCON&lt;/a&gt;. The &lt;a href=&quot;https://github.com/nalinbhardwaj/exgrasia/blob/master/eth/contracts/Perlin.sol&quot;&gt;solidity implementation&lt;/a&gt; of Perlin Noise was originally written by gubsheep, and the &lt;a href=&quot;https://github.com/darkforest-eth/circuits/tree/master/perlin&quot;&gt;zk-SNARK circuit implementation&lt;/a&gt; was written by the Dark Forest team. Thanks to &lt;a href=&quot;https://twitter.com/yush_g&quot;&gt;Yush&lt;/a&gt;, with whom the first explorations of the exgrasia landscape were made and to &lt;a href=&quot;https://twitter.com/alanluo_0&quot;&gt;Alan Luo&lt;/a&gt; for introducing the Dark Forest team (and us!) to the magic of procedural generation on-chain.&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;There’s some connection between these octaves and the music theory octaves, but it’s unclear to the author what that is &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;
-</description>
-        <pubDate>Thu, 05 May 2022 00:00:00 +0000</pubDate>
-        <link>https://nibnalin.me/dust-nib/draft-procgen.html</link>
-        <guid isPermaLink="true">https://nibnalin.me/dust-nib/draft-procgen.html</guid>
-        
-        <category>draft</category>
-        
-        <category>test</category>
         
         
       </item>
@@ -444,8 +205,8 @@ new Runtime().module(define, name =&gt; {
 &lt;p&gt;If you’re not into the theory, but fascinated by the practical applications, here are some links to ZK applications I’ve made in past: &lt;a href=&quot;https://github.com/nalinbhardwaj/wordlines&quot;&gt;WordLines&lt;/a&gt; and &lt;a href=&quot;https://github.com/nalinbhardwaj/snarky-sudoku&quot;&gt;Snarky Sudoku&lt;/a&gt;. I’m currently also working on another ZK game. Hit me up if you’re interested in collaborating. Especially so if you’re an artist or an illustrator.&lt;/p&gt;
 </description>
         <pubDate>Sun, 02 Jan 2022 00:00:00 +0000</pubDate>
-        <link>https://nibnalin.me/dust-nib/a-succinct-story-of-zero-knowledge.html</link>
-        <guid isPermaLink="true">https://nibnalin.me/dust-nib/a-succinct-story-of-zero-knowledge.html</guid>
+        <link>https://nibnalin.me/a-succinct-story-of-zero-knowledge.html</link>
+        <guid isPermaLink="true">https://nibnalin.me/a-succinct-story-of-zero-knowledge.html</guid>
         
         <category>zero-knowledge</category>
         
@@ -609,8 +370,8 @@ var n,i=t(&quot;./lib/build-log&quot;),a=t(&quot;./lib/epsilon&quot;),o=t(&quot;
 &lt;p&gt;If you are interested, the iPython notebook for this data analysis is &lt;a href=&quot;https://colab.research.google.com/drive/1xmVVtfAs3-KkSZcxzSPFQgS3PmhMPnd4?usp=sharing&quot;&gt;here&lt;/a&gt;. I’m not certain about the legality of sharing scraped subtitles, so I’m not going to include those. For more such data analysis (or reading about all the random things I think about), consider subscribing to my Substack.&lt;/p&gt;
 </description>
         <pubDate>Sun, 17 Oct 2021 00:00:00 +0000</pubDate>
-        <link>https://nibnalin.me/dust-nib/benfords-squid.html</link>
-        <guid isPermaLink="true">https://nibnalin.me/dust-nib/benfords-squid.html</guid>
+        <link>https://nibnalin.me/benfords-squid.html</link>
+        <guid isPermaLink="true">https://nibnalin.me/benfords-squid.html</guid>
         
         <category>data</category>
         
@@ -1113,8 +874,8 @@ In this bazaar of shopfronts, one company does something interestingly unique: D
 &lt;/div&gt;
 </description>
         <pubDate>Wed, 15 Sep 2021 00:00:00 +0000</pubDate>
-        <link>https://nibnalin.me/dust-nib/duolingo-the-antithesis-to-the-bazaar.html</link>
-        <guid isPermaLink="true">https://nibnalin.me/dust-nib/duolingo-the-antithesis-to-the-bazaar.html</guid>
+        <link>https://nibnalin.me/duolingo-the-antithesis-to-the-bazaar.html</link>
+        <guid isPermaLink="true">https://nibnalin.me/duolingo-the-antithesis-to-the-bazaar.html</guid>
         
         <category>duolingo</category>
         
@@ -1166,8 +927,8 @@ In this bazaar of shopfronts, one company does something interestingly unique: D
 &lt;/div&gt;
 </description>
         <pubDate>Sun, 18 Apr 2021 00:00:00 +0000</pubDate>
-        <link>https://nibnalin.me/dust-nib/bellmans-curse-of-dimensionality.html</link>
-        <guid isPermaLink="true">https://nibnalin.me/dust-nib/bellmans-curse-of-dimensionality.html</guid>
+        <link>https://nibnalin.me/bellmans-curse-of-dimensionality.html</link>
+        <guid isPermaLink="true">https://nibnalin.me/bellmans-curse-of-dimensionality.html</guid>
         
         <category>math</category>
         
@@ -1263,8 +1024,8 @@ const inspectButton = Inspector.into(&quot;#observablehq-741e02d9&quot;);
 &lt;/div&gt;
 </description>
         <pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate>
-        <link>https://nibnalin.me/dust-nib/the-water-current-at-ucsd.html</link>
-        <guid isPermaLink="true">https://nibnalin.me/dust-nib/the-water-current-at-ucsd.html</guid>
+        <link>https://nibnalin.me/the-water-current-at-ucsd.html</link>
+        <guid isPermaLink="true">https://nibnalin.me/the-water-current-at-ucsd.html</guid>
         
         <category>visualization</category>
         
@@ -1298,8 +1059,8 @@ const inspectButton = Inspector.into(&quot;#observablehq-741e02d9&quot;);
 &lt;p&gt;The discussion there is quite interesting. Several users link similarly esoteric analyses. &lt;a href=&quot;https://typesetinthefuture.com&quot;&gt;Typeset in The Future&lt;/a&gt; and &lt;a href=&quot;https://anime-architecture.org&quot;&gt;Anime Architecture exhibition&lt;/a&gt; are my personal favourites from that thread.&lt;/p&gt;
 </description>
         <pubDate>Fri, 12 Jun 2020 00:00:00 +0000</pubDate>
-        <link>https://nibnalin.me/dust-nib/shadows-of-stained-glass.html</link>
-        <guid isPermaLink="true">https://nibnalin.me/dust-nib/shadows-of-stained-glass.html</guid>
+        <link>https://nibnalin.me/shadows-of-stained-glass.html</link>
+        <guid isPermaLink="true">https://nibnalin.me/shadows-of-stained-glass.html</guid>
         
         <category>film</category>
         
@@ -1350,14 +1111,309 @@ const inspectButton = Inspector.into(&quot;#observablehq-741e02d9&quot;);
 &lt;/div&gt;
 </description>
         <pubDate>Fri, 31 Jan 2020 00:00:00 +0000</pubDate>
-        <link>https://nibnalin.me/dust-nib/the-manic-pixie-dream-girls-of-antiquity.html</link>
-        <guid isPermaLink="true">https://nibnalin.me/dust-nib/the-manic-pixie-dream-girls-of-antiquity.html</guid>
+        <link>https://nibnalin.me/the-manic-pixie-dream-girls-of-antiquity.html</link>
+        <guid isPermaLink="true">https://nibnalin.me/the-manic-pixie-dream-girls-of-antiquity.html</guid>
         
         <category>literature</category>
         
         <category>antiquity</category>
         
         <category>film</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Doriella Du Fontaine</title>
+        <description>&lt;p&gt;&lt;em&gt;In this essay, I look at an old, obscure song &lt;a href=&quot;//youtu.be/OfN9O3Ok85c&quot;&gt;Doriella Du Fontaine&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;When you first hear &lt;em&gt;Doriella Du Fontaine&lt;/em&gt;, it sounds like a run-of-the-mill jam session: first, Jimi sets up a funk groove on his guitar, then as Buddy sets up the beat on the drums, the listener is launched into the tale of Miss Fontaine, told by Lightnin’ Rod in a typical raunchy, vernacular New York style. The song tells a tale of manipulation and fate in a proto-rap spoken word format.&lt;/p&gt;
+
+&lt;p&gt;The track was recorded at the Electric Ladyland, Jimi’s New York studio, in November 1969. While the track was recorded at a time when New York was the beating heart of hip-hop culture, it wasn’t released until years later. Yet, this coincidental jam session went on to influence hip-hop greatly, forming a bridge between the vernacular culture of “toasts” and “dozens” and the modern music industry’s hip-hop. To that end, this piece was so ahead of its time, that writer Gene Santoro described the song as “foreshadow[ing] the rap-meets-metal crossover”&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. It is also notable that the artists assembled at this jam (Buddy Miles, Billy Cox and Larry Young) later became Hendrix’s Band of Gypsys&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;, whose work established the early P-funk scene.&lt;/p&gt;
+
+&lt;p&gt;While the standalone track &lt;em&gt;Doriella Du Fontaine (DDF)&lt;/em&gt; may seem vanilla compared to the rest of Jalal’s and Hendrix’s discography, which contains countless billboard hits, the historical significance of this piece makes it a gem worth examining.&lt;/p&gt;
+
+&lt;h2 id=&quot;an-unlikely-meeting&quot;&gt;An unlikely meeting&lt;/h2&gt;
+
+&lt;h3 id=&quot;jalal-nuriddin-lightnin-rod&quot;&gt;Jalal Nuriddin (Lightnin’ Rod)&lt;/h3&gt;
+
+&lt;p&gt;Before meeting Jimi, Jalal describes his personal interests as “black music, which was more into Bebop, Blues, Rhythm &amp;amp; Blues, Doo Wop and Afro-Cuban Jazz, with Gospel as my harmonic source point”&lt;sup id=&quot;fnref:2:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. In Jalal’s discography, DDF marks a point of transition away from Afro-Cuban instrumentation: from bongos and maracas in his previous tracks (e.g. &lt;em&gt;When the Revolution Comes from The Last Poets&lt;/em&gt;) to jazz/funk instruments like keyboard and bass guitar in his subsequent work (e.g &lt;em&gt;Sport from Hustlers Convention&lt;/em&gt;).&lt;/p&gt;
+
+&lt;h3 id=&quot;jimi-hendrix&quot;&gt;Jimi Hendrix&lt;sup id=&quot;fnref:2:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/h3&gt;
+
+&lt;p&gt;Jimi first discovered The Last Poets (and Jalal) after hearing their self-titled album pre-release through their shared producer Alan Douglas. The message delivered by their work resonated with Jimi, someone who had attempted to express his own political ideas with music such as his rendition of &lt;em&gt;The Star-Spangled Banner&lt;/em&gt; (the national anthem of the United States)&lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;After the massive success of The Jimi Hendrix Experience, in 1968, Jimi looked to expand his music in fresh, new directions. For Jimi Hendrix, DDF was not about money, as he told Jalal, “And I don’t want no money for this, I just want to have fun and jam, so if their [sic] is any money to be made off the track, you and Douglas can work it out.”&lt;sup id=&quot;fnref:2:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;lyrics&quot;&gt;Lyrics&lt;/h2&gt;
+
+&lt;p&gt;Producer Alan Douglas described DDF as a “jail toast”, a mashup of stories Jalal had heard during his time in prison&lt;sup id=&quot;fnref:7&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:7&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;. While other early toasts, such as Rudy Ray Moore’s “The Signifying Monkey” restrict themselves to folk tales, there is a clear influence of prisoners’ ideology on DDF: the use of edgy language, normalizing casual drug use, and the underlying idea of a “happily ever after” based on honey trapping or espionage.&lt;/p&gt;
+
+&lt;p&gt;The lyrics themselves are structured as a casual narration of an incident by Jalal to his friend, Jimi. Jalal seems to be in no hurry, and he paces himself to create a connection to the listener, often calling to his friend (“Jim”/“Jimi”) for a pause.&lt;/p&gt;
+
+&lt;p&gt;The poetic elements grow on the listener as well, the beginning of the track has few instances of rhyming words and alliteration, but as we approach the end of the track, the density and variance of the rhymes is much higher: internal rhymes, multi-syllable rhymes and even rhymes across verses, nothing is off-limits for DDF. “Appendix A: an objective look at the lyrics” tries to show a visual representation of this observation.&lt;/p&gt;
+
+&lt;h3 id=&quot;spoagraphics&quot;&gt;Spoagraphics&lt;/h3&gt;
+
+&lt;p&gt;Jalal Nuriddin described jail toasts as “spoagraphics” or “spoken pictures”&lt;sup id=&quot;fnref:7:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:7&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;. I think his description of toasts is closely related to the “metaphorical-imagistic” aspect of signification described by scholars Geneva Smitherman, Henry Gates, and Imani Perry&lt;sup id=&quot;fnref:8&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:8&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;. As Imani Perry puts it, one of the most important reasons to use metaphors and similes in hip-hop is to “engage the imagination and expand or transform the universe in which the MC dwells. With them, the author creates a space of possibility.” Jalal uses the narrative describing the “sunny lands of New Mexico” in verses 11, 12 and 13 to accomplish this in his own way. Moreso, his exaggerated description of his life creates a larger space of possibilities for each subsequent act, making the listener more curious. At the same time, the listener is left with the image of a boasting playboy that is so unrealistic that the very thought of it is entertaining.&lt;/p&gt;
+
+&lt;h3 id=&quot;comparison-with-as-nasty-as-they-wanna-be-2-live-crew&quot;&gt;Comparison with &lt;em&gt;As Nasty As They Wanna Be (2 Live Crew)&lt;/em&gt;&lt;/h3&gt;
+
+&lt;p&gt;From the perspective of obscenity, I think this track is at an interesting crossroads between hip-hop’s vernacular nature and the use of obscenity as a tool for entertainment. While in hindsight, the use of obscenity in this song would be considered mild at best compared to its future counterparts, like 2 Live Crew’s As Nasty As They Wanna Be, it is important to note that the song was recorded in 1970. At the time, Jimi’s audience was largely  “white youth”&lt;sup id=&quot;fnref:2:4&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; and if the song were to be released at the time of recording, I suspect their response would have been harsh.&lt;/p&gt;
+
+&lt;p&gt;While I agree with Kimberle Crenshaw’s views on the 2 Live Crew vs. Florida obscenity trial&lt;sup id=&quot;fnref:9&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:9&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;6&lt;/a&gt;&lt;/sup&gt;, particularly those questioning the value of misogyny and/or racism, even when they are almost inseparable from the cultural history of an ethnic group, I think DDF is a perfect example that describes the “artistic” value of obscenity. DDF treads the fine line between the offensive and the “humorous” quite neatly. There are clear instances of misogyny and boastings of the artist’s sexual prowess, but, unlike 2 Live Crew’s As Nasty As They Wanna Be, they are clear exaggerations of stereotypes and hyperboles. As Henry Louis Gates, Jr. put it in his testimony, they only intend to make the listener “bust out laughing”&lt;sup id=&quot;fnref:10&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:10&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;7&lt;/a&gt;&lt;/sup&gt;, similar to how The Signifying Monkey might have. While it is hard to put into words the differences between the “right” way and the “wrong” way, I think one of the most notable distinctions is that DDF does not rely on misogyny as a crutch for entertainment: Miss Fontaine’s tale is not interesting because of the misogynistic parts, it is interesting despite them. The misogyny only serves to accentuate the highs and the lows.&lt;/p&gt;
+
+&lt;h2 id=&quot;instrumentation&quot;&gt;Instrumentation&lt;/h2&gt;
+
+&lt;p&gt;DDF’s instrumentals are an original composition featuring Jimi Hendrix on the guitar and Buddy Miles on drums and organ. Notably, the instrumentation production of this track does not seem to be as meticulous as some of Jimi Hendrix’s other works such as &lt;em&gt;All Along the Watchtower (Electric Ladyland)&lt;/em&gt;. For instance, the production doesn’t completely utilize stereophonic audio, adding to the informal jam session aesthetic of the track.&lt;/p&gt;
+
+&lt;p&gt;While the breaks show the track’s connections with the future of hip-hop, it is interesting to note that the track also uses music as a storytelling tool, a practice more common in past toasts and dozens. Particularly, in verse 13, the absence of background music after “Bulletin: Last night, Dixie Fair …” and in verse 15, a drum roll after “Age 25…” build up suspense.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-tug-of-war&quot;&gt;The tug-of-war&lt;/h3&gt;
+
+&lt;p&gt;As the track progresses and the spoken word tale gets more interesting, the guitar and drum breaks become more intricate as well&lt;sup id=&quot;fnref:11&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:11&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;8&lt;/a&gt;&lt;/sup&gt;; this creates almost a tug of war for the listener’s attention. Visually, this effect can even be seen in the waveform, where breaks later in the track use drums more intentionally:&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+  &lt;img src=&quot;../assets/ddf-image1.png&quot; /&gt;
+  &lt;p align=&quot;center&quot;&gt;
+  &lt;i&gt;
+  The break at 0:29 primarily relies on guitar riffs
+  &lt;/i&gt;
+  &lt;br /&gt;
+  ↓
+  &lt;br /&gt;
+  &lt;i&gt;
+  The break at 4:46 has drums playing throughout
+  &lt;/i&gt;
+  &lt;/p&gt;
+  &lt;img src=&quot;../assets/ddf-image2.png&quot; /&gt;
+  &lt;p align=&quot;right&quot;&gt;
+  &lt;i&gt;For more information, please refer to Appendix B.&lt;/i&gt;
+  &lt;/p&gt;
+&lt;/p&gt;
+
+&lt;p&gt;While the instruments individually contribute a “rock” feel to the song, I believe this tug of war is responsible for the groove/disco feel of the song. Even though the disco scene of New York was in its infancy in 1969, this track manages to capture its essence with the instrumentation creating a sense of urgency and uneasiness during the breaks, but fading to become only an accessory during the “spoagraphic” sections. As Peter Shapiro&lt;sup id=&quot;fnref:12&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:12&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;9&lt;/a&gt;&lt;/sup&gt; puts it:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Disco was at once about community and individual pleasure, sensation and alienation, orgy and sacrifice; it promised both liberation and constraint, release and restraint, frivolity and doom. Disco was both utopia and hell.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;comparison-with-iceberg-slims-rendition&quot;&gt;Comparison with Iceberg Slim’s rendition&lt;/h2&gt;
+
+&lt;p&gt;In 1976, as part of his album &lt;em&gt;Reflections&lt;/em&gt;, Iceberg Slim released his 3 part rendition &lt;em&gt;Durealla (Du Fontaine)&lt;/em&gt;. While both tracks had the same origins (as “jail toasts”), Iceberg’s version focuses on the story and the spoken word performance, whereas the Jimi Hendrix/Lightnin’ Rod version is a lot more experimental with the instruments.&lt;/p&gt;
+
+&lt;p&gt;From a purely lyrical perspective, Iceberg Slim’s toast is superior. There are a lot more intricate rhythms and poetic devices, and his accent and cadence lend themselves to the playboy character beautifully. His recitation is also useful for pointing out some errors in Jalal’s version, for example, Jalal uses “stated” instead of “slated” in verse 15. Iceberg Slim also uses a slightly different narrative structure, using a refrain “Candy, Honey, she said”. Overall, the impromptu jam session feel of the &lt;em&gt;Lightnin’ Rod&lt;/em&gt; rendition is emphasized by the comparison with the &lt;em&gt;Iceberg Slim&lt;/em&gt; rendition, and one might argue that the improvised feeling is at the heart of modern hip-hop.&lt;/p&gt;
+
+&lt;p&gt;However, the lack of Jimi Hendrix and Buddy Miles’ assertion for attention is felt quite strongly in the instrumentation. While the jazz/blues music adds a mellow, relaxed vibe to the track, there are no instrumental breaks in this rendition and none of the aforementioned “tug of war” for the listener’s attention. In fact, the jazz instruments just seem to fade away in the background.&lt;/p&gt;
+
+&lt;h2 id=&quot;an-alternate-history&quot;&gt;An alternate history&lt;/h2&gt;
+
+&lt;p&gt;While studying the origins of the song, I ran into a very interesting forum post&lt;sup id=&quot;fnref:4&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:4&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;10&lt;/a&gt;&lt;/sup&gt; where users suggested a completely different origin story for the track: one where Jimi Hendrix and Buddy Miles never even met Lightnin’ Rod!&lt;/p&gt;
+
+&lt;p&gt;In 2011, Celluloid Records released a limited repress of DDF. According to user &lt;em&gt;Purple Jim&lt;/em&gt;, the accompanying press release (which, unfortunately, is not accessible anymore) said:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The project began in late 1969 with famed producer Alan Douglas recording the unmistakable Jimi Hendrix and legendary Buddy Miles rolling and groove-laden musical backdrop. &lt;strong&gt;Fast forward 4 years and Lightnin’ Rod (aka Jalaluddin Mansur Nuriddin) adds in his distinctive vocal soundtrack.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;After discovering this, the user contacted Celluloid Records for their source, who informed him “It was Alan Douglas”. I, too, tried to contact the record label, but have not received a response as of December 2, 2019. It should be noted that it would not be uncharacteristic for producer Alan Douglas to take a jam by Jimi and re-package it as DDF, given his philosophy on remixes and overdubs&lt;sup id=&quot;fnref:5&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:5&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;11&lt;/a&gt;&lt;/sup&gt;. Further, given the legal trouble (and the controversial fan response) surrounding his production of posthumous releases, it may have been in his best interests to hide the true origins of the track.&lt;/p&gt;
+
+&lt;p&gt;Yet, I personally think that the vocals and music are too tightly integrated for DDF to be an overdub of a prerecorded instrumental track. Besides, I find that there is almost too much evidence supporting the idea that the recording is indeed a casual jam session involving all three artists, from the personal account by Jalaluddin Nuriddin&lt;sup id=&quot;fnref:2:5&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; to books such as “Ultimate Hendrix: An Illustrated Encyclopedia of Live Concerts and Sessions”&lt;sup id=&quot;fnref:6&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:6&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;12&lt;/a&gt;&lt;/sup&gt; elaborating the context of the jam session in excruciating levels of detail.&lt;/p&gt;
+
+&lt;p&gt;Nonetheless, the possibility is quite intriguing, and the story is too interesting to be left out of a historical account of the track.&lt;/p&gt;
+
+&lt;h2 id=&quot;appendix-a-an-objective-look-at-the-lyrics&quot;&gt;Appendix A: An objective look at the lyrics&lt;/h2&gt;
+
+&lt;p&gt;While a number of different transcriptions of DDF are available on websites such as Genius.com&lt;sup id=&quot;fnref:13&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:13&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;13&lt;/a&gt;&lt;/sup&gt; and fandom.com&lt;sup id=&quot;fnref:14&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:14&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;14&lt;/a&gt;&lt;/sup&gt;, they seem to be very inaccurate. While tracing the source of these inaccuracies, I found that most of the errors follow from the same source: a supplemental booklet for the album The prime time rhyme of The Last Poets&lt;sup id=&quot;fnref:15&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:15&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;15&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;Below, I have listed my transcription of the lyrics, based on my own interpretation and analysis of the toast. For visual representation:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Rhyming words in the same verse are highlighted with similar colors,&lt;/li&gt;
+  &lt;li&gt;Underlined syllables show alliteration and,&lt;/li&gt;
+  &lt;li&gt;Paragraph breaks signify an instrumental break.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I was standing on the corner in the middle of the &lt;span style=&quot;background-color:#a8e6cf;&quot;&gt;square&lt;/span&gt;, &lt;br /&gt;
+Tryin’ to make me some arrangements to get some of that dynamite reefer &lt;span style=&quot;background-color:#a8e6cf;&quot;&gt;there&lt;/span&gt;. &lt;br /&gt;
+Now, I was already &lt;span style=&quot;background-color:#dcedc1;&quot;&gt;high&lt;/span&gt;, and dressed very &lt;span style=&quot;background-color:#dcedc1;&quot;&gt;fly&lt;/span&gt;, just &lt;span style=&quot;background-color:#ffd3b6;&quot;&gt;standin’&lt;/span&gt; on the corner &lt;span style=&quot;background-color:#ffd3b6;&quot;&gt;watchin’&lt;/span&gt; all the fine hoes. &lt;br /&gt;
+When up drove my &lt;u&gt;main man Vann&lt;/u&gt; in his super ninety-eight olds.&lt;/p&gt;
+
+&lt;p&gt;Now as Vann stepped out the cat, he looked about to me, and began to &lt;span style=&quot;background-color:#ffaaa5;&quot;&gt;speak&lt;/span&gt;, &lt;br /&gt;
+When with a &lt;u&gt;sexy stride&lt;/u&gt;, out from the other side, stepped this real fine &lt;span style=&quot;background-color:#ffaaa5;&quot;&gt;freak&lt;/span&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now she wore a black chemise &lt;span style=&quot;background-color:#e4dcf1;&quot;&gt;dress&lt;/span&gt; which was considered to be one of the very &lt;span style=&quot;background-color:#e4dcf1;&quot;&gt;best&lt;/span&gt;. &lt;br /&gt;
+Her hair was glossy black and eyes a deep sea &lt;span style=&quot;background-color:#bdeaee;&quot;&gt;green-blue&lt;/span&gt;, &lt;br /&gt;
+And her skin was a boss dark &lt;span style=&quot;background-color:#bdeaee;&quot;&gt;hue&lt;/span&gt;. &lt;br /&gt;
+Man! She was some kind of fine! &lt;br /&gt;
+Now, as I spoke to &lt;span style=&quot;background-color:#e3f0ff;&quot;&gt;Vann&lt;/span&gt;, and I shook his &lt;span style=&quot;background-color:#e3f0ff;&quot;&gt;hand&lt;/span&gt;, and I asked him “Was that his &lt;span style=&quot;background-color:#fff6e9;&quot;&gt;honey&lt;/span&gt;?” &lt;br /&gt;
+Without no jive, this was the dude’s reply, &lt;br /&gt;
+“Like she’s anybody’s who wants to make some &lt;span style=&quot;background-color:#fff6e9;&quot;&gt;money&lt;/span&gt;.”&lt;/p&gt;
+
+&lt;p&gt;He said “She’s really down and known all around as Miss Doriella Du &lt;span style=&quot;background-color:#a8e6cf;&quot;&gt;Fontaine&lt;/span&gt;. &lt;br /&gt;
+She plays her &lt;span style=&quot;background-color:#dcedc1;&quot;&gt;sick&lt;/span&gt; mind and she’s &lt;span style=&quot;background-color:#dcedc1;&quot;&gt;slick&lt;/span&gt;, and she’s one of the best in the &lt;span style=&quot;background-color:#a8e6cf;&quot;&gt;game&lt;/span&gt;. &lt;br /&gt;
+This girl was no &lt;span style=&quot;background-color:#ffd3b6;&quot;&gt;jerk&lt;/span&gt; cause I’ve seen her &lt;span style=&quot;background-color:#ffd3b6;&quot;&gt;work&lt;/span&gt;, she’s nice and she can use her &lt;span style=&quot;background-color:#ffaaa5;&quot;&gt;head&lt;/span&gt;. &lt;br /&gt;
+And she’s good with her &lt;span style=&quot;background-color:#e4dcf1;&quot;&gt;crack&lt;/span&gt; from a long way’s &lt;span style=&quot;background-color:#e4dcf1;&quot;&gt;back&lt;/span&gt;, and she’s done made me a whole lot of &lt;span style=&quot;background-color:#ffaaa5;&quot;&gt;bread&lt;/span&gt;.”&lt;/p&gt;
+
+&lt;p&gt;Now, Vann was sporting a Panama &lt;span style=&quot;background-color:#bdeaee;&quot;&gt;Straw&lt;/span&gt;, &lt;br /&gt;
+had a Corona-el-producto stuck out the side of his &lt;span style=&quot;background-color:#bdeaee;&quot;&gt;jaw&lt;/span&gt;. &lt;br /&gt;
+He wore a beige silk suit that looked &lt;span style=&quot;background-color:#e3f0ff;&quot;&gt;real silky&lt;/span&gt;, &lt;br /&gt;
+He was dressed to make Rockefeller &lt;span style=&quot;background-color:#e3f0ff;&quot;&gt;feel guilty&lt;/span&gt;. &lt;br /&gt;
+Now I was &lt;span style=&quot;background-color:#fff6e9;&quot;&gt;dressed&lt;/span&gt;, I must &lt;span style=&quot;background-color:#fff6e9;&quot;&gt;confess&lt;/span&gt;, although I couldn’t compare with &lt;span style=&quot;background-color:#a8e6cf;&quot;&gt;Vann&lt;/span&gt;, &lt;br /&gt;
+It’s not that his taste is better than mine, it’s just that he’s the big money &lt;span style=&quot;background-color:#a8e6cf;&quot;&gt;man&lt;/span&gt;.&lt;/p&gt;
+
+&lt;p&gt;“Hey, fellas,” Doriella said,  &lt;br /&gt;
+“I’m as starving as can be. How about a bite to &lt;span style=&quot;background-color:#dcedc1;&quot;&gt;eat&lt;/span&gt;?” &lt;br /&gt;
+So we all &lt;span style=&quot;background-color:#ffd3b6;&quot;&gt;agreed&lt;/span&gt; on a &lt;u&gt;fabulous &lt;span style=&quot;background-color:#ffd3b6;&quot;&gt;feed&lt;/span&gt;&lt;/u&gt;, down at the Waldorf up on the big &lt;span style=&quot;background-color:#dcedc1;&quot;&gt;street&lt;/span&gt; &lt;br /&gt;
+Now the Waldorf was glowing in bright neon &lt;span style=&quot;background-color:#ffaaa5;&quot;&gt;light&lt;/span&gt;, although this was my first &lt;span style=&quot;background-color:#ffaaa5;&quot;&gt;flight&lt;/span&gt;, &lt;br /&gt;
+We were all clean as the board of &lt;span style=&quot;background-color:#e4dcf1;&quot;&gt;health&lt;/span&gt;. &lt;br /&gt;
+Three players, that’s &lt;span style=&quot;background-color:#bdeaee;&quot;&gt;true&lt;/span&gt;, in rainbows of &lt;span style=&quot;background-color:#bdeaee;&quot;&gt;blue&lt;/span&gt;, and we painted a picture of &lt;span style=&quot;background-color:#e4dcf1;&quot;&gt;wealth&lt;/span&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now as we were &lt;span style=&quot;background-color:#e3f0ff;&quot;&gt;dining&lt;/span&gt;, Vann started &lt;span style=&quot;background-color:#e3f0ff;&quot;&gt;unwinding&lt;/span&gt;, and he began to run his mouth off to me. &lt;br /&gt;
+But as we left, I dug his woman, Miss Du Fontaine, was steadily pinning on me &lt;br /&gt;
+“Hey fellow,” Doriella &lt;span style=&quot;background-color:#fff6e9;&quot;&gt;said&lt;/span&gt;, &lt;br /&gt;
+“Since we met I’m &lt;span style=&quot;background-color:#fff6e9;&quot;&gt;glad&lt;/span&gt;, &lt;br /&gt;
+So here’s the address to my &lt;span style=&quot;background-color:#fff6e9;&quot;&gt;pad&lt;/span&gt;.” &lt;br /&gt;
+So next Saturday I got real fly, and I went to see Miss Du &lt;span style=&quot;background-color:#a8e6cf;&quot;&gt;Fontaine&lt;/span&gt;. &lt;br /&gt;
+I stopped off at my main man &lt;span style=&quot;background-color:#dcedc1;&quot;&gt;Joe&lt;/span&gt;, this dude deals with &lt;span style=&quot;background-color:#dcedc1;&quot;&gt;snow&lt;/span&gt;, and I copped me some &lt;span style=&quot;background-color:#a8e6cf;&quot;&gt;cocaine&lt;/span&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now as I got to her &lt;span style=&quot;background-color:#ffd3b6;&quot;&gt;pad&lt;/span&gt;, Jimi it was some kind of &lt;span style=&quot;background-color:#ffd3b6;&quot;&gt;bad&lt;/span&gt;! &lt;br /&gt;
+It was really a bar &lt;span style=&quot;background-color:#ffaaa5;&quot;&gt;set&lt;/span&gt;.  &lt;br /&gt;
+She had a 5-inch &lt;span style=&quot;background-color:#ffaaa5;&quot;&gt;carpet&lt;/span&gt;, which was limited in a &lt;span style=&quot;background-color:#ffaaa5;&quot;&gt;market&lt;/span&gt; &lt;br /&gt;
+Somewhere from the far-East Orient. &lt;br /&gt;
+The hi-fi was &lt;span style=&quot;background-color:#e4dcf1;&quot;&gt;sailin’&lt;/span&gt; and I wasn’t &lt;span style=&quot;background-color:#e4dcf1;&quot;&gt;failing&lt;/span&gt;, but I just couldn’t rap to this &lt;span style=&quot;background-color:#bdeaee;&quot;&gt;queen&lt;/span&gt;. &lt;br /&gt;
+She dug my feet was &lt;span style=&quot;background-color:#e3f0ff;&quot;&gt;cold&lt;/span&gt; and took a tight &lt;span style=&quot;background-color:#e3f0ff;&quot;&gt;hold&lt;/span&gt; and gave me some pot, Chicago &lt;span style=&quot;background-color:#bdeaee;&quot;&gt;Green&lt;/span&gt;. &lt;br /&gt;
+She said, “You be my &lt;span style=&quot;background-color:#a8e6cf;&quot;&gt;man&lt;/span&gt; and together we’ll trick the &lt;span style=&quot;background-color:#a8e6cf;&quot;&gt;land&lt;/span&gt;, and I’ll be your true-blue &lt;span style=&quot;background-color:#dcedc1;&quot;&gt;bitch&lt;/span&gt;, &lt;br /&gt;
+and &lt;span style=&quot;background-color:#ffd3b6;&quot;&gt;although&lt;/span&gt; you’ll have to show me to those other squares, like I’ll take their &lt;span style=&quot;background-color:#ffd3b6;&quot;&gt;dough&lt;/span&gt; and make you &lt;span style=&quot;background-color:#dcedc1;&quot;&gt;rich&lt;/span&gt;.” &lt;br /&gt;
+Now you know where I’m &lt;span style=&quot;background-color:#ffaaa5;&quot;&gt;at&lt;/span&gt;! &lt;br /&gt;
+I really went for &lt;span style=&quot;background-color:#ffaaa5;&quot;&gt;that&lt;/span&gt;. &lt;br /&gt;
+And I put this fine hoe in her &lt;span style=&quot;background-color:#e4dcf1;&quot;&gt;bed&lt;/span&gt;. &lt;br /&gt;
+&lt;span style=&quot;background-color:#bdeaee;&quot;&gt;Me&lt;/span&gt; and this queen made love &lt;span style=&quot;background-color:#bdeaee;&quot;&gt;supreme&lt;/span&gt;, and I flipped when she gave me some &lt;span style=&quot;background-color:#e4dcf1;&quot;&gt;head&lt;/span&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now, next Saturday around &lt;span style=&quot;background-color:#e3f0ff;&quot;&gt;one&lt;/span&gt;, we was out having &lt;span style=&quot;background-color:#e3f0ff;&quot;&gt;fun&lt;/span&gt;, at the club known as the Island of &lt;span style=&quot;background-color:#fff6e9;&quot;&gt;Joy&lt;/span&gt;, &lt;br /&gt;
+When in walked Dixie &lt;span style=&quot;background-color:#a8e6cf;&quot;&gt;Fair&lt;/span&gt;, Drugstore &lt;span style=&quot;background-color:#a8e6cf;&quot;&gt;millionaire&lt;/span&gt;, International &lt;span style=&quot;background-color:#fff6e9;&quot;&gt;playboy&lt;/span&gt;. &lt;br /&gt;
+“Hey, fella,” Dixie &lt;span style=&quot;background-color:#dcedc1;&quot;&gt;said&lt;/span&gt;, &lt;br /&gt;
+“Who’s that fine model in &lt;span style=&quot;background-color:#dcedc1;&quot;&gt;red&lt;/span&gt;? &lt;br /&gt;
+Why I’ll give you a &lt;span style=&quot;background-color:#ffd3b6;&quot;&gt;fee&lt;/span&gt;, if you introduce her to &lt;span style=&quot;background-color:#ffd3b6;&quot;&gt;me&lt;/span&gt;.” &lt;br /&gt;
+So I did, and my woman, &lt;span style=&quot;background-color:#ffd3b6;&quot;&gt;D&lt;/span&gt;, she did the rest. &lt;br /&gt;
+Now, Next morning in &lt;span style=&quot;background-color:#ffaaa5;&quot;&gt;bed&lt;/span&gt;, &lt;br /&gt;
+“Of course honey,’ she &lt;span style=&quot;background-color:#ffaaa5;&quot;&gt;said&lt;/span&gt;, &lt;br /&gt;
+“I can take Dixie out for all his &lt;span style=&quot;background-color:#ffaaa5;&quot;&gt;bread&lt;/span&gt;.”&lt;/p&gt;
+
+&lt;p&gt;“But like you got to wait patiently, like a hustler on the sunny lands of New Mexico. &lt;br /&gt;
+Because I don’t want you around when I take off this clown, and I get him hung up in my den. &lt;br /&gt;
+But when I pull through, baby I’ll come straight to you, and you’ll never have to hustle again.”&lt;/p&gt;
+
+&lt;p&gt;So the next morning, I jumped in my $500 dollar grey silk &lt;span style=&quot;background-color:#e4dcf1;&quot;&gt;vine&lt;/span&gt; &lt;br /&gt;
+I downed me a pint of ice cold &lt;span style=&quot;background-color:#e4dcf1;&quot;&gt;wine&lt;/span&gt; &lt;br /&gt;
+I snatched my &lt;u&gt;black bank book&lt;/u&gt;, and I made reservations on TWA &lt;span style=&quot;background-color:#e4dcf1;&quot;&gt;airline&lt;/span&gt;. &lt;br /&gt;
+Now, my stay wasn’t &lt;span style=&quot;background-color:#bdeaee;&quot;&gt;bad&lt;/span&gt;. &lt;br /&gt;
+I had a fabulous &lt;span style=&quot;background-color:#bdeaee;&quot;&gt;pad&lt;/span&gt;. &lt;br /&gt;
+I pulled plenty of fabulous &lt;span style=&quot;background-color:#e3f0ff;&quot;&gt;hoes&lt;/span&gt;. &lt;br /&gt;
+I pulled Miss Carmen &lt;span style=&quot;background-color:#fff6e9;&quot;&gt;Vista&lt;/span&gt;, who was huge in the &lt;span style=&quot;background-color:#fff6e9;&quot;&gt;Keister&lt;/span&gt;, and first cousin to Mexicali &lt;span style=&quot;background-color:#e3f0ff;&quot;&gt;Rose&lt;/span&gt;. &lt;br /&gt;
+Now, the climate was &lt;span style=&quot;background-color:#a8e6cf;&quot;&gt;hot&lt;/span&gt;, and there was plenty of &lt;span style=&quot;background-color:#a8e6cf;&quot;&gt;pot&lt;/span&gt;, and the tequila’s were &lt;span style=&quot;background-color:#a8e6cf;&quot;&gt;dynamite&lt;/span&gt;. &lt;br /&gt;
+As I laid my shot on top of Carmen’s back, and she was on her knees all &lt;span style=&quot;background-color:#a8e6cf;&quot;&gt;night&lt;/span&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now one morning, &lt;br /&gt;
+As I patiently &lt;span style=&quot;background-color:#dcedc1;&quot;&gt;waited&lt;/span&gt;, I got a telegram that &lt;span style=&quot;background-color:#dcedc1;&quot;&gt;stated&lt;/span&gt;, &lt;br /&gt;
+It said, “Papa daddy, I made a real grand slam. &lt;br /&gt;
+I’m on my &lt;span style=&quot;background-color:#ffd3b6;&quot;&gt;way&lt;/span&gt;. &lt;span style=&quot;background-color:#ffd3b6;&quot;&gt;TWA&lt;/span&gt;. &lt;br /&gt;
+Comet’ number 3. &lt;br /&gt;
+I’ll be in New Mexico by &lt;span style=&quot;background-color:#ffaaa5;&quot;&gt;four&lt;/span&gt;, I can’t say no &lt;span style=&quot;background-color:#ffaaa5;&quot;&gt;more&lt;/span&gt;. &lt;br /&gt;
+Love, your fine woman D”&lt;/p&gt;
+
+&lt;p&gt;Carmen then gave me a bath in ice cold &lt;span style=&quot;background-color:#e4dcf1;&quot;&gt;milk&lt;/span&gt;, and I jumped in my $500 dollar grey &lt;span style=&quot;background-color:#e4dcf1;&quot;&gt;silk&lt;/span&gt;, &lt;br /&gt;
+and downed me a &lt;span style=&quot;background-color:#bdeaee;&quot;&gt;pint&lt;/span&gt; of ice-cold &lt;span style=&quot;background-color:#bdeaee;&quot;&gt;wine&lt;/span&gt;, &lt;br /&gt;
+when I dug the New York news,  that shook me in my shoes with its bold daring &lt;span style=&quot;background-color:#bdeaee;&quot;&gt;headline&lt;/span&gt;… &lt;br /&gt;
+It said, “Bulletin: Last night, Dixie &lt;span style=&quot;background-color:#e3f0ff;&quot;&gt;Fair&lt;/span&gt;… drug store &lt;span style=&quot;background-color:#e3f0ff;&quot;&gt;millionaire&lt;/span&gt;, committed &lt;span style=&quot;background-color:#fff6e9;&quot;&gt;suicide&lt;/span&gt;… &lt;br /&gt;
+Left all his &lt;span style=&quot;background-color:#a8e6cf;&quot;&gt;fame&lt;/span&gt; to Miss Du &lt;span style=&quot;background-color:#a8e6cf;&quot;&gt;Fontaine&lt;/span&gt;, stated to be his &lt;span style=&quot;background-color:#fff6e9;&quot;&gt;bride&lt;/span&gt;.”&lt;/p&gt;
+
+&lt;p&gt;So Jim, I made a beeline on down to the airport, just in time to hear the announcer say, &lt;br /&gt;
+“Attention in the lobby, Attention in Lobby: &lt;br /&gt;
+Relatives and friends of passengers on Comet’ number 3, &lt;br /&gt;
+Wait no longer, for in fate’s cruel hands, the good Comet has &lt;span style=&quot;background-color:#dcedc1;&quot;&gt;crashed&lt;/span&gt; off the coast known as Chili &lt;span style=&quot;background-color:#dcedc1;&quot;&gt;Sands&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;But wait! The rescuers said that there was a woman alive! &lt;br /&gt;
+Age 25… &lt;br /&gt;
+Hair glossy black… &lt;br /&gt;
+Eyes a deep sea &lt;span style=&quot;background-color:#ffd3b6;&quot;&gt;green-blue&lt;/span&gt;, &lt;br /&gt;
+Skin a boss dark &lt;span style=&quot;background-color:#ffd3b6;&quot;&gt;hue&lt;/span&gt;. &lt;br /&gt;
+She said she was on her &lt;span style=&quot;background-color:#ffaaa5;&quot;&gt;way&lt;/span&gt; to her fine man in &lt;span style=&quot;background-color:#ffaaa5;&quot;&gt;grey&lt;/span&gt;, stated to be his bride. &lt;br /&gt;
+She would have been his true-blue &lt;span style=&quot;background-color:#e4dcf1;&quot;&gt;bitch&lt;/span&gt;, and would’ve made him &lt;span style=&quot;background-color:#e4dcf1;&quot;&gt;rich&lt;/span&gt;, &lt;br /&gt;
+but Jim she &lt;span style=&quot;background-color:#bdeaee;&quot;&gt;coughed&lt;/span&gt; up blood and &lt;span style=&quot;background-color:#bdeaee;&quot;&gt;died&lt;/span&gt;.”&lt;/p&gt;
+
+&lt;p&gt;Oh lord! That hurt me &lt;span style=&quot;background-color:#e3f0ff;&quot;&gt;blue&lt;/span&gt;! &lt;br /&gt;
+But I pulled &lt;span style=&quot;background-color:#e3f0ff;&quot;&gt;through&lt;/span&gt;, like all damned stud’s &lt;span style=&quot;background-color:#e3f0ff;&quot;&gt;do&lt;/span&gt;, &lt;br /&gt;
+But I know I’ll never be the &lt;span style=&quot;background-color:#fff6e9;&quot;&gt;same&lt;/span&gt;. &lt;br /&gt;
+Cause there’ll never be another Miss Doriella Du &lt;span style=&quot;background-color:#fff6e9;&quot;&gt;Fontaine&lt;/span&gt;. &lt;br /&gt;
+That’s her name, Miss Du &lt;span style=&quot;background-color:#fff6e9;&quot;&gt;Fontaine&lt;/span&gt;. &lt;br /&gt;
+That’s her name, Miss Du &lt;span style=&quot;background-color:#fff6e9;&quot;&gt;Fontaine&lt;/span&gt;…&lt;/p&gt;
+
+&lt;h2 id=&quot;appendix-b-audacity-project&quot;&gt;Appendix B: Audacity Project&lt;/h2&gt;
+
+&lt;p&gt;Hoping to discover intricate patterns in the breaks, I used the software Audacity to isolate all the breaks and verses of the track. While it did not aid me much, it is still useful to be able to hear the lyrics and the breaks independently: &lt;a href=&quot;//www.dropbox.com/s/dw5spkq4rigbgzm/DDF.aup&quot;&gt;file&lt;/a&gt;. To open the project, please use the free open-source software &lt;a href=&quot;//www.audacityteam.org&quot;&gt;Audacity&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;bibliography&quot;&gt;Bibliography&lt;/h2&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;“The Godfathers of Rap.” Dancing in Your Head: Jazz, Blues, Rock and Beyond, by Gene Santoro, Oxford Univ. Press, 1995, pp. 112–116. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;&lt;a href=&quot;//www.grandfatherofrap.com/gfor_jimmy_1.htm&quot;&gt;Nuriddin, Jalal Mansur. “The Grandfather of Rap and Jimi Hendrix.” Grandfather of Rap R.A.P - Revolutionary Arts Proverbalization, 2001.&lt;/a&gt; &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt; &lt;a href=&quot;#fnref:2:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt; &lt;a href=&quot;#fnref:2:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt; &lt;a href=&quot;#fnref:2:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;sup&gt;4&lt;/sup&gt;&lt;/a&gt; &lt;a href=&quot;#fnref:2:4&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;sup&gt;5&lt;/sup&gt;&lt;/a&gt; &lt;a href=&quot;#fnref:2:5&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;sup&gt;6&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:3&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;&lt;a href=&quot;//www.rollingstone.com/music/music-features/hendrix-star-spangled-banner-woodstock-855473/&quot;&gt;Martoccio, Angie. “Flashback: Jimi Hendrix Breaks Down Iconic ‘Star-Spangled Banner’ Woodstock Performance.” Rolling Stone, 5 July 2019.&lt;/a&gt; &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:7&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;&lt;a href=&quot;//thesource.com/2018/06/07/jalal-mansur-nuriddin-passed-away/&quot;&gt;Ekpo, Ime. “The ‘Grandfather of Rap’ Jalal Mansur Nuriddin of The Last Poets Has Passed Away: The Source.” The Source | The Magazine of Hip Hop Music,Culture and Politics, The Source, 7 June 2018.&lt;/a&gt; &lt;a href=&quot;#fnref:7&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt; &lt;a href=&quot;#fnref:7:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:8&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;“Stinging Like Tabasco.” Prophets of the Hood: Politics and Poetics in Hip Hop, by Imani Perry, Duke University Press, 2006, pp. 65–65. &lt;a href=&quot;#fnref:8&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:9&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;&lt;a href=&quot;//bostonreview.net/archives/BR16.6/crenshaw.html&quot;&gt;Crenshaw, Kimberle. “Beyond Racism and Misogyny: Black Feminism and 2 Live Crew.” Boston Review, 24 May 2017.&lt;/a&gt; &lt;a href=&quot;#fnref:9&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:10&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;&lt;a href=&quot;//www.latimes.com/archives/la-xpm-1990-10-20-mn-2262-story.html&quot;&gt;Clary, Mike. “Professor Calls 2 Live Crew ‘Refreshing’ : Arts: Jurors in the Rap Group’s Obscenity Trial Get a Course in the History of Black Culture from Experts Called by the Defense.” Los Angeles Times, Los Angeles Times, 20 Oct. 1990.&lt;/a&gt; &lt;a href=&quot;#fnref:10&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:11&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;&lt;a href=&quot;//chordify.net/chords/buddy-miles-jimi-hendrix-lightnin-rod-doriella-du-fontaine-radio-editrare-single-joemitto&quot;&gt;Chordify, Inc. “Buddy Miles, Jimi Hendrix, Lightnin Rod - Doriella Du Fontaine - Radio Edit. Chords.” Chordify, 2014.&lt;/a&gt; &lt;a href=&quot;#fnref:11&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:12&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;Shapiro, Peter. “Turn The Beat Around: The Secret History of Disco.” Turn The Beat Around: The Secret History of Disco, Faber and Faber, 2005, pp. 30–30. &lt;a href=&quot;#fnref:12&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:4&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;&lt;a href=&quot;//forums.stevehoffman.tv/threads/list-of-hendrix-tracks-with-buddy-miles.605111/page-2&quot;&gt;Jim, Purple. “List of Hendrix Tracks with Buddy Miles?” Steve Hoffman Music Forums, 8 Oct. 2016.&lt;/a&gt; &lt;a href=&quot;#fnref:4&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:5&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;&lt;a href=&quot;//www.me.umn.edu/~kgeisler/ad.html&quot;&gt;Davis, Michael. “ALAN DOUGLAS: HENDRIX PRODUCER UNDER FIRE.” BAM Magazine, 25 Aug. 1995.&lt;/a&gt; &lt;a href=&quot;#fnref:5&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:6&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;“Doriella Du Fontaine.” Ultimate Hendrix: an Illustrated Encyclopedia of Live Concerts and Sessions, by John McDermott et al., Backbeat, 2009. &lt;a href=&quot;#fnref:6&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:13&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;MarchHare. “Lightnin’ Rod – Doriella Du Fontaine.” Genius, 25 Aug. 2019, genius.com/Lightnin-rod-doriella-du-fontaine-lyrics. &lt;a href=&quot;#fnref:13&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:14&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;&lt;a href=&quot;//lyrics.fandom.com/wiki/Jimi\_Hendrix\_/\_Lightnin%27\_Rod:Doriella\_Du\_Fontaine&quot;&gt;Bigfoothart. “Jimi Hendrix / Lightnin’ Rod:Doriella Du Fontaine.” Edited by 00101010 , LyricWiki, 17 June 2012.&lt;/a&gt; &lt;a href=&quot;#fnref:14&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:15&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;&lt;a href=&quot;//www.me.umn.edu/~kgeisler/afont.html&quot;&gt;Geisler, Karl J. “Doriella Du Fontaine.” Doriella Du Fontaine, 1997.&lt;/a&gt; &lt;a href=&quot;#fnref:15&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Tue, 03 Dec 2019 00:00:00 +0000</pubDate>
+        <link>https://nibnalin.me/doriella-du-fontaine.html</link>
+        <guid isPermaLink="true">https://nibnalin.me/doriella-du-fontaine.html</guid>
+        
+        <category>music</category>
+        
+        <category>hip-hop</category>
+        
+        <category>history</category>
         
         
       </item>
