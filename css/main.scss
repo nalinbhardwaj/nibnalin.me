@@ -140,11 +140,15 @@ hr {
     margin-bottom: 1.4rem;
 }
 
+// Whole line is the clickable trigger; only the text carries the dotted rule.
 .now__trigger {
     color: $meta;
+    &:hover .now__text { border-bottom-color: $meta; }
+}
+
+.now__text {
     font-style: italic;
     border-bottom: 1px dotted $rule;
-    &:hover { border-bottom-color: $meta; }
 }
 
 .now__ago {

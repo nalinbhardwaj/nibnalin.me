@@ -20,8 +20,9 @@ title: Nalin
     {% assign then_s = now[0].date | date: '%s' %}
     {% assign days = now_s | minus: then_s | divided_by: 86400 %}
     <p class="now">
-      <a class="now__trigger" href="#now-history">{{ now[0].text }}</a>
-      <span class="now__ago">{% if days <= 0 %}today{% elsif days == 1 %}yesterday{% else %}{{ days }} days ago{% endif %}</span>
+      <a class="now__trigger" href="#now-history">
+        <span class="now__text">{{ now[0].text }}</span><span class="now__ago" data-date="{{ now[0].date | date: '%Y-%m-%d' }}">{% if days <= 0 %}today{% elsif days == 1 %}1d ago{% else %}{{ days }}d ago{% endif %}</span>
+      </a>
     </p>
     <div id="now-history" class="now-modal">
       <a class="now-modal__backdrop" href="#" aria-label="close"></a>
@@ -37,6 +38,22 @@ title: Nalin
         </ul>
       </div>
     </div>
+    <script>
+      // Keep the "ago" label fresh in the visitor's browser — the Liquid value
+      // above is frozen at build time, so it goes stale between deploys.
+      (function () {
+        var el = document.querySelector('.now__ago[data-date]');
+        if (!el) return;
+        var then = new Date(el.getAttribute('data-date') + 'T00:00:00');
+        var days = Math.floor((Date.now() - then.getTime()) / 86400000);
+        var label;
+        if (days <= 0) label = 'today';
+        else if (days < 30) label = days + 'd ago';
+        else if (days < 365) label = Math.floor(days / 30) + 'mo ago';
+        else label = Math.floor(days / 365) + 'y ago';
+        el.textContent = label;
+      })();
+    </script>
     {% endif %}
 
     <p class="sayhi">say hi — I like <a href="mailto:nalinbhardwaj@nibnalin.me">email from strangers</a>.</p>
