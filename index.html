@@ -7,7 +7,7 @@
   <title>Nalin</title>
   <meta name="description" content="Nalin's personal website.">
   <link rel='stylesheet' href='//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack-subset.css'>
-  <link rel="stylesheet" href="/css/main.css?v=1782569407">
+  <link rel="stylesheet" href="/css/main.css?v=1783078639">
   <link rel="canonical" href="https://nibnalin.me/">
   <link rel="alternate" type="application/rss+xml" title="Nalin" href="https://nibnalin.me/feed.xml">
   <!-- Twitter cards -->
@@ -57,8 +57,9 @@
     
     
     <p class="now">
-      <a class="now__trigger" href="#now-history">In Seoul, reading Zen and the Art of Motorcycle Maintenance</a>
-      <span class="now__ago">today</span>
+      <a class="now__trigger" href="#now-history">
+        <span class="now__text">In Seoul, reading Zen and the Art of Motorcycle Maintenance</span><span class="now__ago" data-date="2026-06-27">6d ago</span>
+      </a>
     </p>
     <div id="now-history" class="now-modal">
       <a class="now-modal__backdrop" href="#" aria-label="close"></a>
@@ -82,6 +83,22 @@
         </ul>
       </div>
     </div>
+    <script>
+      // Keep the "ago" label fresh in the visitor's browser — the Liquid value
+      // above is frozen at build time, so it goes stale between deploys.
+      (function () {
+        var el = document.querySelector('.now__ago[data-date]');
+        if (!el) return;
+        var then = new Date(el.getAttribute('data-date') + 'T00:00:00');
+        var days = Math.floor((Date.now() - then.getTime()) / 86400000);
+        var label;
+        if (days <= 0) label = 'today';
+        else if (days < 30) label = days + 'd ago';
+        else if (days < 365) label = Math.floor(days / 30) + 'mo ago';
+        else label = Math.floor(days / 365) + 'y ago';
+        el.textContent = label;
+      })();
+    </script>
     
 
     <p class="sayhi">say hi — I like <a href="mailto:nalinbhardwaj@nibnalin.me">email from strangers</a>.</p>
