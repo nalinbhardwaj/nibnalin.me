@@ -13,17 +13,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Cache gems
-        uses: actions/cache@v4
+      # nokogiri >= 1.19 (Dependabot fix) needs Ruby >= 3.2, which the old
+      # DavidS/jekyll-deploy image (Ruby 2.6) can't install.
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
         with:
-          path: vendor/gems
-          key: ${{ runner.os }}-build-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+          ruby-version: "3.3"
+          bundler-cache: true
 
-      - name: Build & Deploy to GitHub Pages
-        uses: DavidS/jekyll-deploy@main
+      - name: Build site
+        run: bundle exec jekyll build
         env:
           JEKYLL_ENV: production
-          GH_PAGES_TOKEN: ${{ secrets.GH_PAGES_TOKEN }}
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.GH_PAGES_TOKEN }}
+          publish_dir: ./_site
+          publish_branch: gh-pages
