@@ -16,6 +16,10 @@ writing:
 
 # Technical / crypto / research — work-y writing, here and elsewhere.
 technical:
+  - title: "Botscent — detect AI agents on your site"
+    url: https://botscent.nibnalin.me
+    year: 2026
+    external: true
   - title: "Recursive zkSNARKs: Exploring New Territory"
     url: https://0xparc.org/writings/groth16-recursion
     year: 2022
