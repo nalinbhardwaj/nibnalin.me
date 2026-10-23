@@ -21,7 +21,7 @@ technical:
     year: 2026
     external: true
   - title: "Recursive zkSNARKs: Exploring New Territory"
-    url: https://0xparc.org/writings/groth16-recursion
+    url: https://0xparc.org/blog/groth16-recursion
     year: 2022
     external: true
   - slug: isokratia
